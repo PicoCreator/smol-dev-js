@@ -9,6 +9,8 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "@js-util/config-loader": "^1.1.4",
+    "chalk": "^4.1.2",
     "ai-bridge": "^1.1.0"
   }
 }
