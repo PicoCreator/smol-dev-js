@@ -7,7 +7,7 @@
 
 const fs = require("fs")
 const prompts = require('prompts');
-const config = require("../core/config");
+const config = require("../../core/config");
 
 //--------------
 //
@@ -48,8 +48,6 @@ module.exports = {
 			initDescript = packageJson.description;
 		}
 
-		console.log(config)
-
 		// Lets ask the user for the following key values
 		// - openAI API key
 		// - description of the project
@@ -74,7 +72,12 @@ module.exports = {
 				message: 'Does this project have a markdown specification directory? Leave blank if disabled',
 				initial: config.config?.spec_dir || ""
 			}
-		]);
+		], {
+			onCancel: () => {
+				console.log("Exit command recieved, exiting...");
+				process.exit(1);
+			}
+		});
 		
 		// Lets get the updated config values
 		let aibridgeConfig = Object.assign({}, config.aibridge);

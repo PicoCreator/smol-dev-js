@@ -10,6 +10,7 @@ const config = new ConfigLoader({
 	configDirList:[
 		path.join(cwd, ".my-ai-dev/config/"),
 	],
+	fileList: [],
 	default: {
 		// Main ai-dev config
 		// ---
