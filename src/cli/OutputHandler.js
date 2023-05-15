@@ -6,19 +6,19 @@
  * This is used as a global singleton "static class"
  **/
 
-//---------------------------------------
+//--------------
 //
 //  Dependencies
 //
-//---------------------------------------
+//--------------
 
 const chalk  = require("chalk")
 
-//---------------------------------------
+//--------------
 //
 //  Utils
 //
-//---------------------------------------
+//--------------
 
 function isFunction(functionToCheck) {
 	return functionToCheck && (
@@ -121,20 +121,20 @@ function dashLineString(len = 22) {
 	return ret;
 }
 
-//---------------------------------------
+//--------------
 //
 //  Module implementation
 //
-//---------------------------------------
+//--------------
 
 //
 //  Class implementation (to be initialized)
 //
 class OutputHandler {
 
-	//---------------------------------------
+	//--------------
 	// OutputHandler Setup
-	//---------------------------------------
+	//--------------
 
 	/**
 	 * Constructor for the OutputHandler
@@ -214,9 +214,9 @@ class OutputHandler {
 		});
 	}
 	
-	//---------------------------------------
+	//--------------
 	// OutputHandler Error Helpers
-	//---------------------------------------
+	//--------------
 
 	/**
 	 * Output an error message, without exiting
@@ -306,9 +306,9 @@ class OutputHandler {
 		process.exit(errCode);
 	}
 	
-	//---------------------------------------
+	//--------------
 	// Trace event handling
-	//---------------------------------------
+	//--------------
 
 	/**
 	 * Output the debug/trace log, only if the respective --trace flag is enabled
@@ -357,9 +357,9 @@ class OutputHandler {
 		console.log( chalk.dim("--------------------------------------------------") );
 	}
 	
-	//---------------------------------------
+	//--------------
 	// Standard output
-	//---------------------------------------
+	//--------------
 
 	/**
 	 * Triggers the provided function, if standard output is enabled
@@ -430,9 +430,9 @@ class OutputHandler {
 		console.log( chalk.red(log) );
 	}
 	
-	//---------------------------------------
+	//--------------
 	// Table output
-	//---------------------------------------
+	//--------------
 
 	/**
 	 * Table output format
@@ -483,9 +483,9 @@ class OutputHandler {
 		return this.standardTableRow(dataArray,widthArray);
 	}
 
-	//---------------------------------------
+	//--------------
 	// Standard / Table output
-	//---------------------------------------
+	//--------------
 
 	/**
 	 * Standard output log, in a table format 
@@ -677,9 +677,9 @@ class OutputHandler {
 		console.log( rowLine );
 	}
 
-	//---------------------------------------
+	//--------------
 	// JSON output
-	//---------------------------------------
+	//--------------
 
 	/**
 	 * JSON output, to be handled if the respective mode is enabled

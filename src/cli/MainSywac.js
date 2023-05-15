@@ -5,11 +5,11 @@
  * This does NOT trigger the `parseAndExit` chain of the CLI
  **/
 
-//----------------------------------------------------
+//--------------
 //
 //  Dependencies
 //
-//----------------------------------------------------
+//--------------
 
 const sywac   = require("sywac")
 const chalk   = require("chalk")
@@ -17,11 +17,11 @@ const version = require("../version")
 
 const OutputHandler  = require("./OutputHandler")
 
-//----------------------------------------------------
+//--------------
 //
 //  Setup main CLI function
 //
-//----------------------------------------------------
+//--------------
 
 // Lets do the basic setup
 let main = sywac
@@ -31,11 +31,11 @@ let main = sywac
 	})
 	.showHelpByDefault()
 
-//----------------------------------------------------
+//--------------
 //
 // Check overloading
 //
-//----------------------------------------------------
+//--------------
 
 // Checking function to use
 let checkFunctions = [];
@@ -72,11 +72,11 @@ main.layeredCheck = function(handler) {
 	return main;
 }
 
-//----------------------------------------------------
+//--------------
 //
 // Style overwrites
 //
-//----------------------------------------------------
+//--------------
 
 main.style({
 	// Custom styling for flags / prefix
@@ -124,11 +124,11 @@ main.outputSettings({
 	maxWidth: Math.min(95, process.stdout.columns)
 })
 
-//----------------------------------------------------
+//--------------
 //
 // Preface / Epilogue bling
 //
-//----------------------------------------------------
+//--------------
 
 //
 // Preface string to use
@@ -137,30 +137,20 @@ main.outputSettings({
 // Note that the string needs to be fixed with "\" escape
 //
 const preface_str = (`
-    (  )   (   )  )
-     ) (   )  (  (
-     ( )  (    ) )
-     _____________
-    <_____________> ___
-    |             |/ _ \\
-    |               | | |
-    |               |_| |
- ___|             |\\___/
-/    \\___________/    \\
-\\_____________________/
-### English Compiler ###
+( >_> )
+### My AI Dev ###
 `).slice(1);
 
 // Load the preface
 main.preface(
 	chalk.green(preface_str),
-	chalk.green(" ~ From markdown specs written in english, to full source code ~")
+	chalk.green(" ~ Copilot your AI dev, in a pair programming session ~")
 );
 main.epilogue( "Now anyone can code (debugger not included)\n"+chalk.dim("PS: if you are seeing this in a response to a command, it probably was an invalid command") );
 
-//----------------------------------------------------
+//--------------
 //
 // Module Export
 //
-//----------------------------------------------------
+//--------------
 module.exports = main;
