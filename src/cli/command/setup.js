@@ -45,7 +45,7 @@ module.exports = {
 		if( config.config?.description ) {
 			initDescript = config.config.description;
 		} else if( packageJson?.description ) {
-			initDescript = packageJson.description;
+			initDescript = packageJson.short_description;
 		}
 
 		// Lets ask the user for the following key values
@@ -62,8 +62,8 @@ module.exports = {
 			},
 			{
 				type: 'text',
-				name: 'description',
-				message: 'Description of the project',
+				name: 'short_description',
+				message: 'Short Description of the project',
 				initial: initDescript
 			},
 			{
@@ -85,7 +85,7 @@ module.exports = {
 
 		// Lets get the updated config values
 		let configValues = Object.assign({}, config.config);
-		configValues.description = promptConfig.description || configValues.description;
+		configValues.short_description = promptConfig.description || configValues.description;
 		configValues.spec_dir = promptConfig.spec_dir || configValues.spec_dir;
 
 		// Lets write the config file
