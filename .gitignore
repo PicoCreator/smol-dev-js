@@ -1,0 +1,8 @@
+# Common hidden stuff
+.*
+
+# Node modules
+node_modules
+
+# Include back .git files
+!.git*
