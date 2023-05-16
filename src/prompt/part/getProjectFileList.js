@@ -1,7 +1,7 @@
 const ai = require("../../core/ai");
 const path = require("path")
 const config = require('../../core/config');
-const scanDirectory = require('../../fs/scanDirectory');
+const scanDirectory = require('../../util/scanDirectory');
 const getPromptBlock = require("../builder/getPromptBlock");
 
 /**
