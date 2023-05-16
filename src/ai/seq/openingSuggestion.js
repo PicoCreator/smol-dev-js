@@ -1,18 +1,16 @@
 // Core deps
-const ai = require("../core/ai");
+const ai = require("../../core/ai");
 
 // Prompt builder deps
-const getProjectDependencyList = require("../prompt/part/getProjectSettings");
-const getProjectFileList = require("../prompt/part/getProjectFileList");
-const getShortDescription = require("../prompt/part/getShortDescription");
-const getAiNotes = require("../prompt/part/getAiNotes");
-const getPromptBlock = require("../prompt/builder/getPromptBlock");
-const getActionList = require("../prompt/part/getActionList");
+const getProjectDependencyList = require("../../prompt/part/getProjectSettings");
+const getProjectFileList = require("../../prompt/part/getProjectFileList");
+const getShortDescription = require("../../prompt/part/getShortDescription");
+const getAiNotes = require("../../prompt/part/getAiNotes");
 
 /**
  * Generate opening suggestions, at the start of the process
  */
-module.exports = async function planDraft(oriPlan, usrReply = "", streamHandler=null) {
+module.exports = async function openingSuggestion() {
 	// Build the prompt
 	let promptArr = [
 		"You are an AI developer assitant who is trying to write a program that will generate code for the user based on their intent",
@@ -30,22 +28,14 @@ module.exports = async function planDraft(oriPlan, usrReply = "", streamHandler=
 		await getActionList(),
 		"",
 	];
-
-	// Add the original plan
-	if( oriPlan ) {
-		promptArr.push(
-			getPromptBlock(
-				"The following is the current plan draft",
-				oriPlan
-			)
-		);
-	}
 	
 	// Suggest an incremental change which you can do to improve the project
 	promptArr.push(
-		"Reply to the user, what you plan to do next",
+		"User:",
+		"Suggest an incremental change which you can do to improve the project",
+		"if you are not sure, ask instead for what should be done",
 		"",
-		getPromptBlock("User", usrReply),
+		"if there are missing spec files, or src code file pairs, you can suggest generating either of them",
 		"",
 		"Assistant:"
 	);
@@ -54,7 +44,7 @@ module.exports = async function planDraft(oriPlan, usrReply = "", streamHandler=
 	let res = await ai.getChatCompletion(promptArr.join("\n"), {
 		stream: true,
 		model: "gpt-4e"
-	}, streamHandler);
+	});
 	
 	// Return the completion
 	return res.completion;

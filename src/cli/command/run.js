@@ -7,8 +7,8 @@
 
 const fs = require("fs")
 const prompts = require('prompts');
-const openingSuggestion = require("../../action/openingSuggestion");
-const planDraft = require("../../action/planDraft");
+const openingSuggestion = require("../../ai/seq/openingSuggestion");
+const planDraft = require("../../ai/seq/planDraft");
 const config = require("../../core/config");
 const OutputHandler = require("../OutputHandler");
 const simplePrompt = require("../simplePrompt");
@@ -49,24 +49,39 @@ module.exports = {
 			// Ask the user for input
 			let promptReply = await simplePrompt({
 				type: "text",
-				name: "input",
+				name: "feedback",
 				message: "[you]: ",
 				initial: "Suggest something"
 			});
 
+			// The current plan to iterate on
+			let currentPlan = "";
+
 			// Lets iterate on a plan
 			while(true) {
 				process.stdout.write("🐣 [ai]: ");
-				let res = await planDraft("", promptReply.input, (res) => {
+				let res = await planDraft(currentPlan, promptReply.feedback, (res) => {
 					process.stdout.write(res)
 				});
 				console.log("");
+				currentPlan = res;
 
 				// Ask the user for input
 				promptReply = await simplePrompt({
 					type: "confirm",
 					name: "approve",
 					message: "[you]: Proceed with the plan?",
+					initial: true
+				});
+				if( promptReply.approve ) {
+					break;
+				}
+
+				// Ask the user for input
+				promptReply = await simplePrompt({
+					type: "text",
+					name: "feedback",
+					message: "[you]: What would you like to change?",
 					initial: true
 				});
 			}

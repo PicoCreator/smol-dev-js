@@ -6,7 +6,7 @@ const getPromptBlock = require("../builder/getPromptBlock");
  */
 module.exports = async function getActionList() {
 	return getPromptBlock(
-        "List of actions the AI can do", 
+        "List of actions you the AI dev can do", 
         [
             `- Edit a file, with the given instructions`,
             `- Update spec from code`,
