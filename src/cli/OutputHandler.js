@@ -130,7 +130,7 @@ function dashLineString(len = 22) {
 //
 //  Class implementation (to be initialized)
 //
-class OutputHandler {
+class OutputHandlerClass {
 
 	//--------------
 	// OutputHandler Setup
@@ -705,5 +705,6 @@ class OutputHandler {
 }
 
 // Actual module export
-const OutputHandlerSingleton = new OutputHandler();
-module.exports = OutputHandlerSingleton;
+const OutputHandler = new OutputHandlerClass();
+OutputHandler.class = OutputHandlerClass;
+module.exports = OutputHandler;

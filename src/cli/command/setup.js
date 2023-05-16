@@ -8,6 +8,7 @@
 const fs = require("fs")
 const prompts = require('prompts');
 const config = require("../../core/config");
+const OutputHandler = require("../OutputHandler");
 
 //--------------
 //
@@ -37,7 +38,9 @@ module.exports = {
 
 		// Log that the package.json was found
 		if(packageJson) {
-			console.log("Found package.json, using it for default values");
+			OutputHandler.standard("[sys] Found package.json, using it for default values");
+		} else {
+			OutputHandler.standardRed("[sys] Missing package.json, while this is not required, `my-ai-dev` is optimized only for nodejs projects")
 		}
 
 		// Lets extract the existing description
@@ -80,7 +83,7 @@ module.exports = {
 			}
 		], {
 			onCancel: () => {
-				console.log("Exit command recieved, exiting...");
+				OutputHandler.standard("[sys] Exit command recieved, exiting...");
 				process.exit(1);
 			}
 		});

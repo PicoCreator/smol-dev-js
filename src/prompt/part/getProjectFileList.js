@@ -1,3 +1,4 @@
+const ai = require("../../core/ai");
 const path = require("path")
 const config = require('../../core/config');
 const scanDirectory = require('../../fs/scanDirectory');
@@ -16,8 +17,8 @@ module.exports = async function getProjectFileList(includeSrcFiles = true, inclu
 
 	// Lets normalize blank spec dir as null
 	// While blank src directory to local
-	if( specDir == "" ) specDir = null;
-	if( srcDir == "" ) srcDir = "./";
+	if( specDir == "" || specDir == null ) specDir = null;
+	if( srcDir == "" || srcDir == null ) srcDir = "./";
 
 	// Get the full path for spec and src dir
 	const specDirPath = specDir ? path.resolve(cwd,specDir) : null;
@@ -69,12 +70,19 @@ module.exports = async function getProjectFileList(includeSrcFiles = true, inclu
 
 	// If spec dir is configured, add it to the return string
 	if( specFilesPrompt ) {
-		returnString += getPromptBlock("The following, lists specification files, in the `specs` folder", specFilesPrompt);
+		returnString += getPromptBlock("specification file list, in the `specs` folder", specFilesPrompt);
 		returnString += "\n\n";
 	}
 
 	// List the src files
-	returnString += getPromptBlock("The following, lists source code files, in the `src` folder", srcFilesPrompt);
+	returnString += getPromptBlock("source code file list, in the `src` folder", srcFilesPrompt);
+
+	// Get the token count, and check against limits
+	let tokenCount = await ai.getTokenCount(returnString);
+	let tokenLimit = config.config.limits?.FILE_LIST || 1000;
+	if( tokenCount > tokenLimit ) {
+		throw `File list exceeds token limit of ${tokenLimit} - make changes to the '.my-ai-dev/config.json' src_include / src_exclude to reduce the file list`;
+	}
 
 	// Return the built prompt string
 	return returnString;

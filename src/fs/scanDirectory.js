@@ -13,10 +13,10 @@ function nestedFileObjToStrFormat(nestedFileObj, prefixTab="") {
 		const value = nestedFileObj[key];	
 
 		if(typeof value == "object") {
-			result += `${prefixTab}- ${key}/\n`;
+			result += `${prefixTab}${key}/\n`;
 			result += nestedFileObjToStrFormat(value, prefixTab+"	");
 		} else {
-			result += `${prefixTab}- ${key}\n`;
+			result += `${prefixTab}${key}\n`;
 		}
 	}
 	return result;
