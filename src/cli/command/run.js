@@ -83,6 +83,9 @@ module.exports = {
 					message: "[you]: What would you like to change?"
 				});
 
+				// Log the reflecting state
+				console.log("🐣 [ai]: Reflecting on the feedback...")
+
 				// Update the notes
 				await makeUpdatedNotes([
 					getPromptBlock(
@@ -97,7 +100,9 @@ module.exports = {
 				].join("\n"));
 			}
 
-			
+			// Yay now that we got the current plan
+			console.log("CURRENT PLAN", currentPlan)
+			break;
 		}
 	}
 }

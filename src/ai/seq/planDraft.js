@@ -8,21 +8,19 @@ const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt
 /**
  * Generate opening suggestions, at the start of the process
  */
-module.exports = async function planDraft(oriPlan, usrReply = "", streamHandler=null) {
+module.exports = async function planDraft(oriPlan = "", usrReply = "", streamHandler=null) {
 	// Build the system prompt
 	let sysPromptArr = [
 		await getMainDevSystemPrompt(null)
 	];
 
 	// Add the original plan
-	if( oriPlan ) {
-		sysPromptArr.push(
-			getPromptBlock(
-				"The following is the current plan draft",
-				oriPlan
-			)
-		);
-	}
+	sysPromptArr.push(
+		getPromptBlock(
+			"The following is the current plan draft",
+			oriPlan || ""
+		)
+	);
 	
 	// Suggest an incremental change which you can do to improve the project
 	sysPromptArr.push([
@@ -41,6 +39,7 @@ module.exports = async function planDraft(oriPlan, usrReply = "", streamHandler=
 		{ "role": "system", "content": [
 			"Update the plan draft using the user feedback",
 			"Keep the rest unchanged, unless the user specified otherwise",
+			"Reply with the full updated plan draft"
 		].join("\n") },
 	]
 

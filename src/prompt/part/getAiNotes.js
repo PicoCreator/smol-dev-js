@@ -12,7 +12,7 @@ module.exports = async function getAiNotes() {
 
 	// The final return string arr to build
 	let returnStringArr = [
-		"Note: that AI notes provided are internal only, for your own use.",
+		"Note: that AI notes provided are internal only, for your own use. Parts of it maybe outdated",
 		""
 	];
 
