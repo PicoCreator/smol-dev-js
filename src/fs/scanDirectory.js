@@ -83,7 +83,7 @@ module.exports = async function scanDirectory(dir, options) {
 
 		// If treeString flag is set, return the tree string
 		if(options.treeString) {
-			return nestedFileObjToStrFormat(nestedObject);
+			return nestedFileObjToStrFormat(nestedObject).trim();
 		}
 
 		// Otherwise, just return the nested object
