@@ -7,9 +7,11 @@
 
 const fs = require("fs")
 const prompts = require('prompts');
+const makeUpdatedNotes = require("../../ai/seq/makeUpdatedNotes");
 const openingSuggestion = require("../../ai/seq/openingSuggestion");
 const planDraft = require("../../ai/seq/planDraft");
 const config = require("../../core/config");
+const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const OutputHandler = require("../OutputHandler");
 const simplePrompt = require("../simplePrompt");
 
@@ -41,10 +43,7 @@ module.exports = {
 		// Lets setup the main prompt, to action loop
 		while(true) {
 			// Starting
-			console.log("🐣 [ai]: What would you like me to do?")
-			// // Provide the opening suggestion
-			// let opening = await openingSuggestion();
-			// OutputHandler.standardGreen("[ai]: "+opening);
+			console.log("🐣 [ai]: What would you like me to do? (PS: this is not a chat system, there is no chat memory prior to this point)")
 
 			// Ask the user for input
 			let promptReply = await simplePrompt({
@@ -71,7 +70,7 @@ module.exports = {
 					type: "confirm",
 					name: "approve",
 					message: "[you]: Proceed with the plan?",
-					initial: true
+					initial: false
 				});
 				if( promptReply.approve ) {
 					break;
@@ -81,10 +80,24 @@ module.exports = {
 				promptReply = await simplePrompt({
 					type: "text",
 					name: "feedback",
-					message: "[you]: What would you like to change?",
-					initial: true
+					message: "[you]: What would you like to change?"
 				});
+
+				// Update the notes
+				await makeUpdatedNotes([
+					getPromptBlock(
+						"The the AI assistant previously drafted with the above notes",
+						currentPlan
+					),
+					"",
+					getPromptBlock(
+						"The following is feedback on how to improve the draft",
+						promptReply.feedback
+					),
+				].join("\n"));
 			}
+
+			
 		}
 	}
 }

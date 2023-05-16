@@ -5,10 +5,10 @@ const getPromptBlock = require("../builder/getPromptBlock");
 /**
  * Get the AI working notes
  */
-module.exports = async function getAiNotes(contextFilePath) {
+module.exports = async function getAiNotes() {
 	// Get the CWD & notes dir
 	const cwd = process.cwd();
-	const notesDir = path.resolve(cwd, "./.my-ai-dev/notes");
+	const notesDir = path.resolve(cwd, "./.my-ai-dev/");
 
 	// The final return string arr to build
 	let returnStringArr = [
@@ -20,7 +20,7 @@ module.exports = async function getAiNotes(contextFilePath) {
 	let rootNoteMD = "";
 	try {
 		rootNoteMD = await fs.promises.readFile(
-			path.resolve(notesDir, "./ROOT.md"), 
+			path.resolve(notesDir, "./AI-NOTES.md"), 
 			"utf-8"
 		);
 	} catch(e) {
@@ -29,10 +29,8 @@ module.exports = async function getAiNotes(contextFilePath) {
 
 	// Add the root note
 	returnStringArr.push(
-		await getPromptBlock("AI notes for the overall project", rootNoteMD)
+		await getPromptBlock("'AI notes' for the overall project", rootNoteMD)
 	);
-
-	// @TODO : support AI notes for selected file / dir
 
 	// Return the joint string
 	return returnStringArr.join("\n\n").trim();

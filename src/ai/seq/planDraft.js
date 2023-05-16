@@ -2,12 +2,8 @@
 const ai = require("../../core/ai");
 
 // Prompt builder deps
-const getProjectDependencyList = require("../../prompt/part/getProjectSettings");
-const getProjectFileList = require("../../prompt/part/getProjectFileList");
-const getShortDescription = require("../../prompt/part/getShortDescription");
-const getAiNotes = require("../../prompt/part/getAiNotes");
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
-const getActionList = require("../../prompt/part/getActionList");
+const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
 
 /**
  * Generate opening suggestions, at the start of the process
@@ -15,20 +11,7 @@ const getActionList = require("../../prompt/part/getActionList");
 module.exports = async function planDraft(oriPlan, usrReply = "", streamHandler=null) {
 	// Build the system prompt
 	let sysPromptArr = [
-		"You are an AI developer assitant who is trying to write a program that will generate code for the user based on their intent",
-		"",
-		"The following are some details of the project ...",
-		"",
-		await getShortDescription(),
-		"",
-		await getProjectDependencyList(),
-		"",
-		await getProjectFileList(),
-		"",
-		await getAiNotes(),
-		"",
-		await getActionList(),
-		"",
+		await getMainDevSystemPrompt(null)
 	];
 
 	// Add the original plan
@@ -45,16 +28,20 @@ module.exports = async function planDraft(oriPlan, usrReply = "", streamHandler=
 	sysPromptArr.push([
 		"Reply to the user, what you plan to do next for the user, using the avaliable actions listed",
 		"If there is something you want the user to do, which you can do so, let them know as well",
-		"If you plan to add or modify a file, indicate which files you plan to modify, and how you plan to modify them",
-		"(you do not need to elaborate to the user the list of actions you can do)",
+		"If you plan to add or modify a file, indicate which files you plan to modify, and how short summary you plan to do (just a rough description would do, avoid code examples)",
 		"",
-		"Describe you plan in a concise manner"
+		"Describe you plan in a short concise manner",
+		"Unless requested to, you do not need to provide rough outline of the code you plan to generate",
 	]);
 	
 	// ChatML format
 	let chatArr = [
 		{ "role": "system", "content": sysPromptArr.flat().join("\n") },
-		{ "role": "user", "content": usrReply }
+		{ "role": "user", "content": usrReply },
+		{ "role": "system", "content": [
+			"Update the plan draft using the user feedback",
+			"Keep the rest unchanged, unless the user specified otherwise",
+		].join("\n") },
 	]
 
 	// Lets ask, we opt for the economical 3.5-turbo when possible

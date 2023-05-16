@@ -2,10 +2,7 @@
 const ai = require("../../core/ai");
 
 // Prompt builder deps
-const getProjectDependencyList = require("../../prompt/part/getProjectSettings");
-const getProjectFileList = require("../../prompt/part/getProjectFileList");
-const getShortDescription = require("../../prompt/part/getShortDescription");
-const getAiNotes = require("../../prompt/part/getAiNotes");
+const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
 
 /**
  * Generate opening suggestions, at the start of the process
@@ -13,20 +10,7 @@ const getAiNotes = require("../../prompt/part/getAiNotes");
 module.exports = async function openingSuggestion() {
 	// Build the prompt
 	let promptArr = [
-		"You are an AI developer assitant who is trying to write a program that will generate code for the user based on their intent",
-		"",
-		"The following are some details of the project ...",
-		"",
-		await getShortDescription(),
-		"",
-		await getProjectDependencyList(),
-		"",
-		await getProjectFileList(),
-		"",
-		await getAiNotes(),
-		"",
-		await getActionList(),
-		"",
+		await getMainDevSystemPrompt(null)
 	];
 	
 	// Suggest an incremental change which you can do to improve the project
