@@ -22,6 +22,7 @@ const OutputHandler = require("./cli/OutputHandler")
 //--------------
 
 MainSywac.command("setup", require("./cli/command/setup"))
+MainSywac.command("run", require("./cli/command/run"))
 
 //--------------
 //
