@@ -10,14 +10,14 @@ const computeTokenCost = require("../../util/computeTokenCost");
  * This function will only handle the "reminder/retry" on invalid format
  * 
  * @param {Array|String} messages in the chat request format
- * @param {Function} validator, for validating the JSON response, should return true if valid
  * @param {Object} opt additional opt for the AI, forwarded to the completion options
  * 		- retCompletionStrInsteadOfError: if true, will return the completion string instead of throwing an error
+ * @param {Function} validator, for validating the JSON response, should return true if valid
  * @param {Function} streamListener, for handling streaming requests
  * 
  * @return {Object} containing the `result` with the JSON array response, and the `token` cost obj
  */
-module.exports = async function jsonObjectCompletion(messages, validator = null, opt = {}, streamListener = null) {
+module.exports = async function jsonObjectCompletion(messages, opt = {}, validator = null, streamListener = null) {
 	// Safety
 	if( validator == null ) {
 		validator = () => { return true; };

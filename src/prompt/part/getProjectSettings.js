@@ -42,10 +42,10 @@ module.exports = async function getProjectSettings() {
 
 		// Lets build them into a prompt block
 		if( depString.length > 0 ) {
-			returnStringArr.push( await getPromptBlock("NPM modules", depString) );
+			returnStringArr.push( await getPromptBlock("NPM modules installed", depString) );
 		}
 		if( devDepString.length > 0 ) {
-			returnStringArr.push( await getPromptBlock("NPM dev modules", devDepString) );
+			returnStringArr.push( await getPromptBlock("NPM dev modules installed", devDepString) );
 		}
 	}
 

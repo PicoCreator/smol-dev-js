@@ -11,7 +11,7 @@ module.exports = async function getActionList() {
 			[
 				`- Move files or folders`,
 				`- Delete files or folders`,
-				`- Edit a code/spec file, with the given instructions`,
+				`- Generate/Edit a code/spec file, with the given instructions`,
 				`- Update code/spec from spec/code`
 			].join("\n")
 		),

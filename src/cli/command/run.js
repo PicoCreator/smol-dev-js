@@ -7,6 +7,7 @@
 
 const fs = require("fs")
 const prompts = require('prompts');
+const getFileListFromPlan = require("../../ai/seq/getFileListFromPlan");
 const makeUpdatedNotes = require("../../ai/seq/makeUpdatedNotes");
 const openingSuggestion = require("../../ai/seq/openingSuggestion");
 const planDraft = require("../../ai/seq/planDraft");
@@ -72,7 +73,10 @@ module.exports = {
 					message: "[you]: Proceed with the plan?",
 					initial: false
 				});
+
+				// Check for further clarification?
 				if( promptReply.approve ) {
+					// @TODO check with the AI needs further clarification
 					break;
 				}
 
@@ -100,8 +104,14 @@ module.exports = {
 				].join("\n"));
 			}
 
+			// - Ask for the list files to be moved, deleted
+			// - list of local code files to be added/generated/updated
+			// - list of local code files, you have dependencies on for the changes you want to make
+			// - list of spec files to be added/generated/updated
+			let fileListMap = await getFileListFromPlan(currentPlan);
+
 			// Yay now that we got the current plan
-			console.log("CURRENT PLAN", currentPlan)
+			console.log(fileListMap)
 			break;
 		}
 	}
