@@ -91,7 +91,7 @@ module.exports = {
 
 		// Lets get the updated config values
 		let configValues = Object.assign({}, config.config);
-		configValues.short_description = promptConfig.description || configValues.description;
+		configValues.short_description = promptConfig.short_description || configValues.short_description;
 		configValues.spec_dir = promptConfig.spec_dir || configValues.spec_dir;
 		configValues.src_dir = promptConfig.src_dir || configValues.src_dir;
 

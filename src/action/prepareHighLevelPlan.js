@@ -7,6 +7,5 @@ module.exports = async function prepareHighLevelPlan() {
 	// Scan the current CWD
 	let files = await scanDirectory(process.cwd(), { treeString:true });
 
-	console.log(files
-	)
+	console.log(files)
 }
