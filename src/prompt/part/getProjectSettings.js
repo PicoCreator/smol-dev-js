@@ -49,8 +49,6 @@ module.exports = async function getProjectSettings() {
 		}
 	}
 
-	console.log( returnStringArr.join("\n\n").trim() )
-
 	// Return the joint string
-	return returnStringArr.join("\n").trim();
+	return returnStringArr.join("\n\n").trim();
 }

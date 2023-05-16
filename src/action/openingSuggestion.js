@@ -5,11 +5,12 @@ const ai = require("../core/ai");
 const getProjectDependencyList = require("../prompt/part/getProjectSettings");
 const getProjectFileList = require("../prompt/part/getProjectFileList");
 const getShortDescription = require("../prompt/part/getShortDescription");
+const getAiNotes = require("../prompt/part/getAiNotes");
 
 /**
- * Generate a high level plan from the current project state
+ * Generate opening suggestions, at the start of the process
  */
-module.exports = async function prepareHighLevelPlan() {
+module.exports = async function openingSuggestion() {
 	// Build the prompt
 	let promptArr = [
 		"You are an AI developer assitant who is trying to write a program that will generate code for the user based on their intent",
@@ -22,19 +23,26 @@ module.exports = async function prepareHighLevelPlan() {
 		"",
 		await getProjectFileList(),
 		"",
+		await getAiNotes(),
+		""
 	];
 	
 	// Suggest an incremental change which you can do to improve the project
 	promptArr.push(
-		"Please suggest an incremental change which you can do to improve the project",
-		"if you are not sure, ask the user instead for what they want to do",
+		"User:",
+		"Suggest an incremental change which you can do to improve the project",
+		"if you are not sure, ask instead for what should be done",
+		"",
+		"if there are missing spec files, or src code file pairs, you can suggest generating either of them",
 		"",
 		"Assistant:"
 	);
 
-	// Lets ask
+	// Lets ask, we opt for the economical 3.5-turbo when possible
 	let res = await ai.getChatCompletion(promptArr.join("\n"), {
 		model: "gpt-4e"
 	});
-	console.log(res);
+	
+	// Return the completion
+	return res.completion;
 }

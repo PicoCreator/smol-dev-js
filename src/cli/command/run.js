@@ -7,8 +7,9 @@
 
 const fs = require("fs")
 const prompts = require('prompts');
-const prepareHighLevelPlan = require("../../action/prepareHighLevelPlan");
+const openingSuggestion = require("../../action/openingSuggestion");
 const config = require("../../core/config");
+const OutputHandler = require("../OutputHandler");
 
 //--------------
 //
@@ -34,19 +35,20 @@ module.exports = {
 		console.log("--------------------")
 		console.log(`${config.config.short_description}`)
 		console.log("--------------------")
+		console.log("[ai]: thinking ...")
 
-		// // Ask for instruction
-		// let prompt = await prompts({
-		// 	type: 'text',
-		// 	name: 'prompt',
-		// 	message: '[ai]: What would you like me to do?'
-		// }, {
-		// 	onCancel: () => {
-		// 		console.log("Exit command recieved, exiting...");
-		// 		process.exit(1);
-		// 	}
-		// });
+		// Lets setup the main prompt, to action loop
+		while(true) {
+			// Provide the opening suggestion
+			let opening = await openingSuggestion();
+			OutputHandler.standardGreen("[ai]: "+opening);
 
-		await prepareHighLevelPlan();
+			// Ask the user for input
+			let promptConfig = await prompts({
+				type: "text",
+				name: "input",
+				message: "[you]: ",
+			});
+		}
 	}
 }
