@@ -95,6 +95,8 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"We have already broken up the program into per-file generation",
 			`Now your job is to generate only the code for the file '${filePath}'`,
 			"Make sure to have consistent filenames if you reference other files we are also generating",
+			"",
+			"Include high level comments for the code you are generating",
 			"Use TAB based indentation for the updated code",
 			"",
 			"Remember that you must obey 3 things: ",
