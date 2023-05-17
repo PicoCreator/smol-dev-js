@@ -3,32 +3,33 @@ const path = require('path');
 const getSpecDirPath = require('../../core/getSpecDirPath');
 const getSrcDirPath = require('../../core/getSrcDirPath');
 
+/**
+ * Update the source code file or spec file based on the other file.
+ */
 async function updateSpecSrcFilePair(fileType, filePath) {
+
+	// Sanity checks
 	if (fileType !== 'src' && fileType !== 'spec') {
 		throw new Error('Invalid fileType parameter. Must be "src" or "spec".');
 	}
 
-	try {
-		await fs.access(filePath);
-	} catch (err) {
-		throw new Error('Invalid filePath parameter. File does not exist.');
-	}
-
+	// Handling of source code file update
 	if (fileType === 'src') {
-		const specFilePath = path.join(getSpecDirPath(), path.basename(filePath, path.extname(filePath)) + '.md');
-		const fileContent = await fs.readFile(filePath, 'utf8');
-		let specFileContent = `# ${path.basename(filePath)}\n\n## Summary\n\n## Notes\n\n`;
+		// Content holders
+		let srcFileContent = "";
+		let specFileContent = "";
+	
+		// Current file paths and content
+		let srcFilePath  = filePath;
+		let specFilePath = path.basename(filePath, path.extname(filePath)) + '.md';
+		let fullSrcFilePath  = path.join(getSrcDirPath(), filePath);
+		let fullSpecFilePath = path.join(getSpecDirPath(), specFilePath);
 
-		try {
-			await fs.access(specFilePath);
-			const existingSpecFileContent = await fs.readFile(specFilePath, 'utf8');
-			specFileContent = existingSpecFileContent.replace(/## Summary\n\n(.*?)\n\n## Notes\n\n/s, `## Summary\n\n${fileContent}\n\n## Notes\n\n`);
-		} catch (err) {
-			// Spec file does not exist, create a new one
-		}
-
-		await fs.writeFile(specFilePath, specFileContent);
-	} else if (fileType === 'spec') {
+		// Lets try to read the respective file
+	} 
+	
+	// Handling of spec file update
+	if (fileType === 'spec') {
 		const srcFileBaseName = path.basename(filePath, path.extname(filePath));
 		const srcFiles = await fs.readdir(getSrcDirPath());
 		const srcFilePath = srcFiles.find(file => path.basename(file, path.extname(file)) === srcFileBaseName);
