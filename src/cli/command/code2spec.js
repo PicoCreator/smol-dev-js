@@ -1,7 +1,8 @@
 const fs = require('fs/promises');
 const path = require('path');
 const scanDirectory = require('../../util/scanDirectory');
-const { getSrcDirPath, getSpecDirPath } = require('../../core');
+const getSrcDirPath = require('../../core/getSrcDirPath');
+const getSpecDirPath = require('../../core/getSpecDirPath');
 
 module.exports = {
 	command: 'code2spec',

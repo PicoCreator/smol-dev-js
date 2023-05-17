@@ -10,7 +10,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@js-util/config-loader": "^1.2.7",
-    "ai-bridge": "^1.1.0",
+    "ai-bridge": "^1.1.1",
     "chalk": "^4.1.2",
     "glob": "^10.2.4",
     "inquirer": "^9.2.3",
