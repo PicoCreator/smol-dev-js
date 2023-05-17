@@ -13,6 +13,10 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 		throw new Error('Invalid fileType parameter. Must be "src" or "spec".');
 	}
 
+	//
+	// THE FOLLOWING IS WIP CODE
+	// 
+
 	// Handling of source code file update
 	if (fileType === 'src') {
 		// Content holders
