@@ -10,6 +10,7 @@ const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
 const jsonObjectChatCompletion = require("../call/jsonObjectChatCompletion");
 const getLocalDepSummary = require("./getLocalDepSummary");
+const updateFileWithPlan = require("./updateFileWithPlan");
 
 /**
  * Given the current plan, and the operation map, execute it
@@ -160,14 +161,17 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 	}
 	let localDepSummaryStrSet = localDepSummaryArr.join("\n\n").trim();
 
+	// Promise array for async operations
+	let asyncOpPromiseArr = [];
+
 	// Lets handle the file updates of the src dir
 	let updateSrcArr = operationMap["3_UPDATE_SRC"];
 	if(updateSrcArr && updateSrcArr.length > 0) {
-		// Log it
-		console.log(`🐣 [ai]: Updating ${updateSrcArr.length} src code (awaiting in parallel)`)
-	
 		for(const srcFile of updateSrcArr) {
-			// @TODO
+			console.log(`🐣 [ai]: (async) Updating src file - ${srcFile}`)
+			asyncOpPromiseArr.push(
+				updateFileWithPlan("src", srcFile, currentPlan, localDepSummaryStrSet)
+			);
 		}
 	}
 
@@ -175,9 +179,14 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 	let updateSpecArr = operationMap["3_UPDATE_SPEC"];
 	if(updateSpecArr && updateSpecArr.length > 0) {
 		for(const specFile of updateSpecArr) {
-			// @TODO
+			console.log(`🐣 [ai]: (async) Updating spec file - ${specFile}`)
+			updateFileWithPlan("spec", specFile, currentPlan, localDepSummaryStrSet)
 		}
 	}
+
+	// Lets await for all the async operations to finish
+	await Promise.all(asyncOpPromiseArr);
+	console.log(`🐣 [ai]: Finished current set of async spec/src file update`)
 
 	// Lets handle the file updates of the src dir
 	let updateSrcArr_rd2 = operationMap["4_UPDATE_SRC"];

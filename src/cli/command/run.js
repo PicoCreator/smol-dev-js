@@ -117,7 +117,7 @@ module.exports = {
 			
 
 			// Yay now that we got the current plan
-			console.log(operationsMap)
+			// console.log(operationsMap)
 			break;
 		}
 
