@@ -121,7 +121,7 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 		model: "gpt-4"
 	});
 	
-	// Return the completion
+	// Write the file
 	// ---
-	return res.completion;
+	await fs.promises.writeFile(actualFilePath, res.completion, "utf8");
 }
