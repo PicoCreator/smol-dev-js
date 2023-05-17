@@ -120,5 +120,9 @@ module.exports = {
 			console.log(operationsMap)
 			break;
 		}
+
+		// Due to a bug with mongodb hanging connections, 
+		// we need to exit the process, when the process is done
+		process.exit(0);
 	}
 }

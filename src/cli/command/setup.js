@@ -105,5 +105,9 @@ module.exports = {
 		// Lets write the config file
 		await fs.promises.writeFile(process.cwd()+"/.my-ai-dev/config/aibridge.json", JSON.stringify( aibridgeConfig, null, "	" ));
 		await fs.promises.writeFile(process.cwd()+"/.my-ai-dev/config/config.json", JSON.stringify( configValues, null, "	" ));
+
+		// Due to a bug with mongodb hanging connections, 
+		// we need to exit the process, when the process is done
+		process.exit(0);
 	}
 }

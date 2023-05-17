@@ -9,6 +9,7 @@ const getSrcDirPath = require("../../core/getSrcDirPath");
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
 const jsonObjectChatCompletion = require("../call/jsonObjectChatCompletion");
+const getLocalDepSummary = require("./getLocalDepSummary");
 
 /**
  * Given the current plan, and the operation map, execute it
@@ -28,6 +29,28 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 	// 	'4_UPDATE_SPEC': [],
 	// 	LOCAL_DEP: [ 'util/scanDirectory.js', 'core/ai.js' ]
 	// }
+
+	// Lets get the local dep summary, in parallel
+	let localDepList = operationMap["LOCAL_DEP"] || [];
+
+	// Log it
+	console.log(`🐣 [ai]: Studying ${localDepList.length} dependencies (in parallel)`)
+
+	// Work on it
+	let localDepSummaryMap = {};
+	let localDepSummaryPromiseArr;
+	if (localDepList && localDepList.length > 0) {
+		// Lets get the local dep summary, in parallel
+		let localDepSummaryMap = {};
+		localDepSummaryPromiseArr = localDepList.map(async (localDepPath) => {
+			// Get the local dep summary
+			let localDepSummary = await getLocalDepSummary(localDepPath);
+			localDepSummaryMap[localDepPath] = localDepSummary;
+		});
+	}
+
+	// Log the reflecting state
+	console.log(`🐣 [ai]: Performing any required modules install / file moves / deletion`)
 
 	// Lets handle the NPM installs
 	let npmInstallArr = operationMap["0_NPM_DEP_INSTALL"];
@@ -121,9 +144,20 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 		}
 	}
 
+	// Log it
+	console.log(`🐣 [ai]: Studying ${localDepList.length} dependencies (awaiting in parallel)`)
+
+	// Lets await for all the local dep summary promises to finish
+	await Promise.all(localDepSummaryPromiseArr);
+
+	// Lets build the local dep summary string
+
 	// Lets handle the file updates of the src dir
 	let updateSrcArr = operationMap["3_UPDATE_SRC"];
 	if(updateSrcArr && updateSrcArr.length > 0) {
+		// Log it
+		console.log(`🐣 [ai]: Updating ${updateSrcArr.length} src code (awaiting in parallel)`)
+	
 		for(const srcFile of updateSrcArr) {
 			// @TODO
 		}

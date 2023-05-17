@@ -4,6 +4,7 @@
 - The spec files should be written as markdown files
 - avoid modifying the MainSywac.js , in most cases you just want to add commands to mainCLI.js
 - use core/ai.js for all your api calls to the AI models, as the credentials are already loaded there
+- When implementing a new CLi command, their files should be in cli/command/ folders
 
 # core/ai.js example usage
 
