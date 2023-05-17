@@ -71,7 +71,7 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"",
 			"Remember that you must obey 3 things: ",
 			`	- you are generating markdown for the file ${filePath}`,
-			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`
+			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`,
 			`	- MOST IMPORTANT OF ALL: every line of markdown you generate must be markdown code. Do not include code fences in your response`,
 			"",
 			"This is a Bad response:",
@@ -82,8 +82,7 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"This is a Good response:",
 			'# Hello There',
 			"",
-			"Begin generating the updated markdown now.",
-			""
+			"Begin generating the updated markdown now."
 		]);
 	} else if( fileType === "src" ) {
 		promptArr.push([
@@ -111,14 +110,13 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"This is a Good response:",
 			'console.log("hello world")',
 			"",
-			"Begin generating the code now.",
-			""
+			"Begin generating the code now."
 		]);
 	}
 
 	// Run it
 	// ---
-	let res = await ai.getCompletion(promptArr.flat().join("\n"), {
+	let res = await ai.getChatCompletion(promptArr.flat().join("\n"), {
 		stream: true,
 		model: "gpt-4"
 	});
