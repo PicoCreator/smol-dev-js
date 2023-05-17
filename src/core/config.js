@@ -28,7 +28,7 @@ const config = new ConfigLoader({
 			},
 			
 			// Number of provider requests that can occur concurrently
-			providerRateLimit: 10,
+			providerRateLimit: 2,
 			
 			// Latency delay between request, to be used with rate limit, to further "tune down"
 			providerLatencyAdd: 0,
