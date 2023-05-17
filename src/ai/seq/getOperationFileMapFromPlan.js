@@ -71,6 +71,8 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan) {
 		"When an AI dev is updated a spec/code file, the AI dev will be given the details for the corresponding spec/code file",
 		"And public interface details of the local dep you provided",
 		"",
+		"Avoid modifying the specification file NOTES.md, unless instructed, as that should be managed by the user.",
+		"",
 		"Reply with a json object with the following format: ",
 		JSON.stringify(EXAMPLE_JSON_FORMAT),
 		"",
