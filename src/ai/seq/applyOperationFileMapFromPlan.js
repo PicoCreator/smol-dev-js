@@ -151,6 +151,14 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 	await Promise.all(localDepSummaryPromiseArr);
 
 	// Lets build the local dep summary string
+	let localDepSummaryArr = [];
+	for(let localDepPath in localDepSummaryMap) {
+		localDepSummaryArr.push(getPromptBlock(
+			`Some info about ${localDepPath}`,
+			localDepSummaryMap[localDepPath]
+		));
+	}
+	let localDepSummaryStrSet = localDepSummaryArr.join("\n\n").trim();
 
 	// Lets handle the file updates of the src dir
 	let updateSrcArr = operationMap["3_UPDATE_SRC"];
