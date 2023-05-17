@@ -30,6 +30,10 @@ module.exports = async function updateNotes(addditionalInfo) {
 		"be short and concise, indicate the relevent file/information, and generalise all other information",
 		"You do not need to thank the user", 
 		"you do not need to say 'The missing information is'",
+		"",
+		"Notes are to improve your knowledge and understanding, not to store your plans",
+		"Your plans are being tracked separately, and will be used to generate the next set of instructions",
+		"",
 		"Respond with NO_CHANGE_TO_NOTES , if there is no additional information that needs to be added to the notes",
 	];
 	
@@ -44,7 +48,7 @@ module.exports = async function updateNotes(addditionalInfo) {
 	let res = await ai.getChatCompletion(
 		chatArr, 
 		{ 
-			model: "gpt-4e",
+			model: "gpt-4",
 			max_tokens: 1000
 		}
 	);
@@ -69,13 +73,14 @@ module.exports = async function updateNotes(addditionalInfo) {
 		"",
 		"Limit your notes / response to about 1000 tokens, compression/dropping less important information if needed",
 		"",
-		"Respond with only the notes content, as your entire response will be used to update the notes",
+		"Respond with only the notes content, your entire response will be used to update the notes",
+		"Respond without code wrapping blocks, your entire response will be used to update the notes",
 	].join("\n") 
 
 	res = await ai.getChatCompletion(
 		updatePrompt, 
 		{ 
-			model: "gpt-4e",
+			model: "gpt-4",
 			max_tokens: 1000
 		}
 	);

@@ -9,7 +9,7 @@ const jsonObjectChatCompletion = require("../call/jsonObjectChatCompletion");
 /**
  * Given the current plan, prepare the file list
  */
-module.exports = async function getFileListFromPlan(currentPlan) {
+module.exports = async function getOperationFileMapFromPlan(currentPlan) {
 	// Build the system prompt
 	let promptArr = [
 		await getMainDevSystemPrompt(null)
@@ -25,29 +25,35 @@ module.exports = async function getFileListFromPlan(currentPlan) {
 
 	// Prepare the example format
 	let EXAMPLE_JSON_FORMAT = {
-		"MOVE_SRC": {
+		"0_NPM_DEP_INSTALL": [
+			"list of additional dependencies modules to install (that is not already listed) ...",
+			"Do not include depencies that are already installed ..."
+		],
+		"1_MOVE_SRC": {
 			"old filepath to file or dir (relative to src dir)": "new filepath"
 		},
-		"MOVE_SPEC": {
+		"1_MOVE_SPEC": {
 			"old filepath to file or dir (relative to spec dir)": "new filepath"
 		},
-		"DEL_SRC": [
+		"2_DEL_SRC": [
 			"list of files in the src dir to delete (relative to src dir) ..."
 		],
-		"DEL_SPEC": [
+		"2_DEL_SPEC": [
 			"list of files in the spec dir to delete (relative to spec dir) ..."
 		],
-		"UPDATE_SRC": [
+		"3_UPDATE_SRC": [
 			"list of various individual files in the src dir that you the AI dev need to update / generate / edit, according to the plan (relative to src dir) ...",
 			"Do not include files you are not modifying as part of the plan ..."
 		],
-		"UPDATE_SPEC": [
+		"3_UPDATE_SPEC": [
 			"list of various individual files in the spec dir that you the AI dev need to update / generate / edit, according to the plan (relative to spec dir, not the src dir) ...",
 			"Do not include files you are not modifying as part of the plan ..."
 		],
-		"NPM_DEP_INSTALL": [
-			"list of additional dependencies modules to install (that is not already listed) ...",
-			"Do not include depencies that are already installed ..."
+		"4_UPDATE_SRC": [
+			"similar to 3_* varient"
+		],
+		"4_UPDATE_SPEC": [
+			"similar to 3_* varient"
 		],
 		"LOCAL_DEP": [
 			"list of local src code files, you will need information about (ie. their public interface), when updating the src code files ..."
@@ -57,7 +63,13 @@ module.exports = async function getFileListFromPlan(currentPlan) {
 	// Suggest an incremental change which you can do to improve the project
 	promptArr.push([
 		"We will now be splitting the task among multiple AI devs, each working on a different file, please provide the list of files that we will need to apply the plan on, and its related info",
-		"This will be excuted in the following order: NPM_DEP_INSTALL, MOVE_*, DEL_*, UPDATE_SRC, UPDATE_SPEC",
+		"This will be excuted in the following order: 0_NPM_DEP_INSTALL, 1_MOVE_*, 2_DEL_*, 3_UPDATE_*, 4_UPDATE_*",
+		"",
+		"Numbers indicate the sequence in which the operations will be done. Items with the same numbers are done in parallel",
+		"",
+		"3_UPDATE_* and 4_UPDATE_* are functionally the same, but lets you decide the order in which you want to update the files",
+		"When an AI dev is updated a spec/code file, the AI dev will be given the details for the corresponding spec/code file",
+		"And public interface details of the local dep you provided",
 		"",
 		"Reply with a json object with the following format: ",
 		JSON.stringify(EXAMPLE_JSON_FORMAT),

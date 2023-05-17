@@ -6,8 +6,8 @@
 //--------------
 
 const fs = require("fs")
-const prompts = require('prompts');
-const getFileListFromPlan = require("../../ai/seq/getFileListFromPlan");
+const applyOperationFileMapFromPlan = require("../../ai/seq/applyOperationFileMapFromPlan");
+const getOperationFileMapFromPlan = require("../../ai/seq/getOperationFileMapFromPlan");
 const makeUpdatedNotes = require("../../ai/seq/makeUpdatedNotes");
 const openingSuggestion = require("../../ai/seq/openingSuggestion");
 const planDraft = require("../../ai/seq/planDraft");
@@ -104,14 +104,20 @@ module.exports = {
 				].join("\n"));
 			}
 
+			console.log("🐣 [ai]: Working on the plan ...")
+
 			// - Ask for the list files to be moved, deleted
 			// - list of local code files to be added/generated/updated
 			// - list of local code files, you have dependencies on for the changes you want to make
 			// - list of spec files to be added/generated/updated
-			let fileListMap = await getFileListFromPlan(currentPlan);
+			let operationsMap = await getOperationFileMapFromPlan(currentPlan);
+
+			// Lets execute it
+			await applyOperationFileMapFromPlan(currentPlan, operationsMap)
+			
 
 			// Yay now that we got the current plan
-			console.log(fileListMap)
+			console.log(operationsMap)
 			break;
 		}
 	}
