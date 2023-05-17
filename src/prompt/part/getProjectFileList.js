@@ -45,11 +45,15 @@ module.exports = async function getProjectFileList(includeSrcFiles = true, inclu
 		// Check if spec dir is a subdirectory of src dir
 		if( specDirPath.startsWith(srcDirPath) ) {
 			// Get the relative pathing
-			let relativePath = path.relative(srcDirPath, specDirPath);
+			let relativePath = specDirPath.replace(srcDirPath, "").trim();
+			if(relativePath.startsWith("/")) {
+				relativePath = relativePath.slice(1);
+			}
 
 			// If the relative path is not blank, then add it to the exclude list
-			if( relativePath != "" ) {
-				srcFilesExcludes = srcFilesExcludes.slice().push(relativePath);
+			if( relativePath && relativePath != "" ) {
+				srcFilesExcludes = srcFilesExcludes.slice();
+				srcFilesExcludes.push(relativePath+"/**");
 			}
 		}
 	}
@@ -58,8 +62,8 @@ module.exports = async function getProjectFileList(includeSrcFiles = true, inclu
 	let srcFilesPrompt = await scanDirectory(
 		srcDirPath, 
 		{ 
-			includes: srcFilesIncludes,
-			excludes: srcFilesExcludes,
+			include: srcFilesIncludes,
+			exclude: srcFilesExcludes,
 			treeString:true 
 		}
 	);

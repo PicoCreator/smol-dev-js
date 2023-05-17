@@ -36,17 +36,21 @@ module.exports = async function planDraft(oriPlan = "", usrReply = "", streamHan
 	let chatArr = [
 		{ "role": "system", "content": sysPromptArr.flat().join("\n") },
 		{ "role": "user", "content": usrReply },
-		{ "role": "system", "content": [
-			"Update the plan draft using the user feedback",
-			"Keep the rest unchanged, unless the user specified otherwise",
-			"Reply with the full updated plan draft"
-		].join("\n") },
+		{ 
+			"role": "system", 
+			"content": [
+				"Update the plan draft using the user feedback",
+				"Keep the rest unchanged, unless the user specified otherwise",
+				"Reply with the full updated plan draft"
+			].join("\n") 
+		},
 	]
 
 	// Lets ask, we opt for the economical 3.5-turbo when possible
 	let res = await ai.getChatCompletion(chatArr, {
 		stream: true,
-		model: "gpt-4e"
+		// Use the gpt-3.5-turbo model if the plan is empty
+		model: (oriPlan == "")? "gpt-4e" : "gpt-4"
 	}, streamHandler);
 	
 	// Return the completion

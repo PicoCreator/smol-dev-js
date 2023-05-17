@@ -56,27 +56,24 @@ module.exports = async function updateNotes(addditionalInfo) {
 	}
 	
 	// Lets perform the notes update
-	let updateArr = [
-		{ "role": "system", 
-			"content": [
-				await getAiNotes(),
-				"",
-				getPromptBlock("Update the AI notes with the following information", notesChange),
-				"",
-				"Respond with only the notes content, as your entire response will be used to update the notes",
-				"Respond with NO_CHANGE_TO_NOTES instead if no changes are needed",
-				"Remove phrases like 'the missing information is ...'",
-				"Remove phrases like 'update the notes with ...'",
-				"Re-Order your notes in accordence to importance",
-				"",
-				"Limit your notes / response to about 1000 tokens, compression/dropping less important information if needed",
-				"",
-				"Respond with only the notes content, as your entire response will be used to update the notes",
-			].join("\n") 
-		}
-	]
+	let updatePrompt = [
+		await getAiNotes(),
+		"",
+		getPromptBlock("Update the AI notes with the following information", notesChange),
+		"",
+		"Respond with only the notes content, as your entire response will be used to update the notes",
+		"Respond with NO_CHANGE_TO_NOTES instead if no changes are needed",
+		"Remove phrases like 'the missing information is ...'",
+		"Remove phrases like 'update the notes with ...'",
+		"Re-Order your notes in accordence to importance",
+		"",
+		"Limit your notes / response to about 1000 tokens, compression/dropping less important information if needed",
+		"",
+		"Respond with only the notes content, as your entire response will be used to update the notes",
+	].join("\n") 
+
 	res = await ai.getChatCompletion(
-		updateArr, 
+		updatePrompt, 
 		{ 
 			model: "gpt-4e",
 			max_tokens: 1000

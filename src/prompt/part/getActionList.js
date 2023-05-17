@@ -7,7 +7,7 @@ const getPromptBlock = require("../builder/getPromptBlock");
 module.exports = async function getActionList() {
 	return [
 		getPromptBlock(
-			"List of actions you the AI dev can do for the user (in sequence)", 
+			"List of actions you the AI dev can do for the user", 
 			[
 				`- Move files or folders`,
 				`- Delete files or folders`,
