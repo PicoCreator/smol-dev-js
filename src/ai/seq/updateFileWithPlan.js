@@ -100,7 +100,7 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"",
 			"Remember that you must obey 3 things: ",
 			`	- you are generating code for the file ${filePath}`,
-			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`
+			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`,
 			`	- MOST IMPORTANT OF ALL: every line of code you generate must be valid code. Do not include code fences in your response`,
 			"",
 			"This is a Bad response:",
