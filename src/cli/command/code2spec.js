@@ -1,5 +1,6 @@
 const fs = require('fs/promises');
 const path = require('path');
+const config = require('../../core/config');
 const scanDirectory = require('../../util/scanDirectory');
 const getSrcDirPath = require('../../core/getSrcDirPath');
 const getSpecDirPath = require('../../core/getSpecDirPath');
@@ -27,7 +28,7 @@ module.exports = {
 
 		// Lets update the spec files in parallel
 		for (const srcFile of srcFiles) {
-			console.log(`🐣 [ai]: (async) Updating spec file - ${specFile}`)
+			console.log(`🐣 [ai]: (async) Updating spec file - ${srcFile}.md`)
 			promiseArr.push(
 				updateSpecSrcFilePair("src", srcFile)
 			);

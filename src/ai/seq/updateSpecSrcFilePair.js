@@ -1,7 +1,9 @@
 const fs = require('fs').promises;
 const path = require('path');
+const ai = require('../../core/ai');
 const getSpecDirPath = require('../../core/getSpecDirPath');
 const getSrcDirPath = require('../../core/getSrcDirPath');
+const getMainDevSystemPrompt = require('../../prompt/part/getMainDevSystemPrompt');
 const readFileOrNull = require('../../util/readFileOrNull');
 
 /**
