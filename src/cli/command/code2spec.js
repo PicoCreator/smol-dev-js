@@ -41,6 +41,7 @@ module.exports = {
 		}
 
 		// Wait for all the promises to resolve
+		console.log(`🐣 [ai]: Awaiting of ${promiseArr.length} async spec file update`);
 		await Promise.all(promiseArr);
 		console.log(`🐣 [ai]: Finished current set of async spec file update`)
 	
