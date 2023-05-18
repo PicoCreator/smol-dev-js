@@ -2,6 +2,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const getSpecDirPath = require('../../core/getSpecDirPath');
 const getSrcDirPath = require('../../core/getSrcDirPath');
+const readFileOrNull = require('../../util/readFileOrNull');
 
 /**
  * Update the source code file or spec file based on the other file.
@@ -13,44 +14,86 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 		throw new Error('Invalid fileType parameter. Must be "src" or "spec".');
 	}
 
-	//
-	// THE FOLLOWING IS WIP CODE
-	// 
-
+	// Current file paths and content
+	let srcFilePath  = null;
+	let specFilePath = null;
+	
 	// Handling of source code file update
 	if (fileType === 'src') {
-		// Content holders
-		let srcFileContent = "";
-		let specFileContent = "";
-	
-		// Current file paths and content
-		let srcFilePath  = filePath;
-		let specFilePath = path.basename(filePath, path.extname(filePath)) + '.md';
-		let fullSrcFilePath  = path.join(getSrcDirPath(), filePath);
-		let fullSpecFilePath = path.join(getSpecDirPath(), specFilePath);
-
-		// Lets try to read the respective file
-	} 
-	
-	// Handling of spec file update
-	if (fileType === 'spec') {
-		const srcFileBaseName = path.basename(filePath, path.extname(filePath));
-		const srcFiles = await fs.readdir(getSrcDirPath());
-		const srcFilePath = srcFiles.find(file => path.basename(file, path.extname(file)) === srcFileBaseName);
-
-		if (!srcFilePath) {
-			throw new Error('Corresponding source code file does not exist.');
-		}
-
-		const specFileContent = await fs.readFile(filePath, 'utf8');
-		const fileContentMatch = specFileContent.match(/## Summary\n\n(.*?)\n\n## Notes\n\n/s);
-
-		if (!fileContentMatch) {
-			throw new Error('Invalid spec file format. Missing "Summary" and "Notes" sections.');
-		}
-
-		await fs.writeFile(path.join(getSrcDirPath(), srcFilePath), fileContentMatch[1]);
+		srcFilePath  = filePath;
+		specFilePath = filePath + '.md';
+	} else {
+		srcFilePath  = filePath.replace(/\.md$/, '');
+		specFilePath = filePath;
 	}
+
+	// Get the respective full file path
+	let fullSrcFilePath  = path.join(getSrcDirPath(), filePath);
+	let fullSpecFilePath = path.join(getSpecDirPath(), specFilePath);
+
+	// Lets try to read the respective file
+	let srcFileContent = readFileOrNull(fullSrcFilePath, "");
+	let specFileContent = readFileOrNull(fullSpecFilePath, "");
+
+	// Build the system prompt
+	// ---
+	let promptArr = [
+		await getMainDevSystemPrompt(null),
+		"",
+		`You will be making some changes to an existing ${fileType} file '${filePath}'`
+	];
+
+	// Lets prepare the respective prompt
+	if(fileType === 'src') {
+		throw "@TODO support for src files"
+	} else {
+		// Add the spec file
+		promptArr.push([
+			"",
+			getPromptBlock(`The following is the current ${fileType} file '${filePath}' (to be updated)`, fullSpecFilePath),
+			"",
+			getPromptBlock(`And its corresponding source code file, to be used as reference (for updating the spec)`, srcFileContent),
+			"",
+			"Now that you have gotten all the details above",
+			"",
+			"Only write in markdown the updated specification file",
+			"do not add any other explanation, only return valid markdown for that file type",
+			"",
+			"We have already broken up the program into per-file generation",
+			`Now your job is to generate only the markdown for the file '${filePath}'`,
+			"Make sure to have consistent filenames if you reference other files we are also generating",
+			"",
+			"Remember that you must obey 3 things: ",
+			`	- you are generating markdown for the file ${filePath}`,
+			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`,
+			`	- MOST IMPORTANT OF ALL: every line of markdown you generate must be markdown code. Do not include code fences in your response`,
+			"",
+			"This is a Bad response:",
+			"```markdown",
+			'# Hello There',
+			"```",
+			"",
+			"This is a Good response:",
+			'# Hello There',
+			"",
+			"Begin generating the updated markdown now."
+		]);
+	}
+	
+	// Run it
+	// ---
+	let res = await ai.getChatCompletion(promptArr.flat().join("\n"), {
+		stream: true,
+		model: "gpt-4"
+	});
+
+	// Update the respective file
+	if(fileType === 'src') {
+		throw "@TODO support for src files"
+	} else {
+		await fs.promises.writeFile(specFileContent, res.completion, "utf8");
+	}
+	
 }
 
 module.exports = updateSpecSrcFilePair;
