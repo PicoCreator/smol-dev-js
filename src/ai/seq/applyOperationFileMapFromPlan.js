@@ -177,7 +177,7 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 		for(const srcFile of updateSrcArr) {
 			console.log(`🐣 [ai]: (async) Updating src file - ${srcFile}`)
 			asyncOpPromiseArr.push(
-				updateFileWithPlan("src", srcFile, currentPlan, localDepSummaryStrSet)
+				updateFileWithPlan("src", srcFile, currentPlan, localDepSummaryStrSet, commonContext)
 			);
 		}
 	}
@@ -188,7 +188,7 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 		for(const specFile of updateSpecArr) {
 			console.log(`🐣 [ai]: (async) Updating spec file - ${specFile}`)
 			asyncOpPromiseArr.push(
-				updateFileWithPlan("spec", specFile, currentPlan, localDepSummaryStrSet)
+				updateFileWithPlan("spec", specFile, currentPlan, localDepSummaryStrSet, commonContext)
 			)
 		}
 	}
@@ -203,7 +203,7 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 		for(const srcFile of updateSrcArr_rd2) {
 			console.log(`🐣 [ai]: (async) Updating src file - ${srcFile}`)
 			asyncOpPromiseArr.push(
-				updateFileWithPlan("src", srcFile, currentPlan, localDepSummaryStrSet)
+				updateFileWithPlan("src", srcFile, currentPlan, localDepSummaryStrSet, commonContext)
 			);
 		}
 	}
@@ -214,7 +214,7 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 		for(const specFile of updateSpecArr_rd2) {
 			console.log(`🐣 [ai]: (async) Updating spec file - ${specFile}`)
 			asyncOpPromiseArr.push(
-				updateFileWithPlan("spec", specFile, currentPlan, localDepSummaryStrSet)
+				updateFileWithPlan("spec", specFile, currentPlan, localDepSummaryStrSet, commonContext)
 			)
 		}
 	}
