@@ -1,13 +1,13 @@
 {
-  "name": "my-smol-ai-dev",
+  "name": "my-ai-dev",
   "version": "1.0.0",
-  "description": "CLI based AI developer, you can use today",
+  "description": "CLI based AI developer, you can use today (for JS projects)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "my-smol-ai-dev": "./src/mainCLI.js"
+    "my-ai-dev": "./src/mainCLI.js"
   },
   "author": "",
   "license": "Apache-2.0",

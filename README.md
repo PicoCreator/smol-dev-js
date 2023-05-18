@@ -2,7 +2,7 @@
 
 You own personal AI dev, which you can direct development in a collebrative back and forth experience.
 
-Thing of it as pair-programming, via the command line.
+Think of it as pair-programming, via the command line.
 
 # Optimization notes
 

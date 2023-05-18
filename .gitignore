@@ -6,3 +6,4 @@ node_modules
 
 # Include back .git files
 !.git*
+!.npm*
