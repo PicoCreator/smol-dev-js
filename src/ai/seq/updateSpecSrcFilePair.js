@@ -67,6 +67,7 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 			"Make sure to have consistent filenames if you reference other files we are also generating",
 			"",
 			"You do not need to add table of contents, unless it already exists",
+			"If the spec and code provided conflict, follow the code provided instead, and update the spec accordingly",
 			"",
 			"Remember that you must obey 3 things: ",
 			`	- you are generating markdown for the file ${filePath}`,
