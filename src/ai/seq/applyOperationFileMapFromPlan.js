@@ -152,6 +152,9 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 	// Lets await for all the local dep summary promises to finish
 	await Promise.all(localDepSummaryPromiseArr);
 
+	// Log it
+	console.log(`🐣 [ai]: Preparing summaries for smol-er sub-operations ...`)
+
 	// Lets build the local dep summary string
 	let localDepSummaryArr = [];
 	for(let localDepPath in localDepSummaryMap) {
