@@ -94,6 +94,7 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 	if(fileType === 'src') {
 		throw "@TODO support for src files"
 	} else {
+		await fs.mkdir(path.dirname(fullSpecFilePath), { recursive: true });
 		await fs.writeFile(fullSpecFilePath, res.completion, "utf8");
 	}
 	
