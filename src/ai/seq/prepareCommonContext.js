@@ -53,7 +53,8 @@ module.exports = async function prepareCommonContext(srcPathArr) {
 	});
 	// Get the ai response
 	return getPromptBlock(
-		"The following is the shared var/schema/id used for the plan",
+		// The following is some details of common context which you should use ...
+		"The following is the shared var/schema/id used for the plan that you should use  ...",
 		aiRes.completion
 	);
 }

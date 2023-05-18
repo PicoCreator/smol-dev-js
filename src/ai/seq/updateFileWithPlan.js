@@ -36,7 +36,6 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 	if( commonCtx && commonCtx.length > 0 ) {
 		promptArr.push([
 			"",
-			"The following is some details of common context which you should use ...",
 			commonCtx
 		]);
 	}
