@@ -1,56 +1,40 @@
 # planDraft.js
 
-This module is responsible for creating a draft plan for updating the code and spec files based on the user's intent.
+This module is responsible for generating a draft plan for updating the code/spec files based on the user's intent.
 
 ## Functions
 
-### `async function createDraftPlan(intent, specFile, codeFile)`
+### `async function planDraft(intent, specFile, srcFile)`
 
-This function takes the user's intent, spec file, and code file as input and generates a draft plan for updating the files.
+Generates a draft plan for updating the code/spec files based on the user's intent.
 
 #### Parameters
 
-- `intent` (String): The user's intent for updating the files.
-- `specFile` (String): The path to the spec file.
-- `codeFile` (String): The path to the code file.
+- `intent` (string): The user's intent for the update.
+- `specFile` (string): The path to the spec file to be updated.
+- `srcFile` (string): The path to the source code file to be used as a reference.
 
 #### Returns
 
-- `Promise<Object>`: A promise that resolves to an object containing the draft plan for updating the files.
+- `Promise<Object>`: A promise that resolves to an object containing the draft plan.
 
-## Usage
+## Example Usage
 
 ```javascript
-const planDraft = require('./ai/seq/planDraft');
+const planDraft = require('./planDraft');
 
 (async () => {
-  const intent = 'Add a new function to the code file';
-  const specFile = '/path/to/spec/file.md';
-  const codeFile = '/path/to/code/file.js';
+  const intent = 'Add a new function to handle user input';
+  const specFile = 'path/to/spec/file.md';
+  const srcFile = 'path/to/source/code/file.js';
 
-  const draftPlan = await planDraft.createDraftPlan(intent, specFile, codeFile);
+  const draftPlan = await planDraft(intent, specFile, srcFile);
   console.log(draftPlan);
 })();
 ```
 
-## Example Output
+## Dependencies
 
-```json
-{
-  "intent": "Add a new function to the code file",
-  "specFile": "/path/to/spec/file.md",
-  "codeFile": "/path/to/code/file.js",
-  "actions": [
-    {
-      "type": "add",
-      "target": "code",
-      "content": "function newFunction() {\n  // Your code here\n}"
-    },
-    {
-      "type": "add",
-      "target": "spec",
-      "content": "## New Function\n\n### `function newFunction()`\n\nThis function does something amazing."
-    }
-  ]
-}
-```
+- `ai.js`: For making API calls to the AI models.
+- `readFileOrNull.js`: For reading the content of the spec and source code files.
+- `computeTokenCost.js`: For computing the token cost of the user's intent.

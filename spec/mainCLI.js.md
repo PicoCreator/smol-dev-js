@@ -1,71 +1,37 @@
-# mainCLI.js
+# mainCLI.js Specification
 
-This file is the entry point for the CLI application. It sets up the CLI commands and initializes the application.
+This file is the main entry point for the CLI application. It sets up the CLI commands and options, and handles user input.
 
-## Table of Contents
+## Dependencies
 
-- [Imports](#imports)
-- [Main Function](#main-function)
-- [Commands](#commands)
-  - [Setup](#setup)
-  - [Run](#run)
-  - [Code2Spec](#code2spec)
+- `sywac`: For creating the CLI interface
+- `chalk`: For styling the CLI output
+- `ai-bridge`: For interacting with the AI models
+- `core/ai.js`: For making API calls to the AI models
+- `cli/MainSywac.js`: For configuring the main Sywac instance
+- `cli/command/run.js`: For the `run` command implementation
+- `cli/command/setup.js`: For the `setup` command implementation
+- `cli/command/code2spec.js`: For the `code2spec` command implementation
 
-## Imports
+## Functions
 
-```javascript
-const sywac = require('sywac');
-const OutputHandler = require('./cli/OutputHandler');
-const setupCommand = require('./cli/command/setup');
-const runCommand = require('./cli/command/run');
-const code2specCommand = require('./cli/command/code2spec');
-```
+### main()
 
-## Main Function
+The main function initializes the CLI interface and sets up the available commands and options.
 
-The main function initializes the CLI application and sets up the commands.
+#### Steps
 
-```javascript
-async function main() {
-  // Initialize CLI application
-  const cli = sywac
-    .style(require('./cli/MainSywac'))
-    .outputSettings({ OutputHandler });
+1. Import the required dependencies.
+2. Create a new Sywac instance using `cli/MainSywac.js`.
+3. Add the `run` command using `cli/command/run.js`.
+4. Add the `setup` command using `cli/command/setup.js`.
+5. Add the `code2spec` command using `cli/command/code2spec.js`.
+6. Parse the user input and execute the corresponding command.
 
-  // Setup commands
-  setupCommand(cli);
-  runCommand(cli);
-  code2specCommand(cli);
+## Example Usage
 
-  // Parse and execute commands
-  await cli.parseAndExit();
-}
-
-main();
-```
-
-## Commands
-
-### Setup
-
-The `setup` command initializes the project and creates necessary files and folders.
-
-```javascript
-setupCommand(cli);
-```
-
-### Run
-
-The `run` command executes the AI developer assistant with the given input.
-
-```javascript
-runCommand(cli);
-```
-
-### Code2Spec
-
-The `code2spec` command generates a spec file based on the given code file.
-
-```javascript
-code2specCommand(cli);
+```sh
+$ node mainCLI.js run
+$ node mainCLI.js setup
+$ node mainCLI.js code2spec
 ```

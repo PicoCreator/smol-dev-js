@@ -1,6 +1,6 @@
-# getMainDevSystemPrompt.js
+# `getMainDevSystemPrompt.js`
 
-This module exports a function that returns the main developer system prompt.
+This module exports a function that generates the main developer system prompt for the CLI.
 
 ## Function Signature
 
@@ -10,15 +10,19 @@ function getMainDevSystemPrompt(): string
 
 ## Description
 
-The function `getMainDevSystemPrompt` returns a string containing the main developer system prompt. This prompt is used as the main message when interacting with the CLI.
+The `getMainDevSystemPrompt` function returns a string containing the main developer system prompt. This prompt is used as the main message when interacting with the CLI.
+
+## Dependencies
+
+- `chalk`: Used for styling the prompt text.
 
 ## Example Usage
 
 ```javascript
 const mainPrompt = getMainDevSystemPrompt();
-console.log(mainPrompt); // "CLI based AI developer, you can use today"
+console.log(mainPrompt);
 ```
 
-## Dependencies
+## Output
 
-- None
+The output will be a styled string containing the main developer system prompt.

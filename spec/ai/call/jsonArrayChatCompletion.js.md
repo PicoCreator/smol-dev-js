@@ -1,23 +1,18 @@
 # jsonArrayChatCompletion.js
 
-This module exports a single function, `jsonArrayChatCompletion`, which takes an array of chat messages in ChatML format and returns a chat completion response from the AI model.
+This module exports a function that takes an array of chat messages in ChatML format and sends it to the AI model for completion.
 
 ## Usage
 
 ```javascript
 const jsonArrayChatCompletion = require('./jsonArrayChatCompletion');
 
-const chatMessages = [
+const chatArray = [
   { role: 'system', content: 'You are a helpful assistant.' },
-  { role: 'user', content: 'What is the weather like today?' },
+  { role: 'user', content: 'Who won the world series in 2020?' },
 ];
 
-const options = {
-  model: 'gpt-4',
-  max_tokens: 1000,
-};
-
-jsonArrayChatCompletion(chatMessages, options)
+jsonArrayChatCompletion(chatArray, options)
   .then((response) => {
     console.log(response.completion);
   })
@@ -29,18 +24,23 @@ jsonArrayChatCompletion(chatMessages, options)
 ## Function Signature
 
 ```javascript
-function jsonArrayChatCompletion(chatMessages: Array, options: Object): Promise
+function jsonArrayChatCompletion(chatArray: Array, options: Object): Promise
 ```
 
 ### Parameters
 
-- `chatMessages` (Array): An array of chat messages in ChatML format.
-- `options` (Object): An object containing options for the AI model, such as `model` and `max_tokens`.
+- `chatArray`: An array of chat messages in ChatML format.
+- `options`: An object containing options for the AI model.
 
 ### Returns
 
-- A Promise that resolves to an object containing the AI model's chat completion response.
+- A Promise that resolves with the AI model's completion response.
 
 ## Dependencies
 
-- `ai.js`: This module uses the `getChatCompletion` function from the `ai.js` module to make API calls to the AI models.
+- `ai.js`: For making API calls to the AI models.
+
+## Notes
+
+- The `options` object can include properties like `model` and `max_tokens` to customize the AI model's behavior.
+- The function uses the `ai.getChatCompletion()` method from `core/ai.js` to send the chatArray to the AI model.

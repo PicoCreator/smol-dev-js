@@ -5,33 +5,36 @@ This module exports a single function `applyOperationFileMapFromPlan` that takes
 ## Function Signature
 
 ```javascript
-async function applyOperationFileMapFromPlan(operationFileMap: OperationFileMap): Promise<void>
+async function applyOperationFileMapFromPlan(operationFileMap: Record<string, string>): Promise<void>
 ```
 
-### Parameters
+## Parameters
 
-- `operationFileMap`: An object containing the file paths as keys and their corresponding operations as values.
+- `operationFileMap`: A record where the keys are file paths and the values are the operations to be applied to the files.
 
-### Description
+## Description
 
-The function iterates through the `operationFileMap` and applies the specified operations to the corresponding files. The operations can be one of the following:
+The function iterates through the keys of the `operationFileMap` and applies the corresponding operation to the file at the given path. The operations can be one of the following:
 
-- Move files or folders
-- Delete files or folders
-- Generate/Edit a code/spec file, with the given instructions
-- Update code/spec from spec/code
+- "move": Moves the file to a new location.
+- "delete": Deletes the file.
+- "update": Updates the file with the new content.
 
-### Usage
+## Dependencies
+
+- `fs.promises`: Used for file system operations like reading, writing, and deleting files.
+- `path`: Used for handling file paths.
+
+## Example Usage
 
 ```javascript
 const operationFileMap = {
-  "src/file1.js": "delete",
-  "src/file2.js": "move",
-  "src/file3.js": "edit",
-  "src/file4.js": "update",
+  "src/oldFile.js": "delete",
+  "src/newFile.js": "move:src/oldFile.js",
+  "src/updateFile.js": "update:New content for the file",
 };
 
 await applyOperationFileMapFromPlan(operationFileMap);
 ```
 
-In the example above, the function will delete `file1.js`, move `file2.js`, edit `file3.js`, and update `file4.js` according to the specified operations in the `operationFileMap`.
+In this example, the function will delete the file at "src/oldFile.js", move the file at "src/newFile.js" to "src/oldFile.js", and update the content of the file at "src/updateFile.js" with "New content for the file".

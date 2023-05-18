@@ -1,41 +1,49 @@
-# `getProjectSettings.js` Specification
+# getProjectSettings.js
 
-This file is responsible for generating a prompt that asks the user for project settings.
+This module exports a function that returns an object containing the project settings.
 
-## Function: `getProjectSettings()`
+## Function Signature
 
-This function should return a prompt object that asks the user for the following project settings:
+```javascript
+function getProjectSettings(): object
+```
 
-1. Project short description
-2. Target Node version
-3. NPM modules installed
-4. Specification file list
-5. Source code file list
-6. List of actions the AI developer can do for the user
+## Description
 
-### Input
+The function reads the project settings from the `package.json` file and returns an object containing the following properties:
 
-None
-
-### Output
-
-- **Type**: `Object`
-- **Description**: A prompt object that asks the user for the project settings.
+- `projectShortDescription`: A string representing the short description of the project.
+- `targetNodeVersion`: A string representing the target Node.js version.
+- `npmModulesInstalled`: An object containing the installed NPM modules and their versions.
+- `specificationFileList`: An array of strings representing the list of specification files in the `specs` folder.
+- `sourceCodeFileList`: An array of strings representing the list of source code files in the `src` folder.
 
 ## Example Usage
 
 ```javascript
-const getProjectSettings = require('./prompt/part/getProjectSettings.js');
+const projectSettings = getProjectSettings();
 
-const projectSettingsPrompt = getProjectSettings();
+console.log(projectSettings);
+/*
+{
+  projectShortDescription: "CLI based AI developer, you can use today",
+  targetNodeVersion: ">=18.0.0",
+  npmModulesInstalled: {
+    "@js-util/config-loader": "^1.2.7",
+    "ai-bridge": "^1.1.1",
+    "chalk": "^4.1.2",
+    "glob": "^10.2.4",
+    "inquirer": "^9.2.3",
+    "prompts": "^2.4.2",
+    "sywac": "^1.3.0"
+  },
+  specificationFileList: [...],
+  sourceCodeFileList: [...]
+}
+*/
 ```
 
 ## Dependencies
 
-- `prompts` NPM module
-
-## Related Files
-
-- `prompt/part/getShortDescription.js`
-- `prompt/part/getProjectFileList.js`
-- `prompt/part/getActionList.js`
+- `fs.promises`: Used to read the `package.json` file.
+- `scanDirectory.js`: Used to scan the `specs` and `src` folders for the list of files.

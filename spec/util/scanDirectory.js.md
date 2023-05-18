@@ -1,19 +1,8 @@
-# `scanDirectory.js` Specification
+# `util/scanDirectory.js`
 
-This module provides a utility function to scan a directory and return a list of files that match a given pattern.
+This module exports a single function `scanDirectory` that takes a directory path and a pattern as arguments and returns a Promise that resolves to an array of file paths that match the given pattern.
 
-## Function: `scanDirectory(directory, pattern)`
-
-### Parameters
-
-- `directory` (string): The directory to scan.
-- `pattern` (string): The pattern to match files against.
-
-### Returns
-
-- A Promise that resolves to an array of file paths that match the given pattern.
-
-### Usage
+## Usage
 
 ```javascript
 const scanDirectory = require('./util/scanDirectory');
@@ -24,7 +13,17 @@ const scanDirectory = require('./util/scanDirectory');
 })();
 ```
 
-### Notes
+## Function: `scanDirectory(directory, pattern)`
 
-- This function uses the `glob` module under the hood to perform the file scanning and pattern matching.
-- The function should be used for scanning files in the project, as it is already implemented and optimized for this purpose.
+### Parameters
+
+- `directory` (string): The path to the directory to scan.
+- `pattern` (string): The glob pattern to match files against.
+
+### Returns
+
+- A Promise that resolves to an array of file paths that match the given pattern.
+
+### Description
+
+This function uses the `glob` module to scan the given directory and match files against the provided pattern. It returns a Promise that resolves to an array of file paths that match the pattern.

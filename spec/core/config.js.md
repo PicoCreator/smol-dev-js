@@ -1,34 +1,53 @@
-# `core/config.js` Specification
+# `core/config.js`
 
-This file is responsible for loading and managing the configuration settings for the AI developer CLI.
-
-## Exports
-
-- `loadConfig()`: A function that loads the configuration settings from the user's project.
-- `saveConfig(config)`: A function that saves the updated configuration settings to the user's project.
+This module is responsible for loading and managing the configuration of the AI Developer CLI.
 
 ## Functions
 
 ### `loadConfig()`
 
-This function reads the configuration file from the user's project and returns the configuration settings as an object.
-
-#### Returns
-
-- `config`: An object containing the configuration settings for the AI developer CLI.
+- Description: Loads the configuration from the `.aidconfig` file in the project root.
+- Returns: `{Object}` - The loaded configuration object.
 
 ### `saveConfig(config)`
 
-This function saves the updated configuration settings to the user's project.
+- Parameters:
+  - `config {Object}` - The configuration object to save.
+- Description: Saves the configuration object to the `.aidconfig` file in the project root.
 
-#### Parameters
+### `getConfigValue(key)`
 
-- `config`: An object containing the updated configuration settings for the AI developer CLI.
+- Parameters:
+  - `key {String}` - The key of the configuration value to retrieve.
+- Returns: `{any}` - The value of the configuration key, or `undefined` if the key does not exist.
 
-#### Returns
+### `setConfigValue(key, value)`
 
-- `Promise`: A promise that resolves when the configuration settings have been saved successfully.
+- Parameters:
+  - `key {String}` - The key of the configuration value to set.
+  - `value {any}` - The value to set for the configuration key.
+- Description: Sets the value of the configuration key and saves the updated configuration.
 
-## Dependencies
+### `removeConfigValue(key)`
 
-- `@js-util/config-loader`: A utility module for loading and saving configuration files.
+- Parameters:
+  - `key {String}` - The key of the configuration value to remove.
+- Description: Removes the configuration key and saves the updated configuration.
+
+## Usage
+
+```javascript
+const config = require('./core/config');
+
+// Load the configuration
+const loadedConfig = config.loadConfig();
+
+// Get a configuration value
+const value = config.getConfigValue('someKey');
+
+// Set a configuration value
+config.setConfigValue('someKey', 'newValue');
+
+// Remove a configuration value
+config.removeConfigValue('someKey');
+```
