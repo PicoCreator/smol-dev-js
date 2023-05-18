@@ -12,7 +12,7 @@ const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt
 /**
  * Generate opening suggestions, at the start of the process
  */
-module.exports = async function updateFileWithPlan(fileType, filePath, plan, depStr) {
+module.exports = async function updateFileWithPlan(fileType, filePath, plan, depStr, commonCtx) {
 	// Build the system prompt
 	// ---
 	let promptArr = [
@@ -29,6 +29,15 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"",
 			"The following is some details of local dependencies which you can use ...",
 			depStr,
+		]);
+	}
+
+	// Add the commonCtx
+	if( commonCtx && commonCtx.length > 0 ) {
+		promptArr.push([
+			"",
+			"The following is some details of common context which you should use ...",
+			commonCtx
 		]);
 	}
 
