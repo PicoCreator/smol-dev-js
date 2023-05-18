@@ -11,29 +11,6 @@ const getPromptBlock = require("../../prompt/builder/getPromptBlock");
  * Given the current plan, prepare the file list
  */
 module.exports = async function prepareCommonContext(srcPathArr) {
-	// Get the src path
-	const srcDir = getSrcDirPath();
-	const srcFile = path.resolve(srcDir, srcPath);
-
-	// Check if src file is in src dir
-	if( !srcFile.startsWith(srcDir) ) {
-		throw new Error("srcPath must be a file in the src directory");
-	}
-
-	// Get the code file
-	let codeFile = "";
-	try {
-		codeFile = (await fs.promises.readFile(srcFile, "utf8")).trim();
-	} catch(e) {
-		// Ignore
-	}
-
-	// Return blank, for blank
-	if( codeFile == "" ) {
-		// Log the request
-		return "";
-	}
-
 	// Get the json stringified filepaths
 	let filepaths_string = JSON.stringify(srcPathArr);
 	
@@ -48,7 +25,7 @@ module.exports = async function prepareCommonContext(srcPathArr) {
 	]
 
 	// Perform the AI request
-	let aiRes = await ai.getCompletion(promptArr.join("\n").trim(), {
+	let aiRes = await ai.getChatCompletion(promptArr.join("\n").trim(), {
 		model: "gpt-4"
 	});
 	// Get the ai response
