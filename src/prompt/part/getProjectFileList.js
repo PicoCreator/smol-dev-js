@@ -30,7 +30,7 @@ module.exports = async function getProjectFileList(includeSrcFiles = true, inclu
 		specFilesPrompt = await scanDirectory(
 			specDirPath,
 			{ 
-				includes: ["**/*.md"],
+				include: ["**/*.md"],
 				treeString:true
 			}
 		);

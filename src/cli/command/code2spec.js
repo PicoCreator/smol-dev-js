@@ -3,40 +3,39 @@ const path = require('path');
 const scanDirectory = require('../../util/scanDirectory');
 const getSrcDirPath = require('../../core/getSrcDirPath');
 const getSpecDirPath = require('../../core/getSpecDirPath');
+const updateSpecSrcFilePair = require('../../ai/seq/updateSpecSrcFilePair');
 
 module.exports = {
 	command: 'code2spec',
 	desc: 'Generate or update spec files based on the source code files',
 	run: async function code2spec(argv, context) {
-		const srcDirPath = getSrcDirPath();
-		const specDirPath = getSpecDirPath();
+
+		// Updating the spec files
+		console.log("🐣 [ai]: Updating the spec files ...");
+
+		// Get the list of source files
+		const config = context.config;
+		const srcFiles = await scanDirectory(srcDirPath, { exclude: config.src_exclude, include: src_include });
 	
-		const srcFiles = await scanDirectory(srcDirPath, { nodir: true });
-	
+		// Async promise array
+		const promiseArr = [];
+
+		// Lets update the spec files in parallel
 		for (const srcFile of srcFiles) {
-			const srcFilePath = path.join(srcDirPath, srcFile);
-			const specFilePath = path.join(specDirPath, srcFile.replace(/\.js$/, '.md'));
-	
-			const fileContent = await fs.readFile(srcFilePath, 'utf8');
-			const fileSummary = `# ${srcFile}\n\n## Summary\n\n- File path: ${srcFilePath}\n\n`;
-			const fileNotes = `## Notes\n\n- Source code file: ${srcFile}\n\n`;
-	
-			let specContent = fileSummary + fileNotes;
-	
-			try {
-				const existingSpecContent = await fs.readFile(specFilePath, 'utf8');
-				const notesIndex = existingSpecContent.indexOf('## Notes');
-	
-				if (notesIndex !== -1) {
-					specContent = existingSpecContent.slice(0, notesIndex) + fileNotes;
-				}
-			} catch (err) {
-				if (err.code !== 'ENOENT') {
-					throw err;
-				}
-			}
-	
-			await fs.writeFile(specFilePath, specContent);
+			console.log(`🐣 [ai]: (async) Updating spec file - ${specFile}`)
+			promiseArr.push(
+				updateSpecSrcFilePair("src", srcFile)
+			);
 		}
+
+		// Wait for all the promises to resolve
+		await Promise.all(promiseArr);
+		console.log(`🐣 [ai]: Finished current set of async spec file update`)
+	
+		// Finish operations
+		// ---
+		// Due to a bug with mongodb hanging connections, 
+		// we need to exit the process, when the process is done
+		process.exit(0);
 	},
 };
