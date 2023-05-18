@@ -11,6 +11,11 @@ module.exports = {
 	desc: 'Generate or update code files based on the spec code files',
 	run: async function spec2code(argv, context) {
 
+		if( getSpecDirPath() == null ) {
+			console.error("[sys]: No spec directory found configured, invalid command - Exiting ...");
+			return;
+		}
+
 		// Updating the spec files
 		console.log("🐣 [ai]: Updating the spec files ...");
 

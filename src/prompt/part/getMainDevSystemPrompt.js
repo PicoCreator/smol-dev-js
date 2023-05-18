@@ -12,6 +12,7 @@ const getActionList = require("./getActionList");
 const getPromptBlock = require("../builder/getPromptBlock");
 const config = require("../../core/config");
 const getProjectSettings = require("./getProjectSettings");
+const getSpecDirPath = require("../../core/getSpecDirPath");
 
 /**
  * Generate opening suggestions, at the start of the process
@@ -37,11 +38,8 @@ module.exports = async function getMainDevSystemPrompt() {
 	];
 
 	// Content of top level specs files
-	if( config.config.spec_dir != null && config.config.spec_dir != "" ) {
-		// Get the spec dir
-		let cwd = process.cwd();
-		let specDir = path.resolve(cwd, config.config.spec_dir);
-		
+	const specDir = getSpecDirPath();
+	if( specDir != null ) {
 		// Get the spec files
 		let specMainReadme = "";
 		let specMainNotes = "";

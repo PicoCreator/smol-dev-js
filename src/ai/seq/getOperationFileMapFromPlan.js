@@ -1,5 +1,6 @@
 // Core deps
 const ai = require("../../core/ai");
+const getSpecDirPath = require("../../core/getSpecDirPath");
 
 // Prompt builder deps
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
@@ -59,6 +60,14 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan) {
 			"list of local src code files, you will need information about (ie. their public interface), when updating the src code files ..."
 		]
 	};
+
+	// Drop the spec related stuff if its disabled
+	if( getSpecDirPath() == null ) {
+		delete EXAMPLE_JSON_FORMAT["1_MOVE_SPEC"];
+		delete EXAMPLE_JSON_FORMAT["2_DEL_SPEC"];
+		delete EXAMPLE_JSON_FORMAT["3_UPDATE_SPEC"];
+		delete EXAMPLE_JSON_FORMAT["4_UPDATE_SPEC"];
+	}
 	
 	// Suggest an incremental change which you can do to improve the project
 	promptArr.push([
