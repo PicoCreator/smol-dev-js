@@ -1,33 +1,50 @@
-# `run.js` Specification
+# Run Command
 
-## Overview
+The `run` command is a CLI command that allows users to execute a specific action on their project.
 
-`run.js` is a CLI command that allows the user to execute a specific action on their project. The command is located in the `cli/command/` folder.
+## Usage
 
-## Dependencies
-
-- `ai-bridge`: For interacting with the AI models
-- `chalk`: For styling console output
-- `inquirer`: For creating interactive prompts
-- `prompts`: For creating simple prompts
-- `core/ai.js`: For making API calls to the AI models
-- `core/config.js`: For accessing project configuration
-- `cli/simplePrompt.js`: For creating simple prompts
-- `util/scanDirectory.js`: For scanning files in the project
-
-## Functionality
-
-1. Parse the command line arguments to determine the action to be performed.
-2. Display a list of available actions to the user if no action is specified.
-3. Use `core/ai.js` to make API calls to the AI models for generating code based on the user's intent.
-4. Use `inquirer` and `prompts` to create interactive prompts for gathering additional information from the user.
-5. Perform the specified action on the project, such as moving, deleting, or updating files.
-6. Display the result of the action to the user using `chalk` for styling.
-
-## Example Usage
-
-```sh
-$ my-ai-dev run move-files
+```
+my-ai-dev run [options] <action>
 ```
 
-This command will prompt the user for the source and destination paths and move the specified files accordingly.
+## Options
+
+- `-f, --file <file>`: Specify the file to perform the action on.
+- `-d, --directory <directory>`: Specify the directory to perform the action on.
+- `-h, --help`: Display help for the `run` command.
+
+## Actions
+
+The following actions are supported by the `run` command:
+
+1. Move files or folders
+2. Delete files or folders
+3. Generate/Edit a code/spec file, with the given instructions
+4. Update code/spec from spec/code
+
+## Examples
+
+### Move a file
+
+```
+my-ai-dev run move -f src/oldFile.js -d src/newFolder/
+```
+
+### Delete a folder
+
+```
+my-ai-dev run delete -d src/oldFolder/
+```
+
+### Generate a new code file
+
+```
+my-ai-dev run generate -f src/newFile.js -i "Create a new file with a simple function"
+```
+
+### Update a spec file from its corresponding code file
+
+```
+my-ai-dev run update-spec -f spec/cli/command/newCommand.js.md
+```

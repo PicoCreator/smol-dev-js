@@ -1,35 +1,36 @@
-# `updateFileWithPlan.js`
+# updateFileWithPlan.js
 
-This module is responsible for updating a file with the given plan.
+This module exports a single function `updateFileWithPlan` that takes a file path and a plan object as arguments, and updates the file according to the plan.
 
-## Function: `updateFileWithPlan(filePath, plan)`
-
-### Parameters
-
-- `filePath` (string): The path of the file to be updated.
-- `plan` (object): The plan object containing the changes to be applied to the file.
-
-### Description
-
-This function takes a file path and a plan object as input. It reads the file, applies the changes specified in the plan, and writes the updated content back to the file.
-
-### Steps
-
-1. Read the content of the file at `filePath` using `fs.promises.readFile`.
-2. Apply the changes specified in the `plan` object to the file content.
-3. Write the updated content back to the file at `filePath` using `fs.promises.writeFile`.
-
-### Example Usage
+## Function Signature
 
 ```javascript
-const updateFileWithPlan = require('./updateFileWithPlan');
+async function updateFileWithPlan(filePath: string, plan: object): Promise<void>
+```
 
-const filePath = './src/example.js';
+## Parameters
+
+- `filePath` (string): The path of the file to be updated.
+- `plan` (object): The plan object containing the instructions for updating the file.
+
+## Description
+
+The `updateFileWithPlan` function reads the file at the given `filePath`, applies the changes specified in the `plan` object, and then writes the updated content back to the file.
+
+## Example Usage
+
+```javascript
+const filePath = './src/someFile.js';
 const plan = {
-  // Plan object containing the changes to be applied to the file
+  insert: [
+    { line: 5, content: 'console.log("Hello, World!");' },
+  ],
+  delete: [
+    { line: 10 },
+  ],
 };
 
-updateFileWithPlan(filePath, plan)
-  .then(() => console.log('File updated successfully'))
-  .catch((error) => console.error('Error updating file:', error));
+await updateFileWithPlan(filePath, plan);
 ```
+
+In this example, the function will insert the content `console.log("Hello, World!");` at line 5 and delete line 10 of the file located at `./src/someFile.js`.

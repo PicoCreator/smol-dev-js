@@ -1,36 +1,28 @@
-# Extract JSON Object
+# extractJsonObject.js
 
-This module provides a function to extract a JSON object from a given string.
-
-## Function Signature
-
-```javascript
-function extractJsonObject(input: string): object | null
-```
-
-## Description
-
-The `extractJsonObject` function takes an input string and attempts to extract a JSON object from it. If successful, it returns the JSON object; otherwise, it returns `null`.
-
-## Parameters
-
-- `input` (string): The input string from which to extract the JSON object.
-
-## Returns
-
-- (object | null): The extracted JSON object if successful, or `null` if no valid JSON object is found.
+This module exports a function `extractJsonObject` that takes a string as input and returns a JSON object if the input string is a valid JSON object. If the input string is not a valid JSON object, it returns `null`.
 
 ## Usage
 
 ```javascript
-const extractJsonObject = require('./prompt/filter/extractJsonObject');
+const extractJsonObject = require('./extractJsonObject');
 
 const input = '{"key": "value"}';
 const jsonObject = extractJsonObject(input);
 
-console.log(jsonObject); // { key: 'value' }
+if (jsonObject) {
+  console.log('Valid JSON object:', jsonObject);
+} else {
+  console.log('Invalid JSON object');
+}
 ```
+
+## Function: extractJsonObject(input)
+
+- **input**: `string` - The input string to be checked for a valid JSON object.
+
+- **Returns**: `Object|null` - Returns a JSON object if the input string is a valid JSON object, otherwise returns `null`.
 
 ## Dependencies
 
-- None
+None.

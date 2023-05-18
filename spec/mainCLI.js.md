@@ -1,37 +1,56 @@
-# mainCLI.js Specification
+# mainCLI.js
 
-This file is the main entry point for the CLI application. It sets up the CLI commands and options, and handles user input.
+This file is the main entry point for the CLI application. It sets up the CLI commands and options using the Sywac library and handles the execution of the commands.
 
 ## Dependencies
 
-- `sywac`: For creating the CLI interface
-- `chalk`: For styling the CLI output
-- `ai-bridge`: For interacting with the AI models
-- `core/ai.js`: For making API calls to the AI models
-- `cli/MainSywac.js`: For configuring the main Sywac instance
-- `cli/command/run.js`: For the `run` command implementation
-- `cli/command/setup.js`: For the `setup` command implementation
-- `cli/command/code2spec.js`: For the `code2spec` command implementation
+- `sywac`: A library for building command line interfaces
+- `chalk`: A library for styling console output
+- `ai-bridge`: A library for interacting with AI models
+- `core/ai.js`: A module for making API calls to AI models
+- `cli/MainSywac.js`: A module for configuring the Sywac CLI
+- `cli/command/setup.js`: A module for the `setup` command
+- `cli/command/run.js`: A module for the `run` command
+- `cli/command/code2spec.js`: A module for the `code2spec` command
 
-## Functions
+## Commands
 
-### main()
+### setup
 
-The main function initializes the CLI interface and sets up the available commands and options.
+The `setup` command initializes the project by creating necessary directories and files.
 
-#### Steps
+### run
 
-1. Import the required dependencies.
-2. Create a new Sywac instance using `cli/MainSywac.js`.
-3. Add the `run` command using `cli/command/run.js`.
-4. Add the `setup` command using `cli/command/setup.js`.
-5. Add the `code2spec` command using `cli/command/code2spec.js`.
-6. Parse the user input and execute the corresponding command.
+The `run` command executes the specified action on the project.
 
-## Example Usage
+### code2spec
 
-```sh
-$ node mainCLI.js run
-$ node mainCLI.js setup
-$ node mainCLI.js code2spec
+The `code2spec` command generates a spec file from a given source code file.
+
+## Usage
+
+1. Import the necessary dependencies.
+2. Configure the Sywac CLI using the `MainSywac.js` module.
+3. Add the `setup`, `run`, and `code2spec` commands to the CLI.
+4. Parse the command line arguments and execute the appropriate command.
+
+## Example
+
+```javascript
+const sywac = require('sywac');
+const chalk = require('chalk');
+const aiBridge = require('ai-bridge');
+const ai = require('./core/ai');
+const MainSywac = require('./cli/MainSywac');
+const setupCommand = require('./cli/command/setup');
+const runCommand = require('./cli/command/run');
+const code2specCommand = require('./cli/command/code2spec');
+
+MainSywac(sywac);
+
+sywac.command(setupCommand);
+sywac.command(runCommand);
+sywac.command(code2specCommand);
+
+sywac.parseAndExit();
 ```

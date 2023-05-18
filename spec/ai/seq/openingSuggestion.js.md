@@ -1,37 +1,43 @@
-# Opening Suggestion
+# openingSuggestion.js
 
-This module is responsible for generating an opening suggestion for the user based on their intent.
+This module exports a single function `openingSuggestion` that takes a `specSrcFilePair` object and returns an opening suggestion for the user.
 
-## Functions
+## Function Signature
 
-### `async function getOpeningSuggestion(intent: string): Promise<string>`
+```javascript
+async function openingSuggestion(specSrcFilePair: SpecSrcFilePair): Promise<string>
+```
 
-This function takes an intent as input and returns a Promise that resolves to a string containing the opening suggestion.
+## Parameters
 
-#### Parameters
+- `specSrcFilePair`: An object containing the spec and source file paths.
 
-- `intent: string` - The user's intent for which the opening suggestion is to be generated.
+## Return Value
 
-#### Returns
+- Returns a Promise that resolves to a string containing the opening suggestion for the user.
 
-- `Promise<string>` - A Promise that resolves to a string containing the opening suggestion.
+## Dependencies
 
-## Usage
+- `ai.getChatCompletion`: A function from `core/ai.js` that takes an array in ChatML format and an options object, and returns a chat completion response.
 
-To use this module, import it and call the `getOpeningSuggestion` function with the user's intent as the argument.
+## Example Usage
 
 ```javascript
 const openingSuggestion = require('./ai/seq/openingSuggestion');
 
 (async () => {
-  const intent = 'create a new file';
-  const suggestion = await openingSuggestion.getOpeningSuggestion(intent);
+  const specSrcFilePair = {
+    specFilePath: '/path/to/spec/file.md',
+    srcFilePath: '/path/to/src/file.js',
+  };
+
+  const suggestion = await openingSuggestion(specSrcFilePair);
   console.log(suggestion);
 })();
 ```
 
-## Dependencies
+## Implementation Notes
 
-This module depends on the following modules:
-
-- `core/ai.js` - For making API calls to the AI models.
+- Use the `ai.getChatCompletion` function to generate the opening suggestion based on the provided `specSrcFilePair`.
+- The `ai.getChatCompletion` function should be called with an array in ChatML format and an options object with the desired model and max tokens.
+- The response from `ai.getChatCompletion` should be used as the opening suggestion.

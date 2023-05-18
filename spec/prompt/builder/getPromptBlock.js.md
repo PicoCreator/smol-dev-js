@@ -1,46 +1,51 @@
-# `getPromptBlock.js` Specification
+# `getPromptBlock.js`
 
-## Overview
+This module exports a single function `getPromptBlock` that takes an object with the following properties:
 
-The `getPromptBlock.js` module is responsible for generating a prompt block based on the given input parameters. The prompt block is a string that represents a formatted block of text to be displayed to the user.
+- `projectSettings`: An object containing the project settings
+- `shortDescription`: A string containing the short description of the project
+- `actionList`: An array of strings representing the list of actions the AI developer can perform
+- `projectFileList`: An array of strings representing the list of project files
+- `aiNotes`: A string containing the AI notes for the overall project
 
-## Functions
+The function returns a string containing the generated prompt block in markdown format.
 
-### `getPromptBlock(promptTitle, promptBody, promptFooter)`
-
-This function takes in three string parameters: `promptTitle`, `promptBody`, and `promptFooter`. It returns a formatted prompt block string.
-
-#### Parameters
-
-- `promptTitle` (string): The title of the prompt block.
-- `promptBody` (string): The main content of the prompt block.
-- `promptFooter` (string): The footer of the prompt block.
-
-#### Return Value
-
-- (string): A formatted prompt block string.
-
-## Example Usage
+## Usage
 
 ```javascript
-const getPromptBlock = require('./getPromptBlock.js');
+const getPromptBlock = require('./getPromptBlock');
 
-const title = 'Welcome to the AI Developer Assistant';
-const body = 'Please choose an action from the list below:';
-const footer = 'Powered by AI';
+const promptBlock = getPromptBlock({
+  projectSettings: { ... },
+  shortDescription: 'CLI based AI developer, you can use today',
+  actionList: [ ... ],
+  projectFileList: [ ... ],
+  aiNotes: '...'
+});
 
-const promptBlock = getPromptBlock(title, body, footer);
 console.log(promptBlock);
 ```
 
-## Output
+## Dependencies
 
-```
-========================================
-Welcome to the AI Developer Assistant
-========================================
-Please choose an action from the list below:
+- `getBlockWrapLine`: A function that takes a string and returns a wrapped line with the given string
+- `getProjectSettings`: A function that takes an object containing the project settings and returns a markdown formatted string
+- `getShortDescription`: A function that takes a string containing the short description and returns a markdown formatted string
+- `getActionList`: A function that takes an array of strings representing the list of actions and returns a markdown formatted string
+- `getProjectFileList`: A function that takes an array of strings representing the list of project files and returns a markdown formatted string
+- `getAiNotes`: A function that takes a string containing the AI notes and returns a markdown formatted string
 
-----------------------------------------
-Powered by AI
+## Function Signature
+
+```javascript
+/**
+ * @param {Object} options - The options object
+ * @param {Object} options.projectSettings - The project settings object
+ * @param {string} options.shortDescription - The short description of the project
+ * @param {string[]} options.actionList - The list of actions the AI developer can perform
+ * @param {string[]} options.projectFileList - The list of project files
+ * @param {string} options.aiNotes - The AI notes for the overall project
+ * @returns {string} - The generated prompt block in markdown format
+ */
+function getPromptBlock(options) { ... }
 ```

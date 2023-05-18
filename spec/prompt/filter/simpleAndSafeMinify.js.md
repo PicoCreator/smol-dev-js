@@ -22,4 +22,4 @@ console.log(minifiedString); // Output: "This is a sample string."
 
 ### Description
 
-The `simpleAndSafeMinify` function takes an input string and removes any extra whitespace characters (spaces, tabs, and newlines) from the beginning and end of the string, as well as any extra spaces between words. The function does not modify any other characters in the input string.
+This function takes an input string and removes any extra spaces, tabs, and newlines, while preserving the original structure of the string. It is designed to be safe for use with any text content, including code and markup languages.

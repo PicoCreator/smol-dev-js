@@ -1,33 +1,33 @@
 # MainSywac
 
-This file is responsible for configuring the Sywac CLI framework and defining the main structure of the CLI application.
-
-## Functions
-
-### configureSywac(sywac)
-
-- **Parameters:**
-  - `sywac`: An instance of the Sywac CLI framework.
-- **Description:** Configures the Sywac CLI framework with the necessary settings and commands for the application.
+This module exports a function that configures the main Sywac instance for the CLI application.
 
 ## Usage
 
-Import the `configureSywac` function and pass an instance of the Sywac CLI framework to it. This will set up the CLI application with the necessary commands and settings.
-
 ```javascript
-const sywac = require('sywac');
-const { configureSywac } = require('./MainSywac');
-
-configureSywac(sywac);
-sywac.parse(process.argv);
+const mainSywac = require('./MainSywac');
+const sywac = mainSywac();
 ```
+
+## Function: mainSywac()
+
+This function initializes and configures the main Sywac instance for the CLI application. It sets up the available commands, options, and their respective descriptions.
+
+### Returns
+
+- `sywac`: The configured Sywac instance.
 
 ## Commands
 
-The following commands are defined in the CLI application:
+The following commands are available in the CLI application:
 
-- `run`: Executes the main functionality of the AI developer assistant.
-- `setup`: Sets up the project for use with the AI developer assistant.
-- `code2spec`: Generates a spec file from a given source code file.
+- `run`: Execute the AI developer assistant.
+- `setup`: Set up the AI developer assistant.
+- `code2spec`: Generate a spec file from a source code file.
 
-Each command is implemented in a separate file within the `cli/command/` directory.
+## Options
+
+The following options are available in the CLI application:
+
+- `-v, --version`: Display the version number of the CLI application.
+- `-h, --help`: Display the help information for the CLI application.

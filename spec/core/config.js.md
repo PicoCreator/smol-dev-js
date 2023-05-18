@@ -1,38 +1,30 @@
 # `core/config.js`
 
-This module is responsible for loading and managing the configuration of the AI Developer CLI.
+This module is responsible for loading and managing the configuration of the AI developer assistant.
 
 ## Functions
 
 ### `loadConfig()`
 
-- Description: Loads the configuration from the `.aidconfig` file in the project root.
+- Description: Loads the configuration from the `config.json` file.
 - Returns: `{Object}` - The loaded configuration object.
 
-### `saveConfig(config)`
+### `getConfig()`
 
+- Description: Returns the current configuration object.
+- Returns: `{Object}` - The current configuration object.
+
+### `setConfig(newConfig)`
+
+- Description: Updates the current configuration object with the provided `newConfig`.
 - Parameters:
-  - `config {Object}` - The configuration object to save.
-- Description: Saves the configuration object to the `.aidconfig` file in the project root.
+  - `newConfig {Object}` - The new configuration object to update the current configuration with.
+- Returns: `undefined`
 
-### `getConfigValue(key)`
+### `saveConfig()`
 
-- Parameters:
-  - `key {String}` - The key of the configuration value to retrieve.
-- Returns: `{any}` - The value of the configuration key, or `undefined` if the key does not exist.
-
-### `setConfigValue(key, value)`
-
-- Parameters:
-  - `key {String}` - The key of the configuration value to set.
-  - `value {any}` - The value to set for the configuration key.
-- Description: Sets the value of the configuration key and saves the updated configuration.
-
-### `removeConfigValue(key)`
-
-- Parameters:
-  - `key {String}` - The key of the configuration value to remove.
-- Description: Removes the configuration key and saves the updated configuration.
+- Description: Saves the current configuration object to the `config.json` file.
+- Returns: `{Promise}` - A promise that resolves when the configuration is saved.
 
 ## Usage
 
@@ -40,14 +32,14 @@ This module is responsible for loading and managing the configuration of the AI 
 const config = require('./core/config');
 
 // Load the configuration
-const loadedConfig = config.loadConfig();
+config.loadConfig();
 
-// Get a configuration value
-const value = config.getConfigValue('someKey');
+// Get the current configuration object
+const currentConfig = config.getConfig();
 
-// Set a configuration value
-config.setConfigValue('someKey', 'newValue');
+// Update the configuration object
+config.setConfig({ key: 'newValue' });
 
-// Remove a configuration value
-config.removeConfigValue('someKey');
+// Save the configuration object to the file
+config.saveConfig();
 ```

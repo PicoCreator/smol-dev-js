@@ -1,40 +1,30 @@
-# Core AI Module
+# core/ai.js
 
-This module provides an interface to interact with AI models using the `ai-bridge` package.
+This module provides a wrapper around the AI models and handles API calls to the AI models.
 
 ## Functions
 
-### getChatCompletion
+### getChatCompletion(arrayInChatMLformat, options)
 
-This function sends a chat message to the AI model and receives a completion response.
+This function takes an array in ChatML format and options as input and returns a chat completion response.
 
-```javascript
-async function getChatCompletion(arrayInChatMLformat, options)
-```
+- `arrayInChatMLformat`: An array of objects in ChatML format.
+- `options`: An object containing options for the API call, such as `model` and `max_tokens`.
 
-**Parameters:**
-
-- `arrayInChatMLformat`: An array of chat messages in ChatML format.
-- `options`: An object containing options for the AI model, such as `model` and `max_tokens`.
-
-**Returns:**
-
-- A Promise that resolves to an object containing the AI model's completion response.
-
-**Example Usage:**
+**Example usage:**
 
 ```javascript
-let res = await getChatCompletion(
-  arrayInChatMLformat,
-  {
-    model: "gpt-4",
-    max_tokens: 1000
-  }
+let res = await ai.getChatCompletion(
+	arrayInChatMLformat, 
+	{ 
+		model: "gpt-4",
+		max_tokens: 1000
+	}
 );
 let responseMsg = res.completion;
 ```
 
 ## Dependencies
 
-- `ai-bridge` package for interacting with AI models.
-- `config-loader` package for loading AI model credentials.
+- `ai-bridge`: For making API calls to the AI models.
+- `config-loader`: For loading the AI credentials.

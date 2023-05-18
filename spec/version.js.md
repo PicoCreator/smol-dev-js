@@ -1,6 +1,10 @@
 # version.js
 
-`version.js` is a module that exports the current version of the CLI based AI developer.
+This module exports the current version of the CLI based AI developer.
+
+## Contents
+
+- [Exports](#exports)
 
 ## Exports
 
@@ -8,11 +12,3 @@
 
 - Type: `string`
 - Description: The current version of the CLI based AI developer.
-
-## Example Usage
-
-```javascript
-const { version } = require('./version.js');
-
-console.log(`CLI based AI developer version: ${version}`);
-```

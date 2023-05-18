@@ -1,30 +1,24 @@
-# `core/getSpecDirPath.js`
+# getSpecDirPath.js
 
-This module exports a function that returns the path to the `spec` directory.
-
-## Function signature
-
-```javascript
-function getSpecDirPath(): string
-```
-
-## Description
-
-The `getSpecDirPath` function returns the path to the `spec` directory, which contains the specification files for the project.
+This module exports a function that returns the path to the `specs` directory.
 
 ## Usage
 
 ```javascript
-const getSpecDirPath = require('./core/getSpecDirPath.js');
-
+const getSpecDirPath = require('./getSpecDirPath');
 const specDirPath = getSpecDirPath();
-console.log(specDirPath); // Outputs the path to the 'spec' directory
 ```
 
-## Dependencies
+## Function: getSpecDirPath
 
-- None
+### Description
 
-## Related files
+Returns the path to the `specs` directory.
 
-- `core/getSrcDirPath.js`: Returns the path to the `src` directory.
+### Parameters
+
+None.
+
+### Returns
+
+- `string`: The path to the `specs` directory.

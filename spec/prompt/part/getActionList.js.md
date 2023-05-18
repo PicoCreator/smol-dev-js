@@ -1,39 +1,25 @@
-# `getActionList.js` Specification
+# `getActionList.js`
 
-This file is responsible for generating a list of actions that the AI developer can perform for the user.
+This module exports a function that returns an array of available actions for the user.
 
-## Function: `getActionList()`
+## Function signature
 
-### Description
+```javascript
+function getActionList(): string[]
+```
 
-This function returns an array of action objects that the AI developer can perform for the user.
+## Description
 
-### Input
+The function returns an array of strings, each representing an available action for the user.
 
-None
-
-### Output
-
-- `Array`: An array of action objects, where each object has the following properties:
-  - `name`: A string representing the name of the action.
-  - `value`: A string representing the value of the action, which will be used internally by the AI developer.
-
-### Example
+## Example
 
 ```javascript
 const actionList = getActionList();
-
 console.log(actionList);
-/*
-[
-  { name: "Move files or folders", value: "move" },
-  { name: "Delete files or folders", value: "delete" },
-  { name: "Generate/Edit a code/spec file, with the given instructions", value: "generate_edit" },
-  { name: "Update code/spec from spec/code", value: "update" }
-]
-*/
+// Output: ['Move files or folders', 'Delete files or folders', 'Generate/Edit a code/spec file, with the given instructions', 'Update code/spec from spec/code']
 ```
 
 ## Dependencies
 
-None
+None.

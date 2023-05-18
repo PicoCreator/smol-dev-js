@@ -1,28 +1,20 @@
-# `getShortDescription.js` Specification
+# getShortDescription.js
 
-## Overview
+This module exports a function that returns the short description of the project.
 
-The `getShortDescription.js` module is responsible for generating a short description of the project. This description will be used in various parts of the CLI to provide context and information to the user.
+## Function Signature
 
-## Function: `getShortDescription()`
+```javascript
+function getShortDescription(): string
+```
 
-### Description
+## Description
 
-This function returns a short description of the project.
-
-### Parameters
-
-None.
-
-### Returns
-
-- **Type**: `string`
-- **Description**: A short description of the project.
+The function returns the short description of the project as a string.
 
 ## Example Usage
 
 ```javascript
-const getShortDescription = require('./getShortDescription.js');
 const shortDescription = getShortDescription();
 console.log(shortDescription); // "CLI based AI developer, you can use today"
 ```

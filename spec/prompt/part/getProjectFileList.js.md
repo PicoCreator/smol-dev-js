@@ -1,34 +1,32 @@
-# `getProjectFileList.js`
+# getProjectFileList.js
 
 This module exports a function that retrieves the list of project files.
 
-## Function Signature
+## Function: getProjectFileList()
+
+### Description
+
+This function scans the project directory and returns a list of all files in the project.
+
+### Parameters
+
+None.
+
+### Returns
+
+- `Array<String>`: An array of file paths relative to the project root.
+
+### Usage
 
 ```javascript
-async function getProjectFileList(): Promise<string[]>
+const getProjectFileList = require('./getProjectFileList');
+const fileList = getProjectFileList();
 ```
 
-## Description
-
-The function scans the project directory and returns an array of file paths.
-
-## Usage
+### Example
 
 ```javascript
-const getProjectFileList = require('./prompt/part/getProjectFileList.js');
-
-(async () => {
-  const fileList = await getProjectFileList();
-  console.log(fileList);
-})();
+const fileList = getProjectFileList();
+console.log(fileList);
+// Output: ['src/ai/call/jsonArrayChatCompletion.js', 'src/cli/MainSywac.js', ...]
 ```
-
-## Dependencies
-
-- `scanDirectory.js`: Utility function to scan the project directory using glob patterns.
-
-## Implementation
-
-1. Import the `scanDirectory` utility function.
-2. Call the `scanDirectory` function with the appropriate glob pattern to match all files in the project.
-3. Return the resulting array of file paths.

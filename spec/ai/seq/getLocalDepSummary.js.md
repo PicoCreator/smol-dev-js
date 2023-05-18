@@ -1,37 +1,32 @@
 # getLocalDepSummary.js
 
-This module is responsible for generating a summary of local dependencies in the project.
+This module exports a single async function `getLocalDepSummary()` that returns a summary of local dependencies in the project.
 
-## Function: getLocalDepSummary()
-
-This function will return an object containing the summary of local dependencies in the project.
-
-### Input
-
-- None
-
-### Output
-
-- An object containing the summary of local dependencies in the project.
-
-### Process
-
-1. Use `scanDirectory.js` to scan the `src` folder for all files.
-2. Filter the files to only include `.js` files.
-3. For each file, read its content using `fs.promises.readFile`.
-4. Extract the local dependencies from the file content.
-5. Create an object containing the summary of local dependencies.
-6. Return the object containing the summary of local dependencies.
-
-### Example
+## Function Signature
 
 ```javascript
-const getLocalDepSummary = require('./getLocalDepSummary.js');
+async function getLocalDepSummary(): Promise<string>
+```
+
+## Description
+
+The function reads the `package.json` file in the project root directory and extracts the local dependencies. It then returns a summary string containing the names and versions of the local dependencies.
+
+## Usage
+
+```javascript
+const getLocalDepSummary = require('./getLocalDepSummary');
 
 (async () => {
-  const localDepSummary = await getLocalDepSummary();
-  console.log(localDepSummary);
+  const summary = await getLocalDepSummary();
+  console.log(summary);
 })();
 ```
 
-This will output an object containing the summary of local dependencies in the project.
+## Dependencies
+
+- `fs.promises`: Used to read the `package.json` file.
+
+## Notes
+
+- The function assumes that the `package.json` file is located in the project root directory.

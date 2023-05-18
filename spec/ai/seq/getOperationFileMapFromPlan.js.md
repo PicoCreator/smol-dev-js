@@ -10,11 +10,11 @@ function getOperationFileMapFromPlan(plan: object): object
 
 ## Parameters
 
-- `plan`: An object representing the plan for the operations to be performed.
+- `plan`: An object representing the plan.
 
 ## Return Value
 
-- Returns an object representing the operation file map.
+- An object representing the operation file map.
 
 ## Example Usage
 
@@ -27,5 +27,9 @@ const operationFileMap = getOperationFileMapFromPlan(plan);
 ```
 
 ## Dependencies
+
+- None
+
+## Notes
 
 - None

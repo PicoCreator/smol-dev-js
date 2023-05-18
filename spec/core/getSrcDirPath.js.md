@@ -1,29 +1,25 @@
-# `core/getSrcDirPath.js`
+# getSrcDirPath.js
 
-This module exports a function that returns the path to the `src` directory of the project.
-
-## Function signature
-
-```javascript
-function getSrcDirPath(): string
-```
+This module exports a function that returns the path to the `src` directory.
 
 ## Usage
 
 ```javascript
+const getSrcDirPath = require('./getSrcDirPath');
+
 const srcDirPath = getSrcDirPath();
 ```
 
-## Description
+## Function: getSrcDirPath
 
-The `getSrcDirPath` function returns the path to the `src` directory of the project. This is useful for accessing and manipulating source code files within the project.
+### Description
 
-## Example
+Returns the path to the `src` directory.
 
-```javascript
-const path = require('path');
-const getSrcDirPath = require('./core/getSrcDirPath');
+### Parameters
 
-const srcDirPath = getSrcDirPath();
-console.log(srcDirPath); // Outputs: "/home/coder/project/ec-proj/my-ai-dev/src"
-```
+None.
+
+### Returns
+
+- **string** - The path to the `src` directory.

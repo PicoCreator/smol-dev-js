@@ -1,41 +1,40 @@
-# Setup Command Specification
+# Setup Command
 
-## Description
-
-The `setup` command initializes the project with the necessary configuration and folder structure.
+The `setup` command is responsible for initializing the project and setting up the necessary configurations.
 
 ## Usage
 
+```sh
+my-ai-dev setup
 ```
-my-ai-dev setup [options]
-```
 
-## Options
+## Implementation
 
-- `-f, --force`: Force the setup process, overwriting any existing configuration files.
+The `setup` command is implemented in the `src/cli/command/setup.js` file.
 
-## Behavior
+### Dependencies
 
-1. Check if the project already has a configuration file (`.my-ai-dev-config.json`). If it exists and the `--force` option is not provided, display an error message and exit the process.
-2. Prompt the user for the following project settings:
-   - Project short description
+- `inquirer`: Used for prompting the user for input during the setup process.
+- `fs.promises`: Used for reading and writing files during the setup process.
+- `core/config.js`: Used for managing the project configuration.
+- `util/scanDirectory.js`: Used for scanning the project directory for files.
+
+### Functionality
+
+1. Prompt the user for the following information:
+   - Project name
+   - Project description
    - Target Node version
    - NPM modules to be installed
-3. Create the `.my-ai-dev-config.json` file with the provided settings.
-4. Create the `specs` and `src` folders if they do not exist.
-5. Display a success message indicating that the setup process is complete.
+2. Create a new directory for the project, if it does not already exist.
+3. Write the user's input to a `config.json` file in the project directory.
+4. Scan the project directory for existing files and folders.
+5. If any existing files or folders are found, prompt the user to confirm if they want to overwrite them.
+6. If the user confirms, delete the existing files and folders.
+7. Generate the necessary project files and folders based on the user's input.
+8. Install the specified NPM modules.
+9. Display a success message to the user.
 
-## Example
+## Error Handling
 
-```
-> my-ai-dev setup
-
-Project short description: CLI based AI developer, you can use today
-Target Node version: >=18.0.0
-NPM modules to be installed: @js-util/config-loader, ai-bridge, chalk, glob, inquirer, prompts, sywac
-
-Configuration file created: .my-ai-dev-config.json
-Folders created: specs, src
-
-Setup complete!
-```
+- If there is an error during the setup process, display an error message to the user and exit the process.

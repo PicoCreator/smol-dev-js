@@ -1,29 +1,28 @@
-# Extract JSON Array
+# extractJsonArray.js
 
-This module provides a function to extract a JSON array from a given string.
+This module exports a function `extractJsonArray` that takes a string as input and returns an array of JSON objects.
 
-## Function: extractJsonArray
-
-### Parameters
-
-- `inputString` (string): The input string from which the JSON array needs to be extracted.
-
-### Returns
-
-- (Array | null): Returns the extracted JSON array if found, otherwise returns null.
-
-### Usage
+## Usage
 
 ```javascript
-const extractJsonArray = require('./prompt/filter/extractJsonArray');
+const extractJsonArray = require('./extractJsonArray');
 
-const inputString = '[{"key": "value"}, {"key2": "value2"}]';
-const jsonArray = extractJsonArray(inputString);
+const input = '[{"key1": "value1"}, {"key2": "value2"}]';
+const output = extractJsonArray(input);
 
-console.log(jsonArray); // Output: [{"key": "value"}, {"key2": "value2"}]
+console.log(output); // [{key1: "value1"}, {key2: "value2"}]
 ```
 
-### Notes
+## Function: extractJsonArray(input)
 
-- The function uses a regular expression to match and extract the JSON array from the input string.
-- If multiple JSON arrays are present in the input string, only the first one will be extracted.
+- **input**: `string` - A string containing a JSON array.
+
+- **returns**: `Array` - An array of JSON objects extracted from the input string.
+
+### Description
+
+The `extractJsonArray` function takes a string as input and attempts to parse it as a JSON array. If the input is a valid JSON array, the function returns an array of JSON objects. If the input is not a valid JSON array, the function returns an empty array.
+
+## Error Handling
+
+If the input string is not a valid JSON array, the function will return an empty array.

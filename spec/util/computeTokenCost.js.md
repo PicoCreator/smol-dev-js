@@ -1,6 +1,6 @@
 # `util/computeTokenCost.js`
 
-This module exports a single function, `computeTokenCost`, which calculates the token cost of a given string.
+This module exports a single function `computeTokenCost` that calculates the token cost of a given string.
 
 ## Function: `computeTokenCost(text)`
 
@@ -14,20 +14,19 @@ This module exports a single function, `computeTokenCost`, which calculates the 
 
 ### Description
 
-The `computeTokenCost` function takes a string as input and calculates its token cost based on the number of characters in the string. It returns the calculated token cost as a number.
+This function takes a string as input and calculates the token cost by counting the number of characters in the string. It returns the token cost as a number.
 
 ### Example
 
 ```javascript
-const computeTokenCost = require('./util/computeTokenCost.js');
+const computeTokenCost = require('./util/computeTokenCost');
 
 const text = "Hello, world!";
 const cost = computeTokenCost(text);
 
-console.log(cost); // Output: 13
+console.log(cost); // 13
 ```
 
-### Related Files
+### Dependencies
 
-- `ai/seq/getLocalDepSummary.js`: Uses `computeTokenCost` to calculate token costs for various text inputs.
-- `ai/seq/planDraft.js`: Utilizes `computeTokenCost` to estimate token costs for different parts of the plan.
+- None

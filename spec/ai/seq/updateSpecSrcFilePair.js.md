@@ -1,37 +1,53 @@
-# `updateSpecSrcFilePair.js`
+# updateSpecSrcFilePair.js
 
-This module is responsible for updating the spec and source file pairs based on the user's intent.
+This module exports a single function `updateSpecSrcFilePair` that updates the spec and source code files based on the given instructions.
 
-## Functions
+## Function Signature
 
-### `async updateSpecSrcFilePair(specFilePath, srcFilePath, intent)`
+```javascript
+async function updateSpecSrcFilePair(specFilePath, srcFilePath, instructions)
+```
 
-Updates the spec and source file pair based on the user's intent.
+### Parameters
 
-#### Parameters
+- `specFilePath` (string): The path to the spec file that needs to be updated.
+- `srcFilePath` (string): The path to the source code file that needs to be updated.
+- `instructions` (object): An object containing the instructions for updating the spec and source code files.
 
-- `specFilePath` (string): The path to the spec file.
-- `srcFilePath` (string): The path to the source file.
-- `intent` (string): The user's intent for the update.
+### Returns
 
-#### Returns
+- A Promise that resolves to an object containing the updated spec and source code files.
 
-- `Promise<void>`: A promise that resolves when the update is complete.
+## Instructions Object
 
-## Usage
+The `instructions` object should have the following properties:
+
+- `specUpdate` (string): The instructions for updating the spec file.
+- `srcUpdate` (string): The instructions for updating the source code file.
+
+## Example Usage
 
 ```javascript
 const updateSpecSrcFilePair = require('./updateSpecSrcFilePair');
 
-await updateSpecSrcFilePair(specFilePath, srcFilePath, intent);
+const specFilePath = './spec/ai/seq/updateSpecSrcFilePair.js.md';
+const srcFilePath = './src/ai/seq/updateSpecSrcFilePair.js';
+
+const instructions = {
+  specUpdate: 'Update the spec file with the new function signature.',
+  srcUpdate: 'Add a new function to handle the spec update.',
+};
+
+updateSpecSrcFilePair(specFilePath, srcFilePath, instructions)
+  .then((updatedFiles) => {
+    console.log('Updated spec and source code files:', updatedFiles);
+  })
+  .catch((error) => {
+    console.error('Error updating spec and source code files:', error);
+  });
 ```
 
-## Example
+## Dependencies
 
-```javascript
-const specFilePath = '/path/to/spec/file.md';
-const srcFilePath = '/path/to/src/file.js';
-const intent = 'Add a new function to handle user input';
-
-await updateSpecSrcFilePair(specFilePath, srcFilePath, intent);
-```
+- `fs.promises`: Used for reading and writing spec and source code files.
+- `path`: Used for handling file paths.

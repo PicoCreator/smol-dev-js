@@ -1,6 +1,6 @@
 # jsonArrayChatCompletion.js
 
-This module exports a function that takes an array of chat messages in ChatML format and sends it to the AI model for completion.
+This module exports a single function `jsonArrayChatCompletion` that takes an array of chat messages in ChatML format and returns a chat completion response from the AI model.
 
 ## Usage
 
@@ -12,7 +12,7 @@ const chatArray = [
   { role: 'user', content: 'Who won the world series in 2020?' },
 ];
 
-jsonArrayChatCompletion(chatArray, options)
+jsonArrayChatCompletion(chatArray)
   .then((response) => {
     console.log(response.completion);
   })
@@ -21,26 +21,28 @@ jsonArrayChatCompletion(chatArray, options)
   });
 ```
 
-## Function Signature
+## Function: jsonArrayChatCompletion(chatArray, options)
+
+- `chatArray` (Array): An array of chat messages in ChatML format.
+- `options` (Object, optional): An object containing options for the AI model.
+  - `model` (String, optional): The AI model to use. Default is "gpt-4".
+  - `max_tokens` (Number, optional): The maximum number of tokens to generate. Default is 1000.
+
+Returns a Promise that resolves to an object containing the chat completion response from the AI model.
+
+### Example
 
 ```javascript
-function jsonArrayChatCompletion(chatArray: Array, options: Object): Promise
+const chatArray = [
+  { role: 'system', content: 'You are a helpful assistant.' },
+  { role: 'user', content: 'Who won the world series in 2020?' },
+];
+
+jsonArrayChatCompletion(chatArray, { model: 'gpt-4', max_tokens: 1000 })
+  .then((response) => {
+    console.log(response.completion);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 ```
-
-### Parameters
-
-- `chatArray`: An array of chat messages in ChatML format.
-- `options`: An object containing options for the AI model.
-
-### Returns
-
-- A Promise that resolves with the AI model's completion response.
-
-## Dependencies
-
-- `ai.js`: For making API calls to the AI models.
-
-## Notes
-
-- The `options` object can include properties like `model` and `max_tokens` to customize the AI model's behavior.
-- The function uses the `ai.getChatCompletion()` method from `core/ai.js` to send the chatArray to the AI model.
