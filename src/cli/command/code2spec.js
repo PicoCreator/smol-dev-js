@@ -28,9 +28,15 @@ module.exports = {
 
 		// Lets update the spec files in parallel
 		for (const srcFile of srcFiles) {
+			// Skip folders
+			if (srcFile.endsWith("/")) {
+				continue;
+			}
+
+			// Update the spec file
 			console.log(`🐣 [ai]: (async) Updating spec file - ${srcFile}.md`)
 			promiseArr.push(
-				updateSpecSrcFilePair("src", srcFile)
+				updateSpecSrcFilePair("spec", srcFile+".md")
 			);
 		}
 

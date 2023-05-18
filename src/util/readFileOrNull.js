@@ -8,7 +8,7 @@ const path = require('path');
  */
 module.exports = async function readFileOrNull(filepath, fallback = null) {
     try {
-        return fs.promises.readFile(filepath, "utf8");
+        return await fs.promises.readFile(filepath, "utf8");
     } catch(e) {
         // do nothing
     }

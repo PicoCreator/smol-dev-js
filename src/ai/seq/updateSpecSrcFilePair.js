@@ -3,6 +3,7 @@ const path = require('path');
 const ai = require('../../core/ai');
 const getSpecDirPath = require('../../core/getSpecDirPath');
 const getSrcDirPath = require('../../core/getSrcDirPath');
+const getPromptBlock = require('../../prompt/builder/getPromptBlock');
 const getMainDevSystemPrompt = require('../../prompt/part/getMainDevSystemPrompt');
 const readFileOrNull = require('../../util/readFileOrNull');
 
@@ -34,8 +35,8 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 	let fullSpecFilePath = path.join(getSpecDirPath(), specFilePath);
 
 	// Lets try to read the respective file
-	let srcFileContent = readFileOrNull(fullSrcFilePath, "");
-	let specFileContent = readFileOrNull(fullSpecFilePath, "");
+	let srcFileContent = await readFileOrNull(fullSrcFilePath, "");
+	let specFileContent = await readFileOrNull(fullSpecFilePath, "");
 
 	// Build the system prompt
 	// ---
