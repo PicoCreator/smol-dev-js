@@ -134,7 +134,6 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 		await fs.mkdir(path.dirname(fullSpecFilePath), { recursive: true });
 		await fs.writeFile(fullSpecFilePath, res.completion, "utf8");
 	}
-	
 }
 
 module.exports = updateSpecSrcFilePair;
