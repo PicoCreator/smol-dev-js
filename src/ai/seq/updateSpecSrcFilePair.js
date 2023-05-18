@@ -48,12 +48,45 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 
 	// Lets prepare the respective prompt
 	if(fileType === 'src') {
-		throw "@TODO support for src files"
+		// Add the src file
+		promptArr.push([
+			"",
+			getPromptBlock(`The following is the current src file '${filePath}' (to be updated)`, srcFileContent),
+			"",
+			getPromptBlock(`And its corresponding source spec file, to be used as reference (for updating the spec)`, specFileContent),
+			"",
+			"Now that you have gotten all the details above",
+			"",
+			"Only write valid code for the given filepath and file type, and return only the code",
+			"do not add any other explanation, only return valid code for that file type",
+			"",
+			"We have already broken up the program into per-file generation",
+			`Now your job is to generate only the code for the file '${filePath}'`,
+			"Make sure to have consistent filenames if you reference other files we are also generating",
+			"",
+			"Include high level comments for the code you are generating",
+			"Use TAB based indentation for the updated code",
+			"",
+			"Remember that you must obey 3 things: ",
+			`	- you are generating code for the file ${filePath}`,
+			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`,
+			`	- MOST IMPORTANT OF ALL: every line of code you generate must be valid code. Do not include code fences in your response`,
+			"",
+			"This is a Bad response:",
+			"```javascript",
+			'console.log("hello world")',
+			"```",
+			"",
+			"This is a Good response:",
+			'console.log("hello world")',
+			"",
+			"Begin generating the code now."
+		]);
 	} else {
 		// Add the spec file
 		promptArr.push([
 			"",
-			getPromptBlock(`The following is the current ${fileType} file '${filePath}' (to be updated)`, fullSpecFilePath),
+			getPromptBlock(`The following is the current spec file '${filePath}' (to be updated)`, specFileContent),
 			"",
 			getPromptBlock(`And its corresponding source code file, to be used as reference (for updating the spec)`, srcFileContent),
 			"",
@@ -95,7 +128,8 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 
 	// Update the respective file
 	if(fileType === 'src') {
-		throw "@TODO support for src files"
+		await fs.mkdir(path.dirname(fullSrcFilePath), { recursive: true });
+		await fs.writeFile(fullSrcFilePath, res.completion, "utf8");
 	} else {
 		await fs.mkdir(path.dirname(fullSpecFilePath), { recursive: true });
 		await fs.writeFile(fullSpecFilePath, res.completion, "utf8");
