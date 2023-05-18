@@ -1,6 +1,7 @@
-const fs = require("fs")
-const path = require("path")
+const fs = require("fs");
+const path = require("path");
 const getPromptBlock = require("../builder/getPromptBlock");
+const readFileOrNull = require("../../util/readFileOrNull");
 
 /**
  * Get the AI working notes
@@ -17,21 +18,16 @@ module.exports = async function getAiNotes() {
 	];
 
 	// Get the ROOT AI notes
-	let rootNoteMD = "";
-	try {
-		rootNoteMD = await fs.promises.readFile(
-			path.resolve(notesDir, "./AI-NOTES.md"), 
-			"utf-8"
-		);
-	} catch(e) {
-		// Do nothing
-	}
+	const rootNoteMDPath = path.resolve(notesDir, "./AI-NOTES.md");
+	const rootNoteMD = await readFileOrNull(rootNoteMDPath, "utf-8");
 
-	// Add the root note
-	returnStringArr.push(
-		await getPromptBlock("'AI notes' for the overall project", rootNoteMD)
-	);
+	// Add the root note if it exists
+	if (rootNoteMD) {
+		returnStringArr.push(
+			await getPromptBlock("'AI notes' for the overall project", rootNoteMD)
+		);
+	}
 
 	// Return the joint string
 	return returnStringArr.join("\n\n").trim();
-}
+};
