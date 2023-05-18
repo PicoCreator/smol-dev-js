@@ -14,8 +14,13 @@ module.exports = {
 		console.log("🐣 [ai]: Updating the spec files ...");
 
 		// Get the list of source files
-		const config = context.config;
-		const srcFiles = await scanDirectory(srcDirPath, { exclude: config.src_exclude, include: src_include });
+		const srcFiles = await scanDirectory(
+			getSrcDirPath(), 
+			{ 
+				exclude: config.config?.src_exclude, 
+				include: config.config?.src_include 
+			}
+		);
 	
 		// Async promise array
 		const promiseArr = [];
