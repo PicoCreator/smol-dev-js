@@ -93,7 +93,7 @@ module.exports = async function updateNotes(addditionalInfo) {
 
 	// Get the CWD & notes dir
 	const cwd = process.cwd();
-	const notesDir = path.resolve(cwd, "./.my-ai-dev/");
+	const notesDir = path.resolve(cwd, "./.smol-dev-js/");
 
 	// Lets perform the notes update
 	await fs.promises.writeFile(path.resolve(notesDir,"AI-NOTES.md"), notes, "utf-8")

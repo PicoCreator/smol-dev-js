@@ -38,7 +38,7 @@ module.exports = async function getProjectFileList(includeSrcFiles = true, inclu
 
 	// Get the src files inclusion and exclusion
 	let srcFilesIncludes = config.config.src_include || ["**"];
-	let srcFilesExcludes = config.config.src_exclude || [".*", "**/node_modules/**", "**/build/**", "**/bin/**"];
+	let srcFilesExcludes = config.config.src_exclude || [".*", "**/node_modules/**", "**/build/**", "**/bin/**", "**/.*"];
 
 	// If spec dir is configured, we need to exclude it via relative pathing
 	if( specDirPath ) {
@@ -85,7 +85,7 @@ module.exports = async function getProjectFileList(includeSrcFiles = true, inclu
 	let tokenCount = await ai.getTokenCount(returnString);
 	let tokenLimit = config.config.limits?.FILE_LIST || 1000;
 	if( tokenCount > tokenLimit ) {
-		throw `File list exceeds token limit of ${tokenLimit} - make changes to the '.my-ai-dev/config.json' src_include / src_exclude to reduce the file list`;
+		throw `File list exceeds token limit of ${tokenLimit} - make changes to the '.smol-dev-js/config.json' src_include / src_exclude to reduce the file list`;
 	}
 
 	// Return the built prompt string

@@ -41,7 +41,7 @@ module.exports = {
 		if(packageJson) {
 			OutputHandler.standard("[sys] Found package.json, using it for default values");
 		} else {
-			OutputHandler.standardRed("[sys] Missing package.json, while this is not required, `my-ai-dev` is optimized only for nodejs projects")
+			OutputHandler.standardRed("[sys] Missing package.json, while this is not required, `smol-dev-js` is optimized only for nodejs projects")
 		}
 
 		// Lets extract the existing description
@@ -104,21 +104,21 @@ module.exports = {
 		configValues.src_exclude = configValues.src_exclude || ["**/.*", "**/*.bin", "**/node_modules/**", "**/build/**", "**/bin/**"]
 
 		// Lets write the config file
-		await fs.promises.writeFile(process.cwd()+"/.my-ai-dev/config/aibridge.json", JSON.stringify( aibridgeConfig, null, "	" ));
-		await fs.promises.writeFile(process.cwd()+"/.my-ai-dev/config/config.json", JSON.stringify( configValues, null, "	" ));
+		await fs.promises.writeFile(process.cwd()+"/.smol-dev-js/config/aibridge.json", JSON.stringify( aibridgeConfig, null, "	" ));
+		await fs.promises.writeFile(process.cwd()+"/.smol-dev-js/config/config.json", JSON.stringify( configValues, null, "	" ));
 
 		// Check that its removed from .gitignore and .npmignore
 		let gitIgnore = await readFileOrNull(process.cwd()+"/.gitignore", "");
 		let npmIgnore = await readFileOrNull(process.cwd()+"/.npmignore", "");
 
-		// Check if .my-ai-dev is present
-		if( gitIgnore.indexOf(".my-ai-dev") === -1 ) {
-			OutputHandler.standard("[sys] Adding .my-ai-dev to .gitignore");
-			await fs.promises.appendFile(process.cwd()+"/.gitignore", "\n.my-ai-dev");
+		// Check if .smol-dev-js is present
+		if( gitIgnore.indexOf(".smol-dev-js") === -1 ) {
+			OutputHandler.standard("[sys] Adding .smol-dev-js to .gitignore");
+			await fs.promises.appendFile(process.cwd()+"/.gitignore", "\n.smol-dev-js");
 		}
-		if( npmIgnore.indexOf(".my-ai-dev") === -1 ) {
-			OutputHandler.standard("[sys] Adding .my-ai-dev to .npmignore");
-			await fs.promises.appendFile(process.cwd()+"/.npmignore", "\n.my-ai-dev");
+		if( npmIgnore.indexOf(".smol-dev-js") === -1 ) {
+			OutputHandler.standard("[sys] Adding .smol-dev-js to .npmignore");
+			await fs.promises.appendFile(process.cwd()+"/.npmignore", "\n.smol-dev-js");
 		}
 
 		// Due to a bug with mongodb hanging connections, 

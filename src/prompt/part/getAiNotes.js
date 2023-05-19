@@ -9,7 +9,7 @@ const readFileOrNull = require("../../util/readFileOrNull");
 module.exports = async function getAiNotes() {
 	// Get the CWD & notes dir
 	const cwd = process.cwd();
-	const notesDir = path.resolve(cwd, "./.my-ai-dev/");
+	const notesDir = path.resolve(cwd, "./.smol-dev-js/");
 
 	// The final return string arr to build
 	let returnStringArr = [

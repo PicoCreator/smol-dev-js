@@ -8,7 +8,7 @@ const ConfigLoader = require("@js-util/config-loader")
 const cwd = process.cwd();
 const config = new ConfigLoader({
 	configDirList:[
-		path.join(cwd, ".my-ai-dev/config/"),
+		path.join(cwd, ".smol-dev-js/config/"),
 	],
 	fileList: [],
 	default: {
@@ -39,7 +39,7 @@ const config = new ConfigLoader({
 				// Local dir, to store multiple jsonl files, which is used for caching
 				"localJsonlDir": {
 					"enable": true,
-					"path": "./.my-ai-dev/ai-cache"
+					"path": "./.smol-dev-js/ai-cache"
 				},
 				
 				// MongoDB connection, to store and query cached completion request
