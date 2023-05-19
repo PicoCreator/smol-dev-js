@@ -1,5 +1,6 @@
 // Dependencies
 const aiBridge = require("../../core/aiBridge");
+const config = require("../../core/config");
 
 /**
  * Get the completion of a chat (this is based on aiBridge and is a wrapper for it)
@@ -12,15 +13,23 @@ const aiBridge = require("../../core/aiBridge");
  * @param {Number} tempKey to use, automatically generated if -1
  */
 module.exports = async function getChatCompletion(messages, promptOpts = {}, streamListener = null, cacheGrp = "default", tempKey = -1) {
-    // Get the model class
-    let model = promptOpts.model;
+	// Get the model class
+	let model = promptOpts.model;
 
-    // And decide what we should use
-    if( model == "gpt-4" || model == "smart" ) {
-        model = "gpt-4";
-    } else if( model == "economical" ) {
-        model = "gpt-4e"
-    }
+	// And decide what we should use
+	if( config.config?.provider == "anthropic" ) {
+		model = "claude-v1-100k"
+	} else {
+		if( model == "gpt-4" || model == "smart" ) {
+			model = "gpt-4";
+		} else if( model == "economical" ) {
+			model = "gpt-4e"
+		}	
+	}
 
-    return await aiBridge.getChatCompletion(messages, promptOpts, streamListener, cacheGrp, tempKey);
+	// Override the config
+	promptOpts.model = model;
+
+	// And execute
+	return await aiBridge.getChatCompletion(messages, promptOpts, streamListener, cacheGrp, tempKey);
 }

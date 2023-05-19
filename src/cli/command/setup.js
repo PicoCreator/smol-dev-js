@@ -10,6 +10,7 @@ const prompts = require('prompts');
 const config = require("../../core/config");
 const readFileOrNull = require("../../util/readFileOrNull");
 const OutputHandler = require("../OutputHandler");
+const simplePrompt = require("../simplePrompt");
 
 //--------------
 //
@@ -27,9 +28,78 @@ module.exports = {
 	
 	// Execute the run command
 	run: async (argv, context) => {
+
+		// --------------
+		//
+		// Lets handle API keys choices
+		// - anthropic API key
+		// - openAI API key
+		//
+		// --------------
+
+		// Reused var declar
+		let promptConfig = null;
+
+		// Lets ask which provider they want to use
+		promptConfig = await simplePrompt([
+			{
+				type: 'select',
+				name: 'provider',
+				message: 'Which provider do you want to use?',
+				choices: [
+					{ title: 'OpenAI', value: 'openai' },
+					{ title: 'Anthropic (preferred)', value: 'anthropic' },
+				],
+				initial: 0
+			}
+		]);
+
+		// Lets update the config for the selection
+		let provider = promptConfig.provider;
+		config.config.provider = provider;
+
+		// Lets ask for the API key
+		if( provider == "anthropic" ) {
+			promptConfig = await simplePrompt([
+				{
+					type: 'password',
+					name: 'anthropic_key',
+					message: 'Anthropic API Key (leave blank to use existing, if any)',
+				}
+			]);
+
+			// Lets update the apikey value
+			config.aibridge.provider.anthropic = promptConfig.anthropic_key;
+		} else if( provider == "openai" ) {
+			promptConfig = await simplePrompt([
+				{
+					type: 'password',
+					name: 'openai_key',
+					message: 'OpenAI API Key (leave blank to use existing, if any)',
+				}
+			]);
+
+			// Lets update the apikey value
+			config.aibridge.provider.openai = promptConfig.openai_key;
+		}
+
+		// Lets ask for the preferred concurrent rate limit
+		promptConfig = await simplePrompt([
+			{
+				type: 'number',
+				name: 'concurrent_rate_limit',
+				message: 'Max AI workers (recommended 1 for anthropic trial, 2 for openai)',
+				initial: config.aibridge.providerRateLimit || 1
+			}
+		]);
+		// Lets update the rate limit
+		config.aibridge.providerRateLimit = promptConfig.concurrent_rate_limit;
+
+		// --------------
 		// Check if there is package.json in the CWD
 		// if it exists lets read it for default values
 		// else default to null
+		// --------------
 		let packageJson = null;
 		try {
 			packageJson = require(process.cwd()+"/package.json");
@@ -53,17 +123,11 @@ module.exports = {
 		}
 
 		// Lets ask the user for the following key values
-		// - openAI API key
 		// - description of the project
 		// - spec_dir (if enabled)
 
 		// Ask for the openAI API key
-		let promptConfig = await prompts([
-			{
-				type: 'password',
-				name: 'openai_key',
-				message: 'OpenAI API Key (leave blank to use existing, if any)',
-			},
+		promptConfig = await prompts([
 			{
 				type: 'text',
 				name: 'short_description',

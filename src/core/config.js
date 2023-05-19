@@ -34,8 +34,8 @@ const config = new ConfigLoader({
 				openai: "<CHANGE TO YOUR OPENAI KEY>"
 			},
 			
-			// Number of provider requests that can occur concurrently
-			providerRateLimit: 2,
+			// // Number of provider requests that can occur concurrently
+			// providerRateLimit: 1,
 			
 			// Latency delay between request, to be used with rate limit, to further "tune down"
 			providerLatencyAdd: 0,
