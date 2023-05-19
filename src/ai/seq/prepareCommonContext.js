@@ -32,7 +32,7 @@ module.exports = async function prepareCommonContext(currentPlan, srcPathArr, lo
 		`The files we have decided to generate are: ${filepaths_string}`,
 		"",
 		"The following is some details of local dependencies which you can use ...",
-		depStr,
+		localDepSummaryStrSet,
 		"",
 		"Now that we have a list of files, we need to understand what dependencies they share",
 		"Please name and briefly describe what is shared between the files we are generating, including exported variables, data schemas, id names of every DOM elements that javascript functions will use, message names, and function names",
