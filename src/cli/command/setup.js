@@ -76,7 +76,7 @@ module.exports = {
 			if( promptConfig.anthropic_key && promptConfig.anthropic_key.length > 0) {
 				aibridgeConfig.provider.anthropic = promptConfig.anthropic_key;
 			}
-			if( aibridgeConfig.provider.anthropic.length == 0 ) {
+			if( aibridgeConfig.provider.anthropic == null || aibridgeConfig.provider.anthropic.length == 0 ) {
 				OutputHandler.standardRed("[sys] No API key provided, please update the config manually later")
 			}
 		} else if( provider == "openai" ) {
@@ -92,7 +92,7 @@ module.exports = {
 			if( promptConfig.openai_key && promptConfig.openai_key.length > 0 ) {
 				aibridgeConfig.provider.openai = promptConfig.openai_key;
 			}
-			if( aibridgeConfig.provider.openai.length == 0 ) {
+			if( aibridgeConfig.provider.openai == null || aibridgeConfig.provider.openai.length == 0 ) {
 				OutputHandler.standardRed("[sys] No API key provided, please update the config manually later")
 			}
 		}
