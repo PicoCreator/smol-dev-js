@@ -1,6 +1,5 @@
 // Core deps
 const fs = require("fs")
-const ai = require("../../core/ai");
 const simplePrompt = require("../../cli/simplePrompt");
 const getSpecDirPath = require("../../core/getSpecDirPath");
 const getSrcDirPath = require("../../core/getSrcDirPath");
@@ -68,7 +67,7 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 		})
 
 		// Execute the npm install commands
-		await ai.exec(`npm install ${npmInstallArr.join(" ")}`);	
+		child_process.spawnSync(`npm install ${npmInstallArr.join(" ")}`, { cwd: process.cwd() });
 	}
 
 	// Lets get the src and spec dir paths

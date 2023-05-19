@@ -1,12 +1,13 @@
 // Core deps
 const fs = require("fs");
 const path = require("path");
-const ai = require("../../core/ai");
+const ai = require("../../core/aiBridge");
 const getSrcDirPath = require("../../core/getSrcDirPath");
 
 // Prompt builder deps
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
+const getChatCompletion = require("../call/getChatCompletion");
 
 /**
  * Given the current plan, prepare the file list
@@ -46,7 +47,7 @@ module.exports = async function prepareCommonContext(currentPlan, srcPathArr, lo
 	]
 
 	// Perform the AI request
-	let aiRes = await ai.getChatCompletion(promptArr.join("\n").trim(), {
+	let aiRes = await getChatCompletion(promptArr.join("\n").trim(), {
 		model: "gpt-4"
 	});
 	// Get the ai response

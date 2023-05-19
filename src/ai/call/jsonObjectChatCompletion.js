@@ -1,4 +1,4 @@
-const ai = require("../../core/ai");
+const getChatCompletion = require("./getChatCompletion");
 const extractJsonObject = require("../../prompt/filter/extractJsonObject");
 const computeTokenCost = require("../../util/computeTokenCost");
 
@@ -58,7 +58,7 @@ module.exports = async function jsonObjectCompletion(messages, opt = {}, validat
 	// Lets do the first try
 	try {
 		// Get the chat completion
-		const rd1Res = await ai.getChatCompletion(messages, opt);
+		const rd1Res = await getChatCompletion(messages, opt);
 		costTracker.push( rd1Res );
 
 		// Extract the JSON array

@@ -1,4 +1,4 @@
-const ai = require("../../core/ai");
+const ai = require("../../core/aiBridge");
 const path = require("path")
 const config = require('../../core/config');
 const scanDirectory = require('../../util/scanDirectory');

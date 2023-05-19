@@ -1,12 +1,12 @@
 // Core deps
 const fs = require("fs")
 const path = require("path")
-const ai = require("../../core/ai");
 
 // Prompt builder deps
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const getAiNotes = require("../../prompt/part/getAiNotes");
 const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
+const getChatCompletion = require("../call/getChatCompletion");
 const jsonObjectChatCompletion = require("../call/jsonObjectChatCompletion");
 
 /**
@@ -45,7 +45,7 @@ module.exports = async function updateNotes(addditionalInfo) {
 	]
 
 	// Lets ask, we opt for the economical 3.5-turbo when possible
-	let res = await ai.getChatCompletion(
+	let res = await getChatCompletion(
 		chatArr, 
 		{ 
 			model: "gpt-4",
@@ -77,7 +77,7 @@ module.exports = async function updateNotes(addditionalInfo) {
 		"Respond without code wrapping blocks, your entire response will be used to update the notes",
 	].join("\n") 
 
-	res = await ai.getChatCompletion(
+	res = await getChatCompletion(
 		updatePrompt, 
 		{ 
 			model: "gpt-4",

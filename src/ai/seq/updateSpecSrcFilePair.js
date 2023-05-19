@@ -1,11 +1,12 @@
 const fs = require('fs').promises;
 const path = require('path');
-const ai = require('../../core/ai');
+const ai = require('../../core/aiBridge');
 const getSpecDirPath = require('../../core/getSpecDirPath');
 const getSrcDirPath = require('../../core/getSrcDirPath');
 const getPromptBlock = require('../../prompt/builder/getPromptBlock');
 const getMainDevSystemPrompt = require('../../prompt/part/getMainDevSystemPrompt');
 const readFileOrNull = require('../../util/readFileOrNull');
+const getChatCompletion = require('../call/getChatCompletion');
 
 /**
  * Update the source code file or spec file based on the other file.
@@ -121,7 +122,7 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 	
 	// Run it
 	// ---
-	let res = await ai.getChatCompletion(promptArr.flat().join("\n"), {
+	let res = await getChatCompletion(promptArr.flat().join("\n"), {
 		stream: true,
 		model: "gpt-4"
 	});

@@ -1,12 +1,12 @@
 // Core deps
 const fs = require("fs");
 const path = require("path");
-const ai = require("../../core/ai");
 const getSrcDirPath = require("../../core/getSrcDirPath");
 const simpleAndSafeMinify = require("../../prompt/filter/simpleAndSafeMinify")
 
 // Prompt builder deps
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
+const getChatCompletion = require("../call/getChatCompletion");
 
 /**
  * Given the current plan, prepare the file list
@@ -58,7 +58,7 @@ module.exports = async function getLocalDepSummary(srcPath) {
 	// console.log("AI request: getLocalDepSummary", promptArr.join("\n").trim());
 
 	// Perform the AI request
-	let aiRes = await ai.getCompletion(promptArr.join("\n").trim(), {
+	let aiRes = await getChatCompletion(promptArr.join("\n").trim(), {
 		model: "gpt-4e"
 	});
 	// Get the ai response

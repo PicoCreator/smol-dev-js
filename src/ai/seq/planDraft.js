@@ -1,9 +1,10 @@
 // Core deps
-const ai = require("../../core/ai");
+const ai = require("../../core/aiBridge");
 
 // Prompt builder deps
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
+const getChatCompletion = require("../call/getChatCompletion");
 
 /**
  * Generate opening suggestions, at the start of the process
@@ -48,11 +49,8 @@ module.exports = async function planDraft(oriPlan = "", usrReply = "", streamHan
 	]
 
 	// Lets ask, we opt for the economical 3.5-turbo when possible
-	let res = await ai.getChatCompletion(chatArr, {
+	let res = await getChatCompletion(chatArr, {
 		stream: true,
-		// Use the gpt-3.5-turbo model if the plan is empty
-		// model: (oriPlan == "")? "gpt-4e" : "gpt-4"
-
 		// Just use gpt-4, its more reliable
 		model: "gpt-4"
 	}, streamHandler);

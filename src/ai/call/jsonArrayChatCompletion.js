@@ -1,6 +1,7 @@
 const ai = require("../../core/ai");
 const extractJsonArray = require("../../prompt/uilder/filter/extractJsonArray");
 const computeTokenCost = require("../../util/computeTokenCost");
+const getChatCompletion = require("./getChatCompletion");
 
 /**
  * Varient of getChatCompletion, but with special handling in ensuring a JSON array response
@@ -66,7 +67,7 @@ module.exports = async function jsonArrayCompletion(messages, opt = {}, validato
 	// Lets do the first try
 	try {
 		// Get the chat completion
-		const rd1Res = await ai.getChatCompletion(messages, opt);
+		const rd1Res = await getChatCompletion(messages, opt);
 		costTracker.push( rd1Res );
 
 		// Extract the JSON array

@@ -1,13 +1,14 @@
 // Core deps
 const fs = require("fs");
 const path = require("path");
-const ai = require("../../core/ai");
+const ai = require("../../core/aiBridge");
 const getSpecDirPath = require("../../core/getSpecDirPath");
 const getSrcDirPath = require("../../core/getSrcDirPath");
 
 // Prompt builder deps
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
+const getChatCompletion = require("../call/getChatCompletion");
 
 /**
  * Generate opening suggestions, at the start of the process
@@ -146,7 +147,7 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 
 	// Run it
 	// ---
-	let res = await ai.getChatCompletion(promptArr.flat().join("\n"), {
+	let res = await getChatCompletion(promptArr.flat().join("\n"), {
 		stream: true,
 		model: "gpt-4"
 	});

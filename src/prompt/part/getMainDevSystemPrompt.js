@@ -1,7 +1,6 @@
 // Core deps
 const fs = require("fs");
 const path = require("path");
-const ai = require("../../core/ai");
 
 // Prompt builder deps
 const getProjectDependencyList = require("./getProjectSettings");

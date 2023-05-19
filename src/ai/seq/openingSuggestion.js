@@ -1,8 +1,9 @@
 // Core deps
-const ai = require("../../core/ai");
+const ai = require("../../core/aiBridge");
 
 // Prompt builder deps
 const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
+const getChatCompletion = require("../call/getChatCompletion");
 
 /**
  * Generate opening suggestions, at the start of the process
@@ -25,7 +26,7 @@ module.exports = async function openingSuggestion() {
 	);
 
 	// Lets ask, we opt for the economical 3.5-turbo when possible
-	let res = await ai.getChatCompletion(promptArr.join("\n"), {
+	let res = await getChatCompletion(promptArr.join("\n"), {
 		stream: true,
 		model: "gpt-4e"
 	});

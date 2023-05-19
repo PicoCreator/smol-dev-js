@@ -1,5 +1,4 @@
 // Core deps
-const ai = require("../../core/ai");
 const getSpecDirPath = require("../../core/getSpecDirPath");
 
 // Prompt builder deps
