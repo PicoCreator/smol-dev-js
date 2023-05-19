@@ -23,7 +23,7 @@ Additionally, because the changes are small, incremental, and runs in a tight lo
 
 > Quoting the original smol-dev : does not end the world or overpromise AGI. instead of making and maintaining specific, rigid, one-shot starters, like create-react-app, or create-nextjs-app, this is basically [`create-anything-app`](https://news.ycombinator.com/item?id=35942352) where you develop your scaffolding prompt in a tight loop with your smol dev.
 
-# How to get started
+# How to setup
 
 Install via NPM
 
@@ -38,11 +38,15 @@ cd my-js-project
 smol-dev-js setup
 ```
 
-This will ask for your openAI keys, and setup the `.smol-dev-js` folder which it will use internally for you
+This will ask for your API keys, and setup the `.smol-dev-js` folder which it will use internally for you
 
-Then run the following command to start the smol-dev-js server
+# How to run it
+
+Run the following command to start the smol-dev-js process, from your project
 
 ```bash
+cd my-js-project
+smol-dev-js run
 ```
 
 # Optimization notes
