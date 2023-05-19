@@ -148,7 +148,6 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 	// Run it
 	// ---
 	let res = await getChatCompletion(promptArr.flat().join("\n"), {
-		stream: true,
 		model: "smart"
 	});
 	

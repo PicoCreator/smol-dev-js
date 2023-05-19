@@ -123,7 +123,6 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 	// Run it
 	// ---
 	let res = await getChatCompletion(promptArr.flat().join("\n"), {
-		stream: true,
 		model: "smart"
 	});
 

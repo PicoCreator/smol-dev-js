@@ -70,6 +70,7 @@ module.exports = async function updateNotes(addditionalInfo) {
 		"Remove phrases like 'the missing information is ...'",
 		"Remove phrases like 'update the notes with ...'",
 		"Re-Order your notes in accordence to importance",
+		"Use notes only to record new information from feedback you previously didn't know",
 		"",
 		"Limit your notes / response to about 1000 tokens, compression/dropping less important information if needed",
 		"",
@@ -85,6 +86,13 @@ module.exports = async function updateNotes(addditionalInfo) {
 		}
 	);
 	let notes = res.completion;
+
+	// Lets trim the content and remove wierd blocks
+	notes = notes.trim();
+	
+	notes = notes.replaceAll("```","");
+	notes = notes.replaceAll("<<{{~~}}>>","");
+	notes = notes.replaceAll("<<{{--}}>>","");
 
 	// If the response contains NO_CHANGE_TO_NOTES, return and do nothing
 	if( notes.includes("NO_CHANGE_TO_NOTES") ) {

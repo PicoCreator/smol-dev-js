@@ -7,6 +7,7 @@ const simpleAndSafeMinify = require("../../prompt/filter/simpleAndSafeMinify")
 // Prompt builder deps
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const getChatCompletion = require("../call/getChatCompletion");
+const ai = require("../../core/aiBridge");
 
 /**
  * Given the current plan, prepare the file list
