@@ -5,11 +5,11 @@ const AiBridge = require("ai-bridge");
 
 // Load the AI module
 // ---
-try {
+if( config.config?.provider ) {
 	const ai = new AiBridge(config.aibridge);
 	// Export the module
 	module.exports = ai;
-} catch(e) {
+} else {
 	// This allow --setup to be done first
 	module.exports = {};
 }
