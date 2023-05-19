@@ -29,6 +29,10 @@ module.exports = {
 	// Execute the run command
 	run: async (argv, context) => {
 
+		// The valeus we want to udpate
+		let aibridgeConfig = Object.assign({}, config.aibridge);
+		let configValues = Object.assign({}, config.config);
+
 		// --------------
 		//
 		// Lets handle API keys choices
@@ -56,7 +60,7 @@ module.exports = {
 
 		// Lets update the config for the selection
 		let provider = promptConfig.provider;
-		config.config.provider = provider;
+		configValues.provider = provider;
 
 		// Lets ask for the API key
 		if( provider == "anthropic" ) {
@@ -69,7 +73,12 @@ module.exports = {
 			]);
 
 			// Lets update the apikey value
-			config.aibridge.provider.anthropic = promptConfig.anthropic_key;
+			if( promptConfig.anthropic_key && promptConfig.anthropic_key.length > 0) {
+				aibridgeConfig.provider.anthropic = promptConfig.anthropic_key;
+			}
+			if( aibridgeConfig.provider.anthropic.length == 0 ) {
+				OutputHandler.standardRed("[sys] No API key provided, please update the config manually later")
+			}
 		} else if( provider == "openai" ) {
 			promptConfig = await simplePrompt([
 				{
@@ -80,7 +89,12 @@ module.exports = {
 			]);
 
 			// Lets update the apikey value
-			config.aibridge.provider.openai = promptConfig.openai_key;
+			if( promptConfig.openai_key && promptConfig.openai_key.length > 0 ) {
+				aibridgeConfig.provider.openai = promptConfig.openai_key;
+			}
+			if( aibridgeConfig.provider.openai.length == 0 ) {
+				OutputHandler.standardRed("[sys] No API key provided, please update the config manually later")
+			}
 		}
 
 		// Lets ask for the preferred concurrent rate limit
@@ -93,7 +107,7 @@ module.exports = {
 			}
 		]);
 		// Lets update the rate limit
-		config.aibridge.providerRateLimit = promptConfig.concurrent_rate_limit;
+		aibridgeConfig.providerRateLimit = promptConfig.concurrent_rate_limit;
 
 		// --------------
 		// Check if there is package.json in the CWD
@@ -154,11 +168,9 @@ module.exports = {
 		});
 		
 		// Lets get the updated config values
-		let aibridgeConfig = Object.assign({}, config.aibridge);
 		aibridgeConfig.provider.openai = promptConfig.openai_key || aibridgeConfig.provider.openai;
 
 		// Lets get the updated config values
-		let configValues = Object.assign({}, config.config);
 		configValues.short_description = promptConfig.short_description || configValues.short_description;
 		configValues.spec_dir = promptConfig.spec_dir || configValues.spec_dir;
 		configValues.src_dir = promptConfig.src_dir || configValues.src_dir;

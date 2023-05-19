@@ -31,7 +31,7 @@ const config = new ConfigLoader({
 
 			// openAI key
 			provider: {
-				openai: "<CHANGE TO YOUR OPENAI KEY>"
+				// openai: "<CHANGE TO YOUR OPENAI KEY>"
 			},
 			
 			// // Number of provider requests that can occur concurrently
