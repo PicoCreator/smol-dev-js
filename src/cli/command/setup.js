@@ -200,6 +200,9 @@ module.exports = {
 			await fs.promises.appendFile(process.cwd()+"/.npmignore", "\n.smol-dev-js");
 		}
 
+		// Finishing log
+		OutputHandler.standardGreen("[sys] Config file & cache created inside ./.smol-dev-js, you can now run `smol-dev-js run` to start the AI");
+
 		// Due to a bug with mongodb hanging connections, 
 		// we need to exit the process, when the process is done
 		process.exit(0);
