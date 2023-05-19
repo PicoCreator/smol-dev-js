@@ -107,6 +107,7 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"Make sure to have consistent filenames if you reference other files we are also generating",
 			"",
 			"Include high level comments for the code you are generating",
+			"If the user is asking you to generate sample data, of a specified size or range, do so without skipping it with comments",
 			"Use TAB based indentation for the updated code",
 			"",
 			"Remember that you must obey 3 things: ",

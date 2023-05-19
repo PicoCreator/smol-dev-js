@@ -12,6 +12,7 @@ const jsonObjectChatCompletion = require("../call/jsonObjectChatCompletion");
 const getLocalDepSummary = require("./getLocalDepSummary");
 const updateFileWithPlan = require("./updateFileWithPlan");
 const prepareCommonContext = require("./prepareCommonContext");
+const updateSpecSrcFilePair = require("./updateSpecSrcFilePair");
 
 /**
  * Given the current plan, and the operation map, execute it
@@ -186,18 +187,35 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 	}
 
 	// Lets handle the file updates of the spec dir
-	let updateSpecArr = operationMap["3_UPDATE_SPEC"];
-	if(updateSpecArr && updateSpecArr.length > 0) {
-		for(const specFile of updateSpecArr) {
-			console.log(`🐣 [ai]: (async) Updating spec file - ${specFile}`)
-			asyncOpPromiseArr.push(
-				updateFileWithPlan("spec", specFile, currentPlan, localDepSummaryStrSet, commonContext)
-			)
+	if( specDir ) {
+		let updateSpecArr = operationMap["3_UPDATE_SPEC"];
+		if(updateSpecArr && updateSpecArr.length > 0) {
+			for(const specFile of updateSpecArr) {
+				console.log(`🐣 [ai]: (async) Updating spec file - ${specFile}`)
+				asyncOpPromiseArr.push(
+					updateFileWithPlan("spec", specFile, currentPlan, localDepSummaryStrSet, commonContext)
+				)
+			}
+		}
+
+		// Wait for most the updates to complete
+		await Promise.all(asyncOpPromiseArr);
+		asyncOpPromiseArr = [];
+
+		// Update the spec files, for src codes that were updated
+		if(updateSrcArr && updateSrcArr.length > 0) {
+			for(const srcFile of updateSrcArr) {
+				asyncOpPromiseArr.push(
+					updateSpecSrcFilePair("spec", srcFile+".md")
+				);
+			}
 		}
 	}
 
 	// Lets await for all the async operations to finish
 	await Promise.all(asyncOpPromiseArr);
+	asyncOpPromiseArr = [];
+
 	console.log(`🐣 [ai]: Finished current set of async spec/src file update (1st round)`)
 
 	// Lets handle the file updates of the src dir
@@ -212,13 +230,29 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 	}
 
 	// Lets handle the file updates of the spec dir
-	let updateSpecArr_rd2 = operationMap["4_UPDATE_SPEC"];
-	if(updateSpecArr_rd2 && updateSpecArr_rd2.length > 0) {
-		for(const specFile of updateSpecArr_rd2) {
-			console.log(`🐣 [ai]: (async) Updating spec file - ${specFile}`)
-			asyncOpPromiseArr.push(
-				updateFileWithPlan("spec", specFile, currentPlan, localDepSummaryStrSet, commonContext)
-			)
+	if( specDir ) {
+		// Lets handle the file updates of the spec dir
+		let updateSpecArr_rd2 = operationMap["4_UPDATE_SPEC"];
+		if(updateSpecArr_rd2 && updateSpecArr_rd2.length > 0) {
+			for(const specFile of updateSpecArr_rd2) {
+				console.log(`🐣 [ai]: (async) Updating spec file - ${specFile}`)
+				asyncOpPromiseArr.push(
+					updateFileWithPlan("spec", specFile, currentPlan, localDepSummaryStrSet, commonContext)
+				)
+			}
+		}
+
+		// Wait for most the updates to complete
+		await Promise.all(asyncOpPromiseArr);
+		asyncOpPromiseArr = [];
+
+		// Update the spec files, for src codes that were updated
+		if(updateSrcArr_rd2 && updateSrcArr_rd2.length > 0) {
+			for(const srcFile of updateSrcArr_rd2) {
+				asyncOpPromiseArr.push(
+					updateSpecSrcFilePair("spec", srcFile+".md")
+				);
+			}
 		}
 	}
 
