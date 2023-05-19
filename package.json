@@ -1,6 +1,6 @@
 {
   "name": "my-ai-dev",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "CLI based AI developer, you can use today (for JS projects)",
   "main": "index.js",
   "scripts": {
