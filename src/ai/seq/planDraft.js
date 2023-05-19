@@ -41,7 +41,8 @@ module.exports = async function planDraft(oriPlan = "", usrReply = "", streamHan
 			"content": [
 				"Update the plan draft using the user feedback",
 				"Keep the rest unchanged, unless the user specified otherwise",
-				"Reply with the full updated plan draft"
+				"Reply with the full updated plan draft",
+				"You do not need to include items from the system prompt, unless its required (the user already knows about it)"
 			].join("\n") 
 		},
 	]
@@ -50,7 +51,10 @@ module.exports = async function planDraft(oriPlan = "", usrReply = "", streamHan
 	let res = await ai.getChatCompletion(chatArr, {
 		stream: true,
 		// Use the gpt-3.5-turbo model if the plan is empty
-		model: (oriPlan == "")? "gpt-4e" : "gpt-4"
+		// model: (oriPlan == "")? "gpt-4e" : "gpt-4"
+
+		// Just use gpt-4, its more reliable
+		model: "gpt-4"
 	}, streamHandler);
 	
 	// Return the completion
