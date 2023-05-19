@@ -38,6 +38,8 @@ cd my-js-project
 smol-dev-js setup
 ```
 
+![smol-dev-setup](./docs/smol-dev-setup.gif)
+
 This will ask for your API keys, and setup the `.smol-dev-js` folder which it will use internally for you
 
 # How to run it
@@ -48,6 +50,8 @@ Run the following command to start the smol-dev-js process, from your project
 cd my-js-project
 smol-dev-js run
 ```
+
+![smol-dev-run](./docs/smol-dev-run.gif)
 
 # Optimization notes
 

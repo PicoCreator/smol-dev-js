@@ -137,8 +137,7 @@ main.outputSettings({
 // Note that the string needs to be fixed with "\" escape
 //
 const preface_str = (`
-( >_> )
-### My AI Dev ###
+### Smol-Dev-JS ###
 `).slice(1);
 
 // Load the preface
