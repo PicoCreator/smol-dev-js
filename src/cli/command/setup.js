@@ -151,7 +151,7 @@ module.exports = {
 			{
 				type: 'text',
 				name: 'spec_dir',
-				message: 'Does this project have a markdown specification directory? Leave blank if disabled',
+				message: 'Does this project have a markdown specification directory? Leave blank if disabled (highly recommended)',
 				initial: (config.config?.spec_dir === null)? "spec" : config.config?.spec_dir,
 			},
 			{
