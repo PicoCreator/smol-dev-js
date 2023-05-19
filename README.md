@@ -13,7 +13,11 @@ This switches your role from a developer, to a "senior developer" - where you ar
 
 For best results: Generally treat the AI like a junior developer who joined the project on day 0, and is still learning the ropes. And you are the senior developer who is teaching it - and making small incremental changes - and you will get better result as you prompt your way in a loop.
 
+> Not no code, not low code, but some third thing.
+
 Allowing you to focus on ~~sword fighting~~ the big picture, while the AI does the ~~button mashing~~ coding for you.
+
+Its light weight enough, that at any point of time, you can take back full control. Once the AI stops adding value.
 
 <p align="center">
   <img height=200 src="https://pbs.twimg.com/media/FwEzVCcaMAE7t4h?format=jpg&name=large" />
@@ -41,6 +45,8 @@ smol-dev-js setup
 ![smol-dev-setup](./docs/smol-dev-setup.gif)
 
 This will ask for your API keys, and setup the `.smol-dev-js` folder which it will use internally for you
+
+> It is highly recommended to use anthropic claude, if you have the API key, as its so much faster and more reliable then openAI as of now for this use case.
 
 # How to run it
 
