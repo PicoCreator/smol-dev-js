@@ -10,7 +10,7 @@ const jsonObjectChatCompletion = require("../call/jsonObjectChatCompletion");
 /**
  * Given the current plan, prepare the file list
  */
-module.exports = async function getOperationFileMapFromPlan(currentPlan) {
+module.exports = async function getOperationFileMapFromPlan(currentPlan, promptHistory=[]) {
 	// Build the system prompt
 	let promptArr = [
 		await getMainDevSystemPrompt(null)
@@ -21,7 +21,12 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan) {
 		getPromptBlock(
 			"The following is the current plan you the AI developer has drafted, after several rounds of user feedback",
 			currentPlan
-		)
+		),
+		"",
+		getPromptBlock(
+			"The following is prompt history for the current plan (in json array)",
+			JSON.stringify(promptHistory)
+		),
 	);
 
 	// Prepare the example format

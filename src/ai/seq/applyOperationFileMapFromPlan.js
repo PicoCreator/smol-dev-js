@@ -17,7 +17,7 @@ const updateSpecSrcFilePair = require("./updateSpecSrcFilePair");
 /**
  * Given the current plan, and the operation map, execute it
  */
-module.exports = async function getOperationFileMapFromPlan(currentPlan, operationMap) {
+module.exports = async function getOperationFileMapFromPlan(currentPlan, operationMap, promptHistory=[]) {
  
 	// // Example of operationMap
 	// {
@@ -171,8 +171,10 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 
 	// Lets build the common context
 	let commonContext = await prepareCommonContext(
+		currentPlan,
 		[operationMap["3_UPDATE_SRC"], operationMap["4_UPDATE_SRC"]].flat().filter((a)=>{return a != null}), 
-		localDepSummaryStrSet
+		localDepSummaryStrSet,
+		promptHistory
 	);
 
 	// Lets handle the file updates of the src dir

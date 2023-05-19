@@ -10,18 +10,38 @@ const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 /**
  * Given the current plan, prepare the file list
  */
-module.exports = async function prepareCommonContext(srcPathArr) {
+module.exports = async function prepareCommonContext(currentPlan, srcPathArr, localDepSummaryStrSet, promptHistory = []) {
 	// Get the json stringified filepaths
 	let filepaths_string = JSON.stringify(srcPathArr);
 	
 	// Prompt array building
 	let promptArr = [
-		`the files we have decided to generate are: ${filepaths_string}`,
+		await getMainDevSystemPrompt(null),
+		"",
+		getPromptBlock(
+			"The following is the current plan you the AI developer has drafted, after several rounds of user feedback",
+			currentPlan
+		),
+		"",
+		getPromptBlock(
+			"The following is prompt history for the current plan (in json array)",
+			JSON.stringify(promptHistory)
+		),
+		"",
+		`The files we have decided to generate are: ${filepaths_string}`,
+		"",
+		"The following is some details of local dependencies which you can use ...",
+		depStr,
 		"",
 		"Now that we have a list of files, we need to understand what dependencies they share",
 		"Please name and briefly describe what is shared between the files we are generating, including exported variables, data schemas, id names of every DOM elements that javascript functions will use, message names, and function names",
 		"Exclusively focus on the names of the shared dependencies, and do not add any other explanation",
 		"",
+		// Append to common context the prompt history
+		getPromptBlock(
+			"The following is prompt history for the current plan (in json array)",
+			JSON.stringify(promptHistory)
+		)
 	]
 
 	// Perform the AI request
