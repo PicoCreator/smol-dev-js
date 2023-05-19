@@ -54,7 +54,7 @@ module.exports = {
 					{ title: 'OpenAI', value: 'openai' },
 					{ title: 'Anthropic (preferred)', value: 'anthropic' },
 				],
-				initial: 0
+				initial: configValues.provider == "anthropic" ? 1 : 0
 			}
 		]);
 
