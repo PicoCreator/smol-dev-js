@@ -8,12 +8,16 @@ const getSrcDirPath = require("../../core/getSrcDirPath");
 // Prompt builder deps
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
+const readFileOrNull = require("../../util/readFileOrNull");
 const getChatCompletion = require("../call/getChatCompletion");
 
 /**
  * Generate opening suggestions, at the start of the process
  */
 module.exports = async function updateFileWithPlan(fileType, filePath, plan, depStr, commonCtx) {
+	// Get the spec dir
+	const specDir = getSpecDirPath();
+
 	// Build the system prompt
 	// ---
 	let promptArr = [
@@ -51,6 +55,19 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 		actualFilePath = path.resolve( getSrcDirPath(), filePath );
 	}
 
+	// Load spec if its the src file
+	if( fileType === "src" && specDir != null ) {
+		let specFilePath = filePath+".md";
+		let specFile = readFileOrNull( path.resolve(specDir, specFilePath) );
+		if( specFile ) {
+			promptArr.push([
+				"",
+				getPromptBlock(`The following is the spec file '${specFilePath}'`, currentFile),
+				"(if the spec file contridicts the plan / README.md / NOTES.md, those take precedence)"
+			]);
+		}
+	}
+
 	let currentFile = null;
 	try {
 		currentFile = await fs.promises.readFile(actualFilePath, "utf8");
@@ -83,7 +100,7 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"Remember that you must obey 3 things: ",
 			`	- you are generating markdown for the file ${filePath}`,
 			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`,
-			`	- MOST IMPORTANT OF ALL: every line of markdown you generate must be markdown code. Do not include code fences in your response`,
+			`	- MOST IMPORTANT OF ALL: every line of markdown you generate must be valid markdown code. Do not include code fences in your response`,
 			"",
 			"This is a Bad response:",
 			"```markdown",

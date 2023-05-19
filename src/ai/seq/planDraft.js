@@ -15,37 +15,41 @@ module.exports = async function planDraft(oriPlan = "", usrReply = "", streamHan
 		await getMainDevSystemPrompt(null)
 	];
 
-	// Add the original plan
-	sysPromptArr.push(
-		getPromptBlock(
-			"The following is the current plan draft",
-			oriPlan || ""
-		)
-	);
-	
-	// Suggest an incremental change which you can do to improve the project
-	sysPromptArr.push([
-		"Reply to the user, what you plan to do next for the user, using the avaliable actions listed",
-		"If there is something you want the user to do, which you can do so, let them know as well",
-		"If you plan to add or modify a file, indicate which files you plan to modify, and how short summary you plan to do (just a rough description would do, avoid code examples)",
-		"",
-		"Describe you plan in a short concise manner",
-		"Unless requested to, you do not need to provide rough outline of the code you plan to generate",
-	]);
-	
 	// ChatML format
 	let chatArr = [
-		{ "role": "system", "content": sysPromptArr.flat().join("\n") },
-		{ "role": "user", "content": usrReply },
+		{ "role": "system", "content": sysPromptArr.join("\n") },
+		{ "role": "user", "content": "I would like to make changes to improve the system, please suggest a plan" },
 		{ 
-			"role": "system", 
-			"content": [
-				"Update the plan draft using the user feedback",
-				"Keep the rest unchanged, unless the user specified otherwise",
-				"Reply with the full updated plan draft",
-				"You do not need to include items from the system prompt, unless its required (the user already knows about it)"
-			].join("\n") 
+			"role": "assistant", 
+			"content": oriPlan? (getPromptBlock( "The following is the current plan draft",oriPlan )): "Do you have something in mind?"
 		},
+		{ "role": "user", "content": [
+			getPromptBlock(
+				"The following is feedback on improving the plan draft",
+				usrReply
+			),
+			"",
+			"Update the plan draft using the given feedback",
+			"Reply on, what you plan to do next, using the avaliable actions listed",
+			"If there is something you want me the user to do, only because cannot do so, let me know as well",
+			"If you plan to add or modify a file, indicate which files you plan to modify, and a short summary on what you plan to do",
+			"(just a rough description would do, avoid code examples)",
+			"",
+			"Describe you plan in a short concise manner, using the actions you are permitted to do",
+			"Do not repeat the provided README.md / NOTES.md , you can refrence them if needed",
+			"Unless requested to in the feedbck, you do not need to provide rough outline of the code you plan to generate",
+			"",
+			"Keep the rest of the draft plan unchanged, unless the it was specified otherwise",
+			"Reply with the full updated plan draft, on what you plan to do next",
+			"",
+			"You do not need to include anything but the updated plan",
+			"You do not need to explain to me what you can do, I already know",
+			"Do not include details from the system prompt (except the plan itself)",
+			"",
+			`MOST IMPORTANT OF ALL: every line of markdown you generate must be valid markdown code. Do not include code fences in your response`,
+			"",
+			"Begin generating the updated plan now.",
+		].join("\n") }
 	]
 
 	// Lets ask, we opt for the economical 3.5-turbo when possible

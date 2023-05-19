@@ -14,7 +14,13 @@ const getBlockWrapLine = require("./getBlockWrapLine");
 
 	// Get the wrap line
 	if( wrapLine == null ) {
-		wrapLine = getBlockWrapLine(data);
+		// Claude performs poorly with custom block brackets
+		// so we shall disable this behavioru for now
+		// ---
+		// wrapLine = getBlockWrapLine(data);
+
+		// Use ``` as default
+		wrapLine = '```'
 	}
 
 	// Simple markdown
