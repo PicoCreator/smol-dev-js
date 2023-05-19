@@ -6,6 +6,7 @@ const getSrcDirPath = require("../../core/getSrcDirPath");
 
 // Prompt builder deps
 const getPromptBlock = require("../../prompt/builder/getPromptBlock");
+const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
 
 /**
  * Given the current plan, prepare the file list
@@ -24,7 +25,7 @@ module.exports = async function prepareCommonContext(currentPlan, srcPathArr, lo
 		),
 		"",
 		getPromptBlock(
-			"The following is prompt history for the current plan (in json array)",
+			"The following is the user prompt history for the current plan (in json array)",
 			JSON.stringify(promptHistory)
 		),
 		"",
@@ -49,9 +50,17 @@ module.exports = async function prepareCommonContext(currentPlan, srcPathArr, lo
 		model: "gpt-4"
 	});
 	// Get the ai response
-	return getPromptBlock(
-		// The following is some details of common context which you should use ...
-		"The following is the shared var/schema/id used for the plan that you should use  ...",
-		aiRes.completion
-	);
+	return [
+		getPromptBlock(
+			// The following is some details of common context which you should use ...
+			"The following is the shared var/schema/id used for the plan that you should use  ...",
+			aiRes.completion
+		),
+		"",
+		// Append to common context the prompt history
+		getPromptBlock(
+			"The following is the user prompt history for the current plan (in json array)",
+			JSON.stringify(promptHistory)
+		)
+	];
 }

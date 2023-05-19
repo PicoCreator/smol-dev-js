@@ -75,7 +75,7 @@ module.exports = async function generateFilesFromPrompt(prompt) {
 			),
 			"",
 			getPromptBlock(
-				"The following is prompt history for the current plan (in json array)",
+				"The following is the user prompt history for the current plan (in json array)",
 				JSON.stringify(promptHistory)
 			),
 		].join("\n"));
