@@ -33,6 +33,11 @@ module.exports = {
 	
 	// Execute the run command
 	run: async (argv, context) => {
+		// Check for openAI key
+		if( config?.aibridge?.provider?.openai == null ) {
+			OutputHandler.fatalError(`[sys] you are missing the openAI api key, configure using 'smol-dev-js setup' first instead`)
+			process.exit(1);
+		}
 
 		// Lets ask the user what it wants to do
 		console.log("--------------------")

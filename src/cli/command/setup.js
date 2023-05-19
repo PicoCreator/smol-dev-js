@@ -103,6 +103,9 @@ module.exports = {
 		configValues.src_include = configValues.src_include || ["**"];
 		configValues.src_exclude = configValues.src_exclude || ["**/.*", "**/*.bin", "**/node_modules/**", "**/build/**", "**/bin/**"]
 
+		// Setup the config directory
+		await fs.promises.mkdir(process.cwd()+"/.smol-dev-js/config", { recursive: true });
+
 		// Lets write the config file
 		await fs.promises.writeFile(process.cwd()+"/.smol-dev-js/config/aibridge.json", JSON.stringify( aibridgeConfig, null, "	" ));
 		await fs.promises.writeFile(process.cwd()+"/.smol-dev-js/config/config.json", JSON.stringify( configValues, null, "	" ));

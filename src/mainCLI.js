@@ -24,9 +24,7 @@ const OutputHandler = require("./cli/OutputHandler")
 MainSywac.command("setup", require("./cli/command/setup"))
 MainSywac.command("run", require("./cli/command/run"))
 MainSywac.command("code2spec", require("./cli/command/code2spec"))
-
-// This is dropped, in favour of run
-// MainSywac.command("spec2code", require("./cli/command/spec2code"))
+MainSywac.command("spec2code", require("./cli/command/spec2code"))
 
 //--------------
 //

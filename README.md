@@ -1,4 +1,4 @@
-# My AI Dev
+# Smol-Dev-JS
 
 You own personal AI dev, which you can direct development in a collebrative back and forth experience.
 
@@ -6,7 +6,7 @@ Think of it as pair-programming, via the command line.
 
 # Optimization notes
 
-This is currently targetted to be optimized only for JS and Python. The reduced scope is intentional, so that we can optimize its responsiveness and usage, without over-inflating the project.
+This is currently targetted to be optimized only for JS. The reduced scope is intentional, so that we can optimize its responsiveness and usage, without over-inflating the project.
 
 ## Backstory
 
@@ -18,4 +18,4 @@ Fast forward 3 months, and the context size of models have jumped from 4k, to 8k
 
 Subsequently the [smol-ai/dev](https://github.com/smol-ai/developer/) project has shown that with only 8k context size and gpt4, we have slowly reached the stage where the output is starting to "just work"
 
-This project is subsequently a full rewrite of the original "English Compiler" project, along with reimagining the approach based lessons learnt from the original and `smol-ai/dev`
+This project is subsequently a full rewrite of the original `English Compiler` project, along with reimagining the approach based lessons learnt from the original and `smol-ai/dev`

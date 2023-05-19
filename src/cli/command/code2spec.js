@@ -10,6 +10,11 @@ module.exports = {
 	command: 'code2spec',
 	desc: 'Generate or update spec files based on the source code files',
 	run: async function code2spec(argv, context) {
+		// Check for openAI key
+		if( config?.aibridge?.provider?.openai == null ) {
+			OutputHandler.fatalError(`[sys] you are missing the openAI api key, configure using 'smol-dev-js setup' first instead`)
+			process.exit(1);
+		}
 
 		if( getSpecDirPath() == null ) {
 			console.error("[sys]: No spec directory found configured, invalid command - Exiting ...");

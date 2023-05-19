@@ -1,3 +1,4 @@
+const fs = require("fs")
 const path = require("path")
 const ConfigLoader = require("@js-util/config-loader")
 
@@ -6,10 +7,16 @@ const ConfigLoader = require("@js-util/config-loader")
 // along with the various default value fallbacks
 //
 const cwd = process.cwd();
+const configDir = path.join(cwd, ".smol-dev-js/config/");
+
+// Check if it exists
+let configDirExists = false;
+if( fs.existsSync(configDir) ) {
+	configDirExists = true;
+}
+
 const config = new ConfigLoader({
-	configDirList:[
-		path.join(cwd, ".smol-dev-js/config/"),
-	],
+	configDirList: (configDirExists? [ path.join(cwd, ".smol-dev-js/config/") ] : [] ),
 	fileList: [],
 	default: {
 		// Main ai-dev config

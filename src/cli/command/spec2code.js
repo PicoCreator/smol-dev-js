@@ -6,14 +6,20 @@ const getSrcDirPath = require('../../core/getSrcDirPath');
 const getSpecDirPath = require('../../core/getSpecDirPath');
 const updateSpecSrcFilePair = require('../../ai/seq/updateSpecSrcFilePair');
 const generateFilesFromPrompt = require('../../ai/seq/generateFilesFromPrompt');
+const OutputHandler = require('../OutputHandler');
 
 module.exports = {
 	command: 'spec2code',
 	desc: 'Generate or update code files based on the spec code files',
 	run: async function spec2code(argv, context) {
+		// Check for openAI key
+		if( config?.aibridge?.provider?.openai == null ) {
+			OutputHandler.fatalError(`[sys] you are missing the openAI api key, configure using 'smol-dev-js setup' first instead`)
+			process.exit(1);
+		}
 
 		if( getSpecDirPath() == null ) {
-			console.error("[sys]: No spec directory found configured, invalid command - Exiting ...");
+			OutputHandler.standardRed("[sys]: No spec directory found configured, invalid command - Exiting ...");
 			return;
 		}
 
