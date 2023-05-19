@@ -52,7 +52,7 @@ module.exports = async function planDraft(oriPlan = "", usrReply = "", streamHan
 	let res = await getChatCompletion(chatArr, {
 		stream: true,
 		// Just use gpt-4, its more reliable
-		model: "gpt-4"
+		model: "smart"
 	}, streamHandler);
 	
 	// Return the completion

@@ -97,7 +97,7 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, promptH
 	let res = await jsonObjectChatCompletion(
 		promptArr.flat().join("\n"), 
 		{
-			model: "gpt-4"
+			model: "smart"
 		}
 	);
 	

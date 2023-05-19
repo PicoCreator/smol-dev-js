@@ -59,7 +59,7 @@ module.exports = async function getLocalDepSummary(srcPath) {
 
 	// Perform the AI request
 	let aiRes = await getChatCompletion(promptArr.join("\n").trim(), {
-		model: "gpt-4e"
+		model: "economical"
 	});
 	// Get the ai response
 	let aiSummary = aiRes.completion;

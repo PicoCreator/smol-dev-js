@@ -48,7 +48,7 @@ module.exports = async function prepareCommonContext(currentPlan, srcPathArr, lo
 
 	// Perform the AI request
 	let aiRes = await getChatCompletion(promptArr.join("\n").trim(), {
-		model: "gpt-4"
+		model: "smart"
 	});
 	// Get the ai response
 	return [

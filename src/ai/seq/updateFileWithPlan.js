@@ -149,7 +149,7 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 	// ---
 	let res = await getChatCompletion(promptArr.flat().join("\n"), {
 		stream: true,
-		model: "gpt-4"
+		model: "smart"
 	});
 	
 	// Write the file

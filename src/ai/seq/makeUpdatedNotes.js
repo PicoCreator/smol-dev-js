@@ -48,7 +48,7 @@ module.exports = async function updateNotes(addditionalInfo) {
 	let res = await getChatCompletion(
 		chatArr, 
 		{ 
-			model: "gpt-4",
+			model: "smart",
 			max_tokens: 1000
 		}
 	);
@@ -80,7 +80,7 @@ module.exports = async function updateNotes(addditionalInfo) {
 	res = await getChatCompletion(
 		updatePrompt, 
 		{ 
-			model: "gpt-4",
+			model: "smart",
 			max_tokens: 1000
 		}
 	);
