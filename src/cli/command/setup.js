@@ -8,6 +8,7 @@
 const fs = require("fs")
 const prompts = require('prompts');
 const config = require("../../core/config");
+const readFileOrNull = require("../../util/readFileOrNull");
 const OutputHandler = require("../OutputHandler");
 
 //--------------
@@ -105,6 +106,20 @@ module.exports = {
 		// Lets write the config file
 		await fs.promises.writeFile(process.cwd()+"/.my-ai-dev/config/aibridge.json", JSON.stringify( aibridgeConfig, null, "	" ));
 		await fs.promises.writeFile(process.cwd()+"/.my-ai-dev/config/config.json", JSON.stringify( configValues, null, "	" ));
+
+		// Check that its removed from .gitignore and .npmignore
+		let gitIgnore = await readFileOrNull(process.cwd()+"/.gitignore", "");
+		let npmIgnore = await readFileOrNull(process.cwd()+"/.npmignore", "");
+
+		// Check if .my-ai-dev is present
+		if( gitIgnore.indexOf(".my-ai-dev") === -1 ) {
+			OutputHandler.standard("[sys] Adding .my-ai-dev to .gitignore");
+			await fs.promises.appendFile(process.cwd()+"/.gitignore", "\n.my-ai-dev");
+		}
+		if( npmIgnore.indexOf(".my-ai-dev") === -1 ) {
+			OutputHandler.standard("[sys] Adding .my-ai-dev to .npmignore");
+			await fs.promises.appendFile(process.cwd()+"/.npmignore", "\n.my-ai-dev");
+		}
 
 		// Due to a bug with mongodb hanging connections, 
 		// we need to exit the process, when the process is done
