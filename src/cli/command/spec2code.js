@@ -5,6 +5,7 @@ const scanDirectory = require('../../util/scanDirectory');
 const getSrcDirPath = require('../../core/getSrcDirPath');
 const getSpecDirPath = require('../../core/getSpecDirPath');
 const updateSpecSrcFilePair = require('../../ai/seq/updateSpecSrcFilePair');
+const generateFilesFromPrompt = require('../../ai/seq/generateFilesFromPrompt');
 
 module.exports = {
 	command: 'spec2code',
@@ -16,42 +17,8 @@ module.exports = {
 			return;
 		}
 
-		// Updating the spec files
-		console.log("🐣 [ai]: Updating the spec files ...");
-
-		// Get the list of source files
-		const specFiles = await scanDirectory(
-			getSpecDirPath(), 
-			{ 
-				exclude: config.config?.src_exclude, 
-				include: config.config?.src_include 
-			}
-		);
-	
-		// Async promise array
-		const promiseArr = [];
-
-		// Lets update the spec files in parallel
-		for (const specFile of specFiles) {
-			// Skip folders
-			if (specFile.endsWith("/")) {
-				continue;
-			}
-
-			// Get the src file path, withoout the ".md"
-			const srcFile = specFile.slice(0, -3);
-
-			// Update the spec file
-			console.log(`🐣 [ai]: (async) Updating spec file - ${srcFile}`)
-			promiseArr.push(
-				updateSpecSrcFilePair("src", srcFile)
-			);
-		}
-
-		// Wait for all the promises to resolve
-		console.log(`🐣 [ai]: Awaiting of ${promiseArr.length} async spec file update`);
-		await Promise.all(promiseArr);
-		console.log(`🐣 [ai]: Finished current set of async spec file update`)
+		// Premade prompt
+		await generateFilesFromPrompt("Regenerate all code files which has the corresponding spec files");
 	
 		// Finish operations
 		// ---

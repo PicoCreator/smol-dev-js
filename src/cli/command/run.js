@@ -7,6 +7,7 @@
 
 const fs = require("fs")
 const applyOperationFileMapFromPlan = require("../../ai/seq/applyOperationFileMapFromPlan");
+const generateFilesFromPrompt = require("../../ai/seq/generateFilesFromPrompt");
 const getOperationFileMapFromPlan = require("../../ai/seq/getOperationFileMapFromPlan");
 const makeUpdatedNotes = require("../../ai/seq/makeUpdatedNotes");
 const openingSuggestion = require("../../ai/seq/openingSuggestion");
@@ -54,71 +55,8 @@ module.exports = {
 				initial: "Suggest something"
 			});
 
-			// The current plan to iterate on
-			let currentPlan = "";
-
-			// Lets iterate on a plan
-			while(true) {
-				process.stdout.write("🐣 [ai]: ");
-				let res = await planDraft(currentPlan, promptReply.feedback, (res) => {
-					process.stdout.write(res)
-				});
-				console.log("");
-				currentPlan = res;
-
-				// Ask the user for input
-				promptReply = await simplePrompt({
-					type: "confirm",
-					name: "approve",
-					message: "[you]: Proceed with the plan?",
-					initial: false
-				});
-
-				// Check for further clarification?
-				if( promptReply.approve ) {
-					// @TODO check with the AI needs further clarification
-					break;
-				}
-
-				// Ask the user for input
-				promptReply = await simplePrompt({
-					type: "text",
-					name: "feedback",
-					message: "[you]: What would you like to change?"
-				});
-
-				// Log the reflecting state
-				console.log("🐣 [ai]: Reflecting on the feedback...")
-
-				// Update the notes
-				await makeUpdatedNotes([
-					getPromptBlock(
-						"The the AI assistant previously drafted with the above notes",
-						currentPlan
-					),
-					"",
-					getPromptBlock(
-						"The following is feedback on how to improve the draft",
-						promptReply.feedback
-					),
-				].join("\n"));
-			}
-
-			console.log("🐣 [ai]: Working on the plan ...")
-
-			// - Ask for the list files to be moved, deleted
-			// - list of local code files to be added/generated/updated
-			// - list of local code files, you have dependencies on for the changes you want to make
-			// - list of spec files to be added/generated/updated
-			let operationsMap = await getOperationFileMapFromPlan(currentPlan);
-
-			// Lets execute it
-			await applyOperationFileMapFromPlan(currentPlan, operationsMap)
-			
-
-			// Yay now that we got the current plan
-			// console.log(operationsMap)
-			break;
+			// Start the internal prompt process
+			await generateFilesFromPrompt(promptReply.feedback);
 		}
 
 		// Due to a bug with mongodb hanging connections, 
