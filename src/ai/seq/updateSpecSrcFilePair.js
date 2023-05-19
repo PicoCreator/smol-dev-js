@@ -129,10 +129,10 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 	// Update the respective file
 	if(fileType === 'src') {
 		await fs.mkdir(path.dirname(fullSrcFilePath), { recursive: true });
-		await fs.writeFile(fullSrcFilePath, res.completion, "utf8");
+		await fs.writeFile(fullSrcFilePath, res.completion.trim(), "utf8");
 	} else {
 		await fs.mkdir(path.dirname(fullSpecFilePath), { recursive: true });
-		await fs.writeFile(fullSpecFilePath, res.completion, "utf8");
+		await fs.writeFile(fullSpecFilePath, res.completion.trim(), "utf8");
 	}
 }
 

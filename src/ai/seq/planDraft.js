@@ -23,33 +23,43 @@ module.exports = async function planDraft(oriPlan = "", usrReply = "", streamHan
 			"role": "assistant", 
 			"content": oriPlan? (getPromptBlock( "The following is the current plan draft",oriPlan )): "Do you have something in mind?"
 		},
-		{ "role": "user", "content": [
-			getPromptBlock(
-				"The following is feedback on improving the plan draft",
-				usrReply
-			),
-			"",
-			"Update the plan draft using the given feedback",
-			"Reply on, what you plan to do next, using the avaliable actions listed",
-			"If there is something you want me the user to do, only because cannot do so, let me know as well",
-			"If you plan to add or modify a file, indicate which files you plan to modify, and a short summary on what you plan to do",
-			"(just a rough description would do, avoid code examples)",
-			"",
-			"Describe you plan in a short concise manner, using the actions you are permitted to do",
-			"Do not repeat the provided README.md / NOTES.md , you can refrence them if needed",
-			"Unless requested to in the feedbck, you do not need to provide rough outline of the code you plan to generate",
-			"",
-			"Keep the rest of the draft plan unchanged, unless the it was specified otherwise",
-			"Reply with the full updated plan draft, on what you plan to do next",
-			"",
-			"You do not need to include anything but the updated plan",
-			"You do not need to explain to me what you can do, I already know",
-			"Do not include details from the system prompt (except the plan itself)",
-			"",
-			`MOST IMPORTANT OF ALL: every line of markdown you generate must be valid markdown code. Do not include code fences in your response`,
-			"",
-			"Begin generating the updated plan now.",
-		].join("\n") }
+		{ 
+			"role": "user", "content": [
+				getPromptBlock(
+					"The following is feedback/instructions on improving the plan draft",
+					usrReply
+				)
+			].join("\n")
+		},
+		{ 
+			"role": "system", 
+			"content": [
+				"Update the plan draft using the given feedback/instructions",
+				"Reply on, what you plan to do next, using the avaliable actions listed",
+				"",
+				"If there is something you want me the user to do, only because cannot do so, let me know as well",
+				"If you plan to add or modify a file, indicate which files you plan to modify, and a short summary on what you plan to do",
+				"(just a rough description would do, avoid code examples)",
+				"",
+				"Describe you plan in a short concise manner, using the actions you are permitted to do",
+				"Do not repeat the provided README.md / NOTES.md , you can refrence them if needed",
+				"Do not modify the README.md / NOTES.md, unless instructed specifically by the user/feedback/current plan",
+				"If the user ask you to update a specific set of files, only update those files, unless instructed otherwise",
+				"",
+				"Unless requested to in the feedback, you do not need to provide rough outline of the code you plan to generate",
+				"",
+				"Keep the rest of the draft plan unchanged, unless the it was specified otherwise",
+				"Reply with the full updated plan draft, on what you plan to do next",
+				"",
+				"You do not need to include anything but the updated plan",
+				"You do not need to explain to me what you can do, I already know",
+				"Do not include details from the system prompt (except the plan itself)",
+				"",
+				`MOST IMPORTANT OF ALL: every line of markdown you generate must be valid markdown code. Do not include code fences in your response`,
+				"",
+				"Begin generating the updated plan now.",
+			].join("\n") 
+		}
 	]
 
 	// Lets ask, we opt for the economical 3.5-turbo when possible

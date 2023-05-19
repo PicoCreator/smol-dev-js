@@ -58,11 +58,11 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 	// Load spec if its the src file
 	if( fileType === "src" && specDir != null ) {
 		let specFilePath = filePath+".md";
-		let specFile = readFileOrNull( path.resolve(specDir, specFilePath) );
+		let specFile = await readFileOrNull( path.resolve(specDir, specFilePath) );
 		if( specFile ) {
 			promptArr.push([
 				"",
-				getPromptBlock(`The following is the spec file '${specFilePath}'`, currentFile),
+				getPromptBlock(`The following is the spec file '${specFilePath}'`, specFile),
 				"(if the spec file contridicts the plan / README.md / NOTES.md, those take precedence)"
 			]);
 		}
@@ -170,5 +170,5 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 	
 	// Write the file
 	// ---
-	await fs.promises.writeFile(actualFilePath, res.completion, "utf8");
+	await fs.promises.writeFile(actualFilePath, res.completion.trim(), "utf8");
 }
