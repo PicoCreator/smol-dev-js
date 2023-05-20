@@ -81,10 +81,12 @@ Lazy to write specs to an existing codebase from scratch, let the smol-dev AI ge
 
 > You will need the spec folder to be configured
 
-## I would like to customize the settings further
+## Want to customize the settings further?
 
 After generating the config, you can look into `.smol-dev-js/config` folder for various settings, including
+- local cache settings
 - caching with mongoDB (you can use the free tier)
+- rate limits
 
 # Example Usage
 
@@ -96,7 +98,7 @@ After generating the config, you can look into `.smol-dev-js/config` folder for 
 
 ## Innovation and insights
 
-- **Markdown/Human lnaguage is all you need** : No need to learn a new DSL, or a new language, or a new framework. Just use a common language that the AI understand (ie. english) and let the AI handle the rest.
+- **Markdown/Human language is all you need** : No need to learn a new DSL, or a new language, or a new framework. Just use a common language that the AI understand (ie. english) and let the AI handle the rest.
 
 - **Anthropic AI current laps openAI** : While it needed some prompt changes. Even with a single "thread" it laps around 4 threads of gpt 3.5 /and gpt4. This is before we even take into account its support for 100k context size (the usage experience between the two is so huge, its hard to explain)
 
@@ -110,17 +112,24 @@ After generating the config, you can look into `.smol-dev-js/config` folder for 
 
 - **Modal is not needed** : All you need is node+NPM. We use the HTTP API directly, so no python dependencies, we include retry logic for error handling, spliting up into multiple requests, and even include caching to optimize some of the more reptitive smol ops.
 
+> this list is a derivative was modified from the original smol-dev proj
+
 ## Cavet
 
 Unless your the lucky few who gotten access to antrohpic AI, GPT4 can be very very slow. Making the feedback loop run into several minutes (this will improve over time as AI scales up worldwide)
 
 Also for larger projects and scripts, due to the way things are currently setup, it is possible to hit 8k limits and have scripts get cut off
 
-## Want to work with a local model ???
+## Want this to work with a local model ???
 
 Want to have this working locally? Without an internet connection?
 
-- Donate your `.smol-dev-js/cache` folder if your not working on anything sensitive, so that I can use it as training data for a local model (ps: if you email me the files, it is taken that you waived copyright for it - picocreator+ai-data (at) gmail.com )
+Reach out to me, and help me make it happen !! 
+(GPUs, funding, data, etc)
+
+- Donate your `.smol-dev-js/cache` folder if your not working on anything sensitive, so that I can use it as training data for a local model 
+
+> ps: if you email me the files, it is taken that you waived copyright for it - picocreator+ai-data (at) gmail.com
 
 - This would be used to create a public dataset, more specifically the [RWKV project](https://huggingface.co/blog/rwkv), an opensource project that I am actively working on. An AI model with theoractically have no context size limit, but is capped by its lack of training.
 
@@ -159,13 +168,13 @@ The bulk of the main run logic is within `src/ai/seq/generateFilesFromPrompts.js
 	- Using the common values, the model executes on the above plan in stages (0 to 4)
 	- Once everything is updated finish, end the current main loop, and go back to the start
 
-For the spec2code, it follows the same process as above, with the prompt of "regenerating all the src files from the provided spec" and not having the main loop.
+For the spec2code, it follows the same process as above, with the prompt of "regenerate all the src files from the provided spec" and not having the main loop.
 
 ## Optimization notes
 
-**contriversal optimization:** The AI model forcefully converts everything in tab spacing. I dun care about your oppinion on this, its literally a huge 20% +++ in tokens savings, and the models may not be able to work without it.
+**controversial optimization:** The AI model forcefully converts everything to tab spacing. I dun care about your oppinion on this, as its an engineering decision, where it is literally a huge 20% +++ in tokens savings, and the models may not be able to work without it.
 
-This is currently targetted to be optimized only for JS. The reduced scope is intentional, so that we can optimize its responsiveness and usage, without over-inflating the project.
+**resonable optimization:** This is currently targetted to be optimized only for JS. The reduced scope is intentional, so that we can optimize its responsiveness and usage, without over-inflating the project.
 
 While nothing stops it from working with other languages, it was designed with JS in mind, and will likely not work as well with other languages.
 
