@@ -112,7 +112,7 @@ After generating the config, you can look into `.smol-dev-js/config` folder for 
 
 - **Modal is not needed** : All you need is node+NPM. We use the HTTP API directly, so no python dependencies, we include retry logic for error handling, spliting up into multiple requests, and even include caching to optimize some of the more reptitive smol ops.
 
-> this list is a derivative was modified from the original smol-dev proj
+> this list is a derivative from the original smol-dev proj
 
 ## Cavet
 
