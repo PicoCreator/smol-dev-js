@@ -43,7 +43,7 @@ module.exports = async function planDraft(oriPlan = "", usrReply = "", streamHan
 				"",
 				"Describe you plan in a short concise manner, using the actions you are permitted to do",
 				"DO NOT repeat the provided README.md / NOTES.md , you can refrence them if needed",
-				"DO NOT modify the specs files (ie. README.md / NOTES.md), unless very specifically instructed by the user/feedback/current to the plan",
+				"DO NOT modify the specs files (ie. README.md / NOTES.md), unless specifically instructed by the user/feedback/current to the plan",
 				"If the user ask you to update a specific set of files, only update those files, unless instructed otherwise",
 				"",
 				"Unless requested to in the feedback, you do not need to provide rough outline of the code you plan to generate",
