@@ -1,0 +1,32 @@
+body {
+	background: #eee;
+	font-family: sans-serif;
+	text-align: center; 
+}
+
+header {
+	background: #333;
+	color: #fff;
+	padding: 1rem;
+}
+
+.pokemon {
+	border: 1px solid #333;
+	border-radius: 0.5rem;
+	margin: 1rem;
+	padding: 1rem;
+	width: 10rem;
+	display: inline-block;
+}
+
+.pokemon img {
+	width: 5rem;
+}
+
+.pokemon-info {
+	display: none;
+}
+
+.pokemon:hover .pokemon-info {
+	display: block;
+}

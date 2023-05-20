@@ -1,0 +1,1 @@
+pokemon.js SHOULD NOT include the image URL
