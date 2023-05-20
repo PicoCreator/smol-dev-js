@@ -17,5 +17,5 @@ module.exports = async function getActionList() {
 		"- compile or commit changes",
 		"",
 		"(You do not need to let the user know about the above list, as they are for your own use)",
-	].join("\n\n").trim();
+	].join("\n").trim();
 }
