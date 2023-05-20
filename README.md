@@ -159,12 +159,12 @@ The bulk of the main run logic is within `src/ai/seq/generateFilesFromPrompts.js
 		- If rejected, Given the user feedback AI model revise the plan
 		- If rejected, Given the user feedback AI model update its own small internal notes (note: should we drop this?)
 	- Given the final plan, figure out what actions need to be done, and files need to be modified, this execution plan follows a strict structure of the following
-		- 0) NPM dependency install if any
-		- 1) Moving of source / spec code files
-		- 2) Deletion of existing source / spec code files
-		- 3) Update source / spec file (1st round)
-		- 4) Update source / spec file (2nd round)
-		- Local dependency files it would need more information on
+		1. Local dependency files it would need to fetch more information on
+		2. NPM dependency install if any
+		3. Moving of source / spec code files
+		4. Deletion of existing source / spec code files
+		5. Update source / spec file (1st round)
+		6. Update source / spec file (2nd round)
 	- Given the final plan and file list, ask the AI to decide common values for use in execution, with details of the local dependency files included
 	- Using the common values, the model executes on the above plan in stages (0 to 4)
 	- Once everything is updated finish, end the current main loop, and go back to the start
