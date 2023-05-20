@@ -27,7 +27,7 @@ module.exports = async function generateFilesFromPrompt(prompt) {
 	let currentPlan = "";
 
 	// The prompt history
-	let promptHistory = [prompt];
+	let promptHistory = [];
 
 	// Current prompt to use
 	let currentPrompt = prompt;
@@ -35,9 +35,18 @@ module.exports = async function generateFilesFromPrompt(prompt) {
 	// Lets iterate on a plan
 	while(true) {
 		process.stdout.write("🐣 [ai]: ");
-		let res = await planDraft(currentPlan, currentPrompt, (res) => {
-			process.stdout.write(res)
-		});
+		let res = await planDraft(
+			currentPlan, 
+			promptHistory,
+			currentPrompt, 
+			(res) => {
+				process.stdout.write(res)
+			}
+		);
+		// Add the current prompt to the history chain
+		promptHistory.push(currentPrompt)
+
+		// Save the updated plan
 		console.log("");
 		currentPlan = res;
 
@@ -62,7 +71,6 @@ module.exports = async function generateFilesFromPrompt(prompt) {
 			message: "[you]: What would you like to change?"
 		});
 		currentPrompt = promptReply.feedback;
-		promptHistory.push(currentPrompt)
 
 		// Log the reflecting state
 		console.log("🐣 [ai]: Reflecting on the feedback...")
@@ -70,14 +78,19 @@ module.exports = async function generateFilesFromPrompt(prompt) {
 		// Update the notes
 		await makeUpdatedNotes([
 			getPromptBlock(
-				"The the AI assistant previously drafted with the above notes",
+				"The the AI assistant previously drafted this plan (and feedback in history) with the above notes",
 				currentPlan
 			),
 			"",
 			getPromptBlock(
-				"The following is the user prompt history for the current plan (in json array)",
+				"The following is the user feedback history used for the current plan (in json array)",
 				JSON.stringify(promptHistory)
 			),
+			"",
+			getPromptBlock(
+				"The following is the user feedback to the current plan",
+				currentPrompt
+			)
 		].join("\n"));
 	}
 

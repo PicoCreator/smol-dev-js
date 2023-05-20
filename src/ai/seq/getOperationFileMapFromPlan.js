@@ -93,7 +93,7 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, promptH
 		"Do not modify files that are not part of the plan",
 	]);
 	
-	// Lets ask, we opt for the economical 3.5-turbo when possible
+	// Lets ask, and get the operation file map
 	let res = await jsonObjectChatCompletion(
 		promptArr.flat().join("\n"), 
 		{
