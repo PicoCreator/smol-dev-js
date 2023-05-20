@@ -1,8 +1,5 @@
 # Smol-Dev-JS
 
-> This is inspired directly from the [smol-ai/dev](https://github.com/smol-ai/developer)
-> And the [English Compiler](https://github.com/uilicious/english-compiler) project
-
 You own personal AI dev, which you can direct development in a collebrative back and forth experience.
 Think of it as pair-programming, via the command line.
 
@@ -42,7 +39,7 @@ cd my-js-project
 smol-dev-js setup
 ```
 
-![smol-dev-setup](./docs/smol-dev-setup.gif)
+![smol-dev-setup](https://raw.githubusercontent.com/PicoCreator/smol-dev-js/main/docs/smol-dev-setup.gif)
 
 This will ask for your API keys, and setup the `.smol-dev-js` folder which it will use internally for you
 
@@ -57,7 +54,7 @@ cd my-js-project
 smol-dev-js run
 ```
 
-![smol-dev-run](./docs/smol-dev-run.gif)
+![smol-dev-run](https://raw.githubusercontent.com/PicoCreator/smol-dev-js/main/docs/smol-dev-run.gif)
 
 # Optimization notes
 
