@@ -68,6 +68,11 @@ Loop until happiness is attained. Or that you find the AI being unhelpful, and t
 
 Got all your project specifications file ready? Run th spec2code, and let the smol-dev AI generate it for you.
 
+The general format of the spec folder should be
+- `README.md` (high level spec)
+- `NOTES.md` (any more point form feedback/instruction to pass to the AI globally, which may might not make sense in the spec)
+- `<folder>/<filename>.<type>.md` (spec for a specific file)
+
 > You will need the spec folder to be configured
 
 ## smol-dev-js code2spec
@@ -75,6 +80,11 @@ Got all your project specifications file ready? Run th spec2code, and let the sm
 Lazy to write specs to an existing codebase from scratch, let the smol-dev AI generate a draft for you.
 
 > You will need the spec folder to be configured
+
+## I would like to customize the settings further
+
+After generating the config, you can look into `.smol-dev-js/config` folder for various settings, including
+- caching with mongoDB (you can use the free tier)
 
 # Example Usage
 
@@ -117,7 +127,7 @@ This is currently targetted to be optimized only for JS. The reduced scope is in
 
 V1 prototype was the [English Compiler](https://github.com/uilicious/english-compiler), made in Feb 2023
 
-While it technically works, were faced with multiple context size related issues.
+While it technically works, it was faced with multiple context size related issues.
 
 Fast forward 3 months, and the context size of models have jumped from 4k, to 8k for public users. And 32k and 100k for private users.
 
