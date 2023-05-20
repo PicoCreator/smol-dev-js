@@ -45,13 +45,13 @@ This will ask for your API keys, and setup the `.smol-dev-js` folder which it wi
 
 > It is highly recommended to use anthropic claude, if you have the API key, as its so much faster and more reliable then openAI as of now for this use case. For openAI this uses gpt4-8k for the heavy lifting, while downgrading to gpt3.5 for some smol-er task
 
-## smol-dev-js run
+## smol-dev-js prompt
 
 Run the following command to start the smol-dev-js process, in your new or existing JS project
 
 ```bash
 cd my-js-project
-smol-dev-js run
+smol-dev-js prompt
 ```
 
 ![smol-dev-run](https://raw.githubusercontent.com/PicoCreator/smol-dev-js/main/docs/smol-dev-run.gif)
@@ -148,7 +148,7 @@ Reach out to me, and help me make it happen !!
 
 ## Architecture / process flow
 
-The bulk of the main run logic is within `src/ai/seq/generateFilesFromPrompts.js` which is called in a larger loop from `src/cli/command/run.js`. The following is the sequence of events
+The bulk of the main run logic is within `src/ai/seq/generateFilesFromPrompts.js` which is called in a larger loop from `src/cli/command/prompt.js`. The following is the sequence of events
 
 - Main run loop, no context is tracked between each loop
 	- User is asked for the opening prompt instruction
