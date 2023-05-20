@@ -179,6 +179,11 @@ module.exports = {
 		configValues.src_include = configValues.src_include || ["**"];
 		configValues.src_exclude = configValues.src_exclude || ["**/.*", "**/*.bin", "**/node_modules/**", "**/build/**", "**/bin/**"]
 
+		// Ensure spec dir is setup if configured
+		if( configValues.spec_dir != null && configValues.spec_dir.length > 0 ) {
+			await fs.promises.mkdir(process.cwd()+"/"+configValues.spec_dir, { recursive: true });
+		}
+
 		// Setup the config directory
 		await fs.promises.mkdir(process.cwd()+"/.smol-dev-js/config", { recursive: true });
 

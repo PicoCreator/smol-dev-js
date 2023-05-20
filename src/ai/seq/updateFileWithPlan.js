@@ -68,12 +68,7 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 		}
 	}
 
-	let currentFile = null;
-	try {
-		currentFile = await fs.promises.readFile(actualFilePath, "utf8");
-	} catch(e) {
-		// Ignore
-	}
+	let currentFile = await readFileOrNull(actualFilePath);
 	if( currentFile ) {
 		promptArr.push([
 			"",
