@@ -203,14 +203,14 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 		await Promise.all(asyncOpPromiseArr);
 		asyncOpPromiseArr = [];
 
-		// Update the spec files, for src codes that were updated
-		if(updateSrcArr && updateSrcArr.length > 0) {
-			for(const srcFile of updateSrcArr) {
-				asyncOpPromiseArr.push(
-					updateSpecSrcFilePair("spec", srcFile+".md")
-				);
-			}
-		}
+		// // Update the spec files, for src codes that were updated
+		// if(updateSrcArr && updateSrcArr.length > 0) {
+		// 	for(const srcFile of updateSrcArr) {
+		// 		asyncOpPromiseArr.push(
+		// 			updateSpecSrcFilePair("spec", srcFile+".md")
+		// 		);
+		// 	}
+		// }
 	}
 
 	// Lets await for all the async operations to finish
@@ -247,14 +247,14 @@ module.exports = async function getOperationFileMapFromPlan(currentPlan, operati
 		await Promise.all(asyncOpPromiseArr);
 		asyncOpPromiseArr = [];
 
-		// Update the spec files, for src codes that were updated
-		if(updateSrcArr_rd2 && updateSrcArr_rd2.length > 0) {
-			for(const srcFile of updateSrcArr_rd2) {
-				asyncOpPromiseArr.push(
-					updateSpecSrcFilePair("spec", srcFile+".md")
-				);
-			}
-		}
+		// // Update the spec files, for src codes that were updated
+		// if(updateSrcArr_rd2 && updateSrcArr_rd2.length > 0) {
+		// 	for(const srcFile of updateSrcArr_rd2) {
+		// 		asyncOpPromiseArr.push(
+		// 			updateSpecSrcFilePair("spec", srcFile+".md")
+		// 		);
+		// 	}
+		// }
 	}
 
 	// Lets await for all the async operations to finish
