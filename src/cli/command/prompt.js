@@ -25,7 +25,8 @@ const simplePrompt = require("../simplePrompt");
 
 module.exports = {
 	
-	desc: "Start the interactive ai dev session",
+	desc: "Start the interactive ai dev prompt session",
+	aliases: "run",
 	
 	setup: (cmd) => {
 		// No additional argument required
