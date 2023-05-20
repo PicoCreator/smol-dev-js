@@ -96,7 +96,9 @@ After generating the config, you can look into `.smol-dev-js/config` folder for 
 
 ## Innovation and insights
 
-- **Anthropic AI current laps openAI** : While it needed some prompt changes. Even with a single "thread" it laps around 4 threads of gpt 3.5 /and gpt4. This is before we even take into account its support for 100k context size
+- **Markdown/Human lnaguage is all you need** : No need to learn a new DSL, or a new language, or a new framework. Just use a common language that the AI understand (ie. english) and let the AI handle the rest.
+
+- **Anthropic AI current laps openAI** : While it needed some prompt changes. Even with a single "thread" it laps around 4 threads of gpt 3.5 /and gpt4. This is before we even take into account its support for 100k context size (the usage experience between the two is so huge, its hard to explain)
 
 - **Context size is still king** : This is a huge jump from the english compiler proj, and while AI reasoning is a factor, context size truely made it a giant leap - cant wait till 32k is affordable and commonplace
 
@@ -120,11 +122,12 @@ Want to have this working locally? Without an internet connection?
 
 - Donate your `.smol-dev-js/cache` folder if your not working on anything sensitive, so that I can use it as training data for a local model (ps: if you email me the files, it is taken that you waived copyright for it - picocreator+ai-data (at) gmail.com )
 
-- This would be used to create a public dataset, more specifically the [RWKV project](https://huggingface.co/blog/rwkv), an opensource project that I am actively working on
+- This would be used to create a public dataset, more specifically the [RWKV project](https://huggingface.co/blog/rwkv), an opensource project that I am actively working on. An AI model with theoractically have no context size limit, but is capped by its lack of training.
 
 ## Future directions ??
 
 **Things to do**
+- Better examples, and a demo video and intro to tweet this out
 - Let the model study the existing codebase, and make better notes on all the files (include into future prompt, incrases context size)
 - Allow the model to lookup existing code in planning phase (in addition to existing info provided) - this might be an anthropic only behaviour due to the huge bump in context size.
 - Let it setup unit test, run it, and read the error - and fix it? (maybe with a loop limit)
@@ -134,9 +137,37 @@ Want to have this working locally? Without an internet connection?
 - (done) ~~bootstrap the readme.md~~ the minimum you need now is the prompt + 1 line description
 - (done) ~~Support NPM package installs~~ NPM install prompt (with human confirmation) is added
 
+## Architecture / process flow
+
+The bulk of the main run logic is within `src/ai/seq/generateFilesFromPrompts.js` which is called in a larger loop from `src/cli/command/run.js`. The following is the sequence of events
+
+- Main run loop, no context is tracked between each loop
+	- User is asked for the opening prompt instruction
+	- Taking the main spec files (README.md/NOTES.md), the current project filesystem state, and the AI notes, it generates "the plan" on how to make the changes
+	- User is asked to confirm "the plan", if rejected, user is asked to provide feedback. Looping till a revised plan is confirmed.
+		- (TODO:) If rejected, ask what files the AI want more details on, before revising the plan, and add those files into the context for the next step
+		- If rejected, Given the user feedback AI model revise the plan
+		- If rejected, Given the user feedback AI model update its own small internal notes (note: should we drop this?)
+	- Given the final plan, figure out what actions need to be done, and files need to be modified, this execution plan follows a strict structure of the following
+		- 0. NPM dependency install if any
+		- 1. Moving of source / spec code files
+		- 2. Deletion of existing source / spec code files
+		- 3. Update source / spec file (1st round)
+		- 4. Update source / spec file (2nd round)
+		- Local dependency files it would need more information on
+	- Given the final plan and file list, ask the AI to decide common values for use in execution, with details of the local dependency files included
+	- Using the common values, the model executes on the above plan in stages (0 to 4)
+	- Once everything is updated finish, end the current main loop, and go back to the start
+
+For the spec2code, it follows the same process as above, with the prompt of "regenerating all the src files from the provided spec" and not having the main loop.
+
 ## Optimization notes
 
+**contriversal optimization:** The AI model forcefully converts everything in tab spacing. I dun care about your oppinion on this, its literally a huge 20% +++ in tokens savings, and the models may not be able to work without it.
+
 This is currently targetted to be optimized only for JS. The reduced scope is intentional, so that we can optimize its responsiveness and usage, without over-inflating the project.
+
+While nothing stops it from working with other languages, it was designed with JS in mind, and will likely not work as well with other languages.
 
 ## Backstory
 
