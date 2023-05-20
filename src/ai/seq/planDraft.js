@@ -2,6 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 const ai = require("../../core/aiBridge");
+const config = require("../../core/config");
 const getSpecDirPath = require("../../core/getSpecDirPath");
 
 // Prompt builder deps
@@ -9,6 +10,7 @@ const getPromptBlock = require("../../prompt/builder/getPromptBlock");
 const getMainDevSystemPrompt = require("../../prompt/part/getMainDevSystemPrompt");
 const readFileOrNull = require("../../util/readFileOrNull");
 const getChatCompletion = require("../call/getChatCompletion");
+const jsonObjectChatCompletion = require("../call/jsonObjectChatCompletion");
 const getLocalDepSummary = require("./getLocalDepSummary");
 
 /**
@@ -168,6 +170,7 @@ module.exports = async function planDraft(oriPlan = "", promptHistory=[], usrRep
 				"Describe you plan in a short concise manner, using the actions you are permitted to do",
 				"DO NOT repeat the provided README.md / NOTES.md , you can refrence them if needed",
 				"DO NOT modify the specs files (ie. README.md / NOTES.md), unless specifically instructed by the user/feedback/current to the plan",
+				"DO NOT delete any files, unless specifically instructed by the user/feedback/current to the plan",
 				"If the user ask you to update a specific set of files, only update those files, unless instructed otherwise",
 				"",
 				"Unless requested to in the feedback, you do not need to provide rough outline of the code you plan to generate",
@@ -185,6 +188,8 @@ module.exports = async function planDraft(oriPlan = "", promptHistory=[], usrRep
 			].join("\n") 
 		}
 	);
+
+	console.log(finalChatArr);
 
 	// Lets ask, we opt for the economical 3.5-turbo when possible
 	let res = await getChatCompletion(

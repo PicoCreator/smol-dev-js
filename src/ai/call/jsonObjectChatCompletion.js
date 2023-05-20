@@ -90,7 +90,7 @@ module.exports = async function jsonObjectCompletion(messages, opt = {}, validat
 
 		// And get the completion
 		try {
-			const rd2Res = await ai.getChatCompletion(rnd2Msgs, opt);
+			const rd2Res = await getChatCompletion(rnd2Msgs, opt);
 			costTracker.push( rd2Res );
 	
 			// // Debugging
