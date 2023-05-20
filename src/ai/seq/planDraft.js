@@ -189,7 +189,7 @@ module.exports = async function planDraft(oriPlan = "", promptHistory=[], usrRep
 		}
 	);
 
-	console.log(finalChatArr);
+	// console.log(finalChatArr);
 
 	// Lets ask, we opt for the economical 3.5-turbo when possible
 	let res = await getChatCompletion(
