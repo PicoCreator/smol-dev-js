@@ -96,7 +96,6 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"Make sure to have consistent filenames if you reference other files we are also generating",
 			"",
 			"You do not need to add table of contents, unless it already exists",
-			""
 			"",
 			"Remember that you must obey 3 things: ",
 			`	- you are generating markdown for the file ${filePath}`,
