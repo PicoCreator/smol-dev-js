@@ -24,7 +24,7 @@ module.exports = {
 		}
 
 		// Premade prompt
-		await generateFilesFromPrompt("Regenerate all code files which has the corresponding spec files");
+		await generateFilesFromPrompt("Regenerate all code files which has the corresponding spec defined (ensure all files are updated)");
 	
 		// Finish operations
 		// ---
