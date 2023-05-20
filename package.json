@@ -1,6 +1,6 @@
 {
   "name": "smol-dev-js",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "CLI based smol AI developer, you can use today (for JS projects)",
   "main": "index.js",
   "scripts": {
