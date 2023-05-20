@@ -112,12 +112,27 @@ After generating the config, you can look into `.smol-dev-js/config` folder for 
 
 Unless your the lucky few who gotten access to antrohpic AI, GPT4 can be very very slow. Making the feedback loop run into several minutes (this will improve over time as AI scales up worldwide)
 
-## Future direction??
+Also for larger projects and scripts, due to the way things are currently setup, it is possible to hit 8k limits and have scripts get cut off
+
+## Want to work with a local model ???
 
 Want to have this working locally? Without an internet connection?
 
-- Donate your `.smol-dev-js/cache` folder if your not working on anything sensitive, so that I can use it as training data for a local model (ps: if you email me the files, i assume you waived copyright for it)
+- Donate your `.smol-dev-js/cache` folder if your not working on anything sensitive, so that I can use it as training data for a local model (ps: if you email me the files, it is taken that you waived copyright for it - picocreator+ai-data (at) gmail.com )
 
+- This would be used to create a public dataset, more specifically the [RWKV project](https://huggingface.co/blog/rwkv), an opensource project that I am actively working on
+
+## Future directions ??
+
+**Things to do**
+- Let the model study the existing codebase, and make better notes on all the files (include into future prompt, incrases context size)
+- Allow the model to lookup existing code in planning phase (in addition to existing info provided) - this might be an anthropic only behaviour due to the huge bump in context size.
+- Let it setup unit test, run it, and read the error - and fix it? (maybe with a loop limit)
+
+**Things that are done**
+- (done) ~~Add support for file specific spec~~
+- (done) ~~bootstrap the readme.md~~ the minimum you need now is the prompt + 1 line description
+- (done) ~~Support NPM package installs~~ NPM install prompt (with human confirmation) is added
 
 ## Optimization notes
 
