@@ -101,7 +101,7 @@ module.exports = {
 				{
 					type: 'confirm',
 					name: 'gpt4_32k',
-					message: 'Would you like to use GPT4-32k (use if you start hitting token limit, and get incomplete results - it is expensive sadly)',
+					message: 'Would you like to use GPT4-32k (bigger context, better coherence result, more expensive)',
 					initial: configValues.gpt4_32k || false
 				}
 			])
