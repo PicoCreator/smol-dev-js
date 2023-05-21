@@ -49,7 +49,7 @@ module.exports = async function planDraft(oriPlan = "", promptHistory=[], usrRep
 	let finalChatArr = chatArrPrefix.slice();
 
 	// Check if we are using the antropic provider, where we can handle larger context size
-	if( config.config?.provider == "anthropic" ) {
+	if( config.config?.provider == "anthropic" || config.config?.gpt4_32k == true ) {
 		// Lets ask for what files it would like to find out to imrove the plan
 		let chatArrToAskForFiles = chatArrPrefix.slice();
 
