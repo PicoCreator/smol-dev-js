@@ -21,7 +21,11 @@ module.exports = async function getChatCompletion(messages, promptOpts = {}, str
 		model = "claude-v1-100k"
 	} else {
 		if( model == "gpt-4" || model == "smart" ) {
-			model = "gpt-4";
+			if( config.gpt4_32k ) {
+				model = "gpt-4-32k";
+			} else {
+				model = "gpt-4";
+			}
 		} else if( model == "economical" ) {
 			model = "gpt-4e"
 		}	

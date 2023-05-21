@@ -95,6 +95,17 @@ module.exports = {
 			if( aibridgeConfig.provider.openai == null || aibridgeConfig.provider.openai.length == 0 ) {
 				OutputHandler.standardRed("[sys] No API key provided, please update the config manually later")
 			}
+
+			// Ask if the user want to use the gpt4-32k model
+			promptConfig = await simplePrompt([
+				{
+					type: 'confirm',
+					name: 'gpt4_32k',
+					message: 'Would you like to use GPT4-32k (use if you start hitting token limit, and get incomplete results - it is expensive sadly)',
+					initial: configValues.gpt4_32k || false
+				}
+			])
+			configValues.gpt4_32k = promptConfig.gpt4_32k;
 		}
 
 		// Lets ask for the preferred concurrent rate limit
