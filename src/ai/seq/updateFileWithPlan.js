@@ -166,5 +166,6 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 	
 	// Write the file
 	// ---
+	await fs.promises.mkdir(path.dirname(actualFilePath), { recursive: true });
 	await fs.promises.writeFile(actualFilePath, res.completion.trim(), "utf8");
 }
