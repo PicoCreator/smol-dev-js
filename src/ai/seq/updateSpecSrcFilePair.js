@@ -34,7 +34,7 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 	// Get the respective full file path
 	let fullSrcFilePath  = path.join(getSrcDirPath(), filePath);
 	let fullSpecFilePath = path.join(getSpecDirPath(), specFilePath);
-	await fs.promises.mkdir(getSpecDirPath(), { recursive: true });
+	await fs.mkdir(getSpecDirPath(), { recursive: true });
 
 	// Lets try to read the respective file
 	let srcFileContent = await readFileOrNull(fullSrcFilePath, "");
