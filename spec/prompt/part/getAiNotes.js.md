@@ -5,7 +5,7 @@ This module exports a function that retrieves AI notes from the `NOTES.md` file.
 ## Function Signature
 
 ```javascript
-function getAiNotes(): Promise<string>
+async function getAiNotes(): Promise<string> 
 ```
 
 ## Description

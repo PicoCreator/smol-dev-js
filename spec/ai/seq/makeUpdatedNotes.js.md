@@ -5,7 +5,7 @@ This module exports a single function `makeUpdatedNotes` that takes the current 
 ## Function Signature
 
 ```javascript
-function makeUpdatedNotes(currentNotes: string, newNotes: string): string
+async function makeUpdatedNotes(currentNotes: string, newNotes: string): Promise<string> 
 ```
 
 ## Parameters
@@ -15,14 +15,14 @@ function makeUpdatedNotes(currentNotes: string, newNotes: string): string
 
 ## Returns
 
-- (string): The updated notes, which is a combination of the current notes and the new notes.
+- (Promise<string>): The updated notes, which is a combination of the current notes and the new notes.
 
 ## Example Usage
 
 ```javascript
 const currentNotes = "Current project notes";
 const newNotes = "New notes to be added";
-const updatedNotes = makeUpdatedNotes(currentNotes, newNotes);
+const updatedNotes = await makeUpdatedNotes(currentNotes, newNotes);
 console.log(updatedNotes); // "Current project notes\nNew notes to be added"
 ```
 

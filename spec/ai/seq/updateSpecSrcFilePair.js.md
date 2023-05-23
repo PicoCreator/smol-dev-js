@@ -10,7 +10,7 @@ async function updateSpecSrcFilePair(specFilePath, srcFilePath, instructions)
 
 ### Parameters
 
-- `specFilePath` (string): The path to the spec file that needs to be updated.
+- `specFilePath` (string): The path to the spec file that needs to be updated.  
 - `srcFilePath` (string): The path to the source code file that needs to be updated.
 - `instructions` (object): An object containing the instructions for updating the spec and source code files.
 
@@ -22,7 +22,7 @@ async function updateSpecSrcFilePair(specFilePath, srcFilePath, instructions)
 
 The `instructions` object should have the following properties:
 
-- `specUpdate` (string): The instructions for updating the spec file.
+- `specUpdate` (string): The instructions for updating the spec file.  
 - `srcUpdate` (string): The instructions for updating the source code file.
 
 ## Example Usage
@@ -49,5 +49,5 @@ updateSpecSrcFilePair(specFilePath, srcFilePath, instructions)
 
 ## Dependencies
 
-- `fs.promises`: Used for reading and writing spec and source code files.
+- `fs.promises`: Used for reading and writing spec and source code files.  
 - `path`: Used for handling file paths.

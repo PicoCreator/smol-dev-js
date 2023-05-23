@@ -2,10 +2,6 @@
 
 This module exports a single function `scanDirectory` that scans a given directory and returns a list of file paths that match the provided pattern.
 
-## Table of Contents
-
-- [Function: scanDirectory](#function-scandirectory)
-
 ## Function: scanDirectory
 
 ### Description
@@ -15,7 +11,7 @@ Scans a directory and returns a list of file paths that match the provided patte
 ### Parameters
 
 - `dirPath` (string): The path of the directory to scan.
-- `pattern` (string): The pattern to match the file paths against. Defaults to `**/*`.
+- `pattern` (string, optional): The pattern to match the file paths against. Defaults to `**/*`.
 
 ### Returns
 
@@ -35,3 +31,4 @@ const scanDirectory = require('./util/scanDirectory');
 ### Notes
 
 - This function uses the `glob` module under the hood to perform the file scanning and pattern matching.
+- The pattern supports glob patterns.

@@ -32,4 +32,7 @@ const operationFileMap = getOperationFileMapFromPlan(plan);
 
 ## Notes
 
-- None
+- Use `fs.promises` to read spec files
+- Generate `updateSpecSrcFilePair` in `ai/seq/` folder
+- Modify code in `prompt/part` and `ai/seq` directories  
+- Include files in `prompt/part` and `ai/seq` directories

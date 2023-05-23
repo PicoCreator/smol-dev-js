@@ -16,8 +16,8 @@ The function returns a string containing the main developer system prompt. This 
 
 ```javascript
 const mainPrompt = getMainDevSystemPrompt();
-console.log(mainPrompt); // "CLI based AI developer, you can use today"
-```
+console.log(mainPrompt); // "AI developer assistant, here to help!"
+```  
 
 ## Dependencies
 

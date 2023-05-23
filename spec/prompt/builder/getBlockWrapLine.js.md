@@ -37,3 +37,4 @@ console.log(wrapLine); // Output: "------------------------------"
 
 - The wrap line should be of the same width as the given `wrapWidth`.
 - If the `wrapWidth` is less than or equal to 0, an empty string should be returned.
+- Use the `wrapChar` to generate the wrap line by repeating it `wrapWidth` number of times.

@@ -17,8 +17,8 @@ The function returns an array of strings, each representing an available action 
 ```javascript
 const actionList = getActionList();
 console.log(actionList);
-// Output: ['Move files or folders', 'Delete files or folders', 'Generate/Edit a code/spec file, with the given instructions', 'Update code/spec from spec/code']
-```
+// Output: ['Move files or folders', 'Delete files or folders', 'Generate/Edit a code/spec file, with the given instructions', 'Update code/spec from spec/code', 'Generate a new file from prompt']
+```  
 
 ## Dependencies
 

@@ -34,3 +34,7 @@ await updateFileWithPlan(filePath, plan);
 ```
 
 In this example, the function will insert the content `console.log("Hello, World!");` at line 5 and delete line 10 of the file located at `./src/someFile.js`.
+
+## Implementation Details
+
+The function uses the Node.js `fs.promises` API to read and write files. It reads the file at `filePath` and parses it into lines. It then applies the `insert` and `delete` operations from the `plan` by inserting and removing lines. Finally, it writes the updated lines back to the file.

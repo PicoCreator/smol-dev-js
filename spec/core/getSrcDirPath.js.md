@@ -14,7 +14,7 @@ const srcDirPath = getSrcDirPath();
 
 ### Description
 
-Returns the path to the `src` directory.
+Returns the absolute path to the `src` directory.
 
 ### Parameters
 
@@ -22,4 +22,4 @@ None.
 
 ### Returns
 
-- **string** - The path to the `src` directory.
+- **string** - The absolute path to the `src` directory.

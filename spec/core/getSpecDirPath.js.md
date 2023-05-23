@@ -13,7 +13,7 @@ const specDirPath = getSpecDirPath();
 
 ### Description
 
-Returns the path to the `specs` directory.
+Returns the absolute path to the `specs` directory.
 
 ### Parameters
 
@@ -21,4 +21,4 @@ None.
 
 ### Returns
 
-- `string`: The path to the `specs` directory.
+- `string`: The absolute path to the `specs` directory.

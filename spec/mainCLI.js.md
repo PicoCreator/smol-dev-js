@@ -12,6 +12,7 @@ This file is the main entry point for the CLI application. It sets up the CLI co
 - `cli/command/setup.js`: A module for the `setup` command
 - `cli/command/run.js`: A module for the `run` command
 - `cli/command/code2spec.js`: A module for the `code2spec` command
+- `prompt/part/getProjectSettings.js`: A module for getting project settings from the user
 
 ## Commands
 
@@ -27,30 +28,36 @@ The `run` command executes the specified action on the project.
 
 The `code2spec` command generates a spec file from a given source code file.
 
+### prompt
+
+The `prompt` command prompts the user for project settings and generates files based on the responses.
+
 ## Usage
 
-1. Import the necessary dependencies.
-2. Configure the Sywac CLI using the `MainSywac.js` module.
-3. Add the `setup`, `run`, and `code2spec` commands to the CLI.
+1. Import the necessary dependencies.  
+2. Configure the Sywac CLI using the `MainSywac.js` module.  
+3. Add the `setup`, `run`, `code2spec`, and `prompt` commands to the CLI.  
 4. Parse the command line arguments and execute the appropriate command.
 
 ## Example
 
 ```javascript
-const sywac = require('sywac');
-const chalk = require('chalk');
-const aiBridge = require('ai-bridge');
-const ai = require('./core/ai');
-const MainSywac = require('./cli/MainSywac');
-const setupCommand = require('./cli/command/setup');
-const runCommand = require('./cli/command/run');
+const sywac = require('sywac');  
+const chalk = require('chalk');  
+const aiBridge = require('ai-bridge');  
+const ai = require('./core/ai');  
+const MainSywac = require('./cli/MainSywac');  
+const setupCommand = require('./cli/command/setup');  
+const runCommand = require('./cli/command/run');  
 const code2specCommand = require('./cli/command/code2spec');
+const promptCommand = require('./cli/command/prompt');
 
-MainSywac(sywac);
+MainSywac(sywac);  
 
-sywac.command(setupCommand);
-sywac.command(runCommand);
+sywac.command(setupCommand);  
+sywac.command(runCommand);  
 sywac.command(code2specCommand);
+sywac.command(promptCommand);
 
 sywac.parseAndExit();
 ```

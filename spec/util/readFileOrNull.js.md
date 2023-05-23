@@ -26,3 +26,24 @@ const readFileOrNull = require('./readFileOrNull');
 ## Dependencies
 
 - `fs.promises`: The built-in Node.js module for working with the file system using promises.
+
+## Changes
+
+- Use `fs.promises` instead of `fs` for async/await compatibility.
+- Add error handling for potential errors reading the file.
+- Add TypeScript types.
+
+## Updated code
+
+```ts
+import * as fs from 'fs/promises';
+
+export async function readFileOrNull(filePath: string): Promise<string | null> {
+  try {
+    const data = await fs.readFile(filePath, 'utf8');
+    return data;
+  } catch (err) {
+    return null;
+  }
+}
+```

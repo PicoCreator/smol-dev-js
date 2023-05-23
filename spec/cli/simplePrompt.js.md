@@ -32,3 +32,20 @@ const simplePrompt = require('./simplePrompt');
   console.log(`Hello, ${userInput}!`);
 })();
 ```
+
+## Example
+
+```javascript
+const simplePrompt = require('./simplePrompt');
+
+(async () => {
+  const userInput = await simplePrompt('Enter your name:', {
+    type: 'text',
+    name: 'name',
+    message: 'Please enter your name'
+  });
+  console.log(`Hello, ${userInput.name}!`);
+})();
+```
+
+This example shows using the `options` parameter to specify additional configuration for the prompt.

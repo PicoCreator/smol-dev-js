@@ -26,3 +26,17 @@ if (jsonObject) {
 ## Dependencies
 
 None.
+
+## Implementation
+
+```js
+function extractJsonObject(input) {
+  try {
+    return JSON.parse(input);
+  } catch (err) {
+    return null;
+  }
+}
+
+module.exports = extractJsonObject;
+```

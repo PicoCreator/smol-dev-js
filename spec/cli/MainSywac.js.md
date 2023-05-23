@@ -24,6 +24,7 @@ The following commands are available in the CLI application:
 - `run`: Execute the AI developer assistant.
 - `setup`: Set up the AI developer assistant.
 - `code2spec`: Generate a spec file from a source code file.
+- `spec2code`: Generate a source code file from a spec file.
 
 ## Options
 

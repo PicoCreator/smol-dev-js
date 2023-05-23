@@ -30,3 +30,12 @@ const fileList = getProjectFileList();
 console.log(fileList);
 // Output: ['src/ai/call/jsonArrayChatCompletion.js', 'src/cli/MainSywac.js', ...]
 ```
+
+### Implementation Details
+
+This function uses the `scanDirectory()` utility to scan the project root directory. It returns all files except:
+
+- Hidden files (those starting with `.`)
+- Node modules (the `node_modules` directory)
+
+The returned file paths are relative to the project root.

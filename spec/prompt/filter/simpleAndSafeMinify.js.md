@@ -9,12 +9,12 @@ const simpleAndSafeMinify = require('./simpleAndSafeMinify');
 
 const inputString = "  This is a   sample string. ";
 const minifiedString = simpleAndSafeMinify(inputString);
-console.log(minifiedString); // Output: "This is a sample string."
+console.log(minifiedString); // Output: "This is a sample string." 
 ```
 
 ## Function: simpleAndSafeMinify(inputString)
 
-- **inputString**: `string` - The input string to be minified.
+- **inputString**: `string` - The input string to be minified.  
 
 ### Returns
 

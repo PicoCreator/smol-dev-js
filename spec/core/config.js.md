@@ -32,13 +32,13 @@ This module is responsible for loading and managing the configuration of the AI 
 const config = require('./core/config');
 
 // Load the configuration
-config.loadConfig();
+config.loadConfig();  
 
 // Get the current configuration object
-const currentConfig = config.getConfig();
+const currentConfig = config.getConfig();  
 
 // Update the configuration object
-config.setConfig({ key: 'newValue' });
+config.setConfig({ key: 'newValue' });  
 
 // Save the configuration object to the file
 config.saveConfig();

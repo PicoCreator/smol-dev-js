@@ -35,3 +35,8 @@ This module exports a class `OutputHandler` that is responsible for handling the
 
 - `message`: A string representing the verbose message to be logged.
 - Logs the given verbose message to the console if the `verbose` option is set to `true`.
+
+#### warn(message)
+
+- `message`: A string representing the warning message to be logged.
+- Logs the given warning message to the console with a yellow color.

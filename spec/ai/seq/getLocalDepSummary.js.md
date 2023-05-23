@@ -10,7 +10,7 @@ async function getLocalDepSummary(): Promise<string>
 
 ## Description
 
-The function reads the `package.json` file in the project root directory and extracts the local dependencies. It then returns a summary string containing the names and versions of the local dependencies.
+The function reads the `package.json` file in the project root directory and extracts the local dependencies. It then returns a summary string containing the names, versions and licenses of the local dependencies.
 
 ## Usage
 
@@ -26,7 +26,9 @@ const getLocalDepSummary = require('./getLocalDepSummary');
 ## Dependencies
 
 - `fs.promises`: Used to read the `package.json` file.
+- `lodash`: Used to filter dependencies by license type.
 
 ## Notes
 
 - The function assumes that the `package.json` file is located in the project root directory.
+- Local dependencies with an MIT license are filtered out of the summary.

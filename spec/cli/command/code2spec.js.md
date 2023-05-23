@@ -31,3 +31,17 @@ const { code2spec } = require('./code2spec');
   });
 })();
 ```
+
+## Implementation
+
+This function uses the `aiBridge` module to analyze the source code file and generate a spec file from it.
+
+It does the following:
+
+1. Reads the source code file using `fs.promises.readFile()`
+2. Parses the source code using `aiBridge.parseCode()`
+3. Extracts the module name, functions, function parameters, and function descriptions from the parsed code
+4. Generates markdown for the spec file based on the extracted information
+5. Writes the markdown to the spec file using `fs.promises.writeFile()`
+
+If an existing spec file exists and `overwrite` is `false`, the function will resolve immediately without overwriting the file.

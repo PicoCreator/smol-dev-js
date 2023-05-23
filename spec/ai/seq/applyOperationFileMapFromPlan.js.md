@@ -34,4 +34,4 @@ const operationFileMap = {
 await applyOperationFileMapFromPlan(operationFileMap);
 ```
 
-In this example, the function will delete `file1.js`, move `file2.js`, generate `file3.js`, and update `file4.js` according to the given instructions in the `operationFileMap`.
+In this example, the function will delete `file1.js`, move `file2.js`, generate `file3.js` by calling `generateFilesFromPrompt` from `ai/seq/generateFilesFromPrompt.js`, and update `file4.js` by calling `updateSpecSrcFilePair` from `ai/seq/updateSpecSrcFilePair.js` according to the given instructions in the `operationFileMap`.

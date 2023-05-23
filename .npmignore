@@ -1,3 +1,5 @@
 .*
 .gitignore
 .my-ai-dev
+
+.smol-dev-js
