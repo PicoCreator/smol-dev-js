@@ -186,6 +186,11 @@ module.exports = {
 		configValues.spec_dir = promptConfig.spec_dir || configValues.spec_dir;
 		configValues.src_dir = promptConfig.src_dir || configValues.src_dir;
 
+		// Ensure the src_dir is setup
+		if( configValues.src_dir != null && configValues.src_dir.length > 0 ) {
+			await fs.promises.mkdir(process.cwd()+"/"+configValues.src_dir, { recursive: true });
+		}
+
 		// Lets setup the src include / exclude
 		configValues.src_include = configValues.src_include || ["**"];
 		configValues.src_exclude = configValues.src_exclude || ["**/.*", "**/*.bin", "**/node_modules/**", "**/build/**", "**/bin/**"]
