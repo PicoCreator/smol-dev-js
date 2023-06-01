@@ -102,7 +102,7 @@ After generating the config, you can look into `.smol-dev-js/config` folder for 
 
 - **Anthropic AI current laps openAI** : While it needed some prompt changes. Even with a single "thread" it laps around 4 threads of gpt 3.5 /and gpt4. This is before we even take into account its support for 100k context size (the usage experience between the two is so huge, its hard to explain)
 
-- **Context size is still king** : This is a huge jump from the english compiler proj, and while AI reasoning is a factor, context size truely made it a giant leap - cant wait till 32k is affordable and commonplace
+- **Context size is still king** : This is a huge jump from the english compiler proj, and while AI reasoning is a factor, context size truly made it a giant leap - cant wait till 32k is affordable and commonplace
 
 - **Debug via prompting** : Better then just using chat-gpt directly, now you got more project specific answers
 
