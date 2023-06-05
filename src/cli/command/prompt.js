@@ -61,8 +61,14 @@ module.exports = {
 				initial: "Suggest something"
 			});
 
-			// Start the internal prompt process
-			await generateFilesFromPrompt(promptReply.feedback);
+			// open a file called incremental.md in the current directory and get its contents
+			if(promptReply.feedback=='md') {
+				let incrementalNotes = fs.readFileSync("./incremental.md", "utf8");
+				await generateFilesFromPrompt(incrementalNotes);
+			} else {
+				// Start the internal prompt process
+				await generateFilesFromPrompt(promptReply.feedback);
+			}
 		}
 
 		// Due to a bug with mongodb hanging connections, 
