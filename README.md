@@ -24,7 +24,16 @@ Additionally, because the changes are small, incremental, and runs in a tight lo
 
 # Commands & Setup
 
+## Update to node 18
+
+```bash
+sudo npm install -g n
+sudo n 18
+```
+
 ## smol-dev-js setup
+
+**Reminder: Do check on your openAI dashboard if you have GPT4 access**
 
 Install via NPM
 
