@@ -1,5 +1,7 @@
 // Core deps
 const fs = require("fs")
+const path = require('path')
+const child_process = require("child_process")
 const simplePrompt = require("../../cli/simplePrompt");
 const getSpecDirPath = require("../../core/getSpecDirPath");
 const getSrcDirPath = require("../../core/getSrcDirPath");
