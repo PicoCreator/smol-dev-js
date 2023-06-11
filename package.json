@@ -13,6 +13,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@js-util/config-loader": "^1.2.7",
+    "path": "^0.12.7",
     "ai-bridge": "^1.2.5",
     "chalk": "^4.1.2",
     "glob": "^10.2.4",
