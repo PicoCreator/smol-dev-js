@@ -1,6 +1,6 @@
 # Smol-Dev-JS
 
-You own personal AI dev, which you can direct development in a collebrative back and forth experience.
+You own personal AI dev, which you can direct development in a collaborative back and forth experience.
 Think of it as pair-programming, via the command line.
 
 Written entire in JS (no python), and is able to make both "smol-er" changes (you can ask it to change a few lines or a file or two), 
@@ -18,7 +18,7 @@ Allowing you to focus on ~~sword fighting~~ the big picture, while the AI does t
 	<img height=200 src="https://pbs.twimg.com/media/FwEzVCcaMAE7t4h?format=jpg&name=large" />
 </p>
 
-Additionally, because the changes are small, incremental, and runs in a tight loop you are in full control of. You do not need to worry about it going out of control ~~like some autonomous agents~~. Allowing you to review each commit, and revert them or make changes yourself if needed.
+Additionally, because the changes are small, incremental, and runs in a tight loop you are in full control of it. You do not need to worry about it going out of control ~~like some autonomous agents~~. Allowing you to review each commit, and revert them or make changes yourself if needed.
 
 > Quoting the original smol-dev : does not end the world or overpromise AGI. instead of making and maintaining specific, rigid, one-shot starters, like create-react-app, or create-nextjs-app, this is basically [`create-anything-app`](https://news.ycombinator.com/item?id=35942352) where you develop your scaffolding prompt in a tight loop with your smol dev.
 
