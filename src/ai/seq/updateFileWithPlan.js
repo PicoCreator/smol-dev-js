@@ -163,9 +163,15 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 	let res = await getChatCompletion(promptArr.flat().join("\n"), {
 		model: "smart"
 	});
+
+	// Cleanup the opening and closing ```
+	let output = res.completion.trim()
+	if( output.startsWith("```") && output.endsWith("\n```") ) {
+		output = output.split("\n").slice(1, -1).join("\n");
+	}
 	
 	// Write the file
 	// ---
 	await fs.promises.mkdir(path.dirname(actualFilePath), { recursive: true });
-	await fs.promises.writeFile(actualFilePath, res.completion.trim(), "utf8");
+	await fs.promises.writeFile(actualFilePath, output, "utf8");
 }
