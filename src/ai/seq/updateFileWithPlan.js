@@ -138,21 +138,14 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 			"```",
 			"",
 			"This is a Good example:",
+			"```javascript",
 			"const arrayFrom1to10 = [1,2,3,4,5,6,7,8,9,10]",
+			"```",
 			"",
 			"Remember that you must obey 3 things: ",
 			`	- you are generating code for the file ${filePath}`,
 			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`,
 			`	- MOST IMPORTANT OF ALL: every line of code you generate must be valid code. Do not include code fences in your response. Do not add file headers in your response`,
-			"",
-			"This is a Bad response:",
-			"# main.js",
-			"```javascript",
-			'console.log("hello world")',
-			"```",
-			"",
-			"This is a Good response:",
-			'console.log("hello world")',
 			"",
 			"Begin generating the code now."
 		]);
@@ -166,8 +159,12 @@ module.exports = async function updateFileWithPlan(fileType, filePath, plan, dep
 
 	// Cleanup the opening and closing ```
 	let output = res.completion.trim()
-	if( output.startsWith("```") && output.endsWith("\n```") ) {
-		output = output.split("\n").slice(1, -1).join("\n");
+	if( output.startsWith("```") ) {
+		if ( output.endsWith("```") ) {
+			output = output.split("\n").slice(1, -1).join("\n");
+		} else {
+			output = output.split("\n").slice(1).join("\n");
+		}
 	}
 	
 	// Write the file
