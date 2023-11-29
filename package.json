@@ -4,7 +4,8 @@
   "description": "CLI based smol AI developer, you can use today (for JS projects)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+		"postinstall": "node postinstall.js"
   },
   "bin": {
     "smol-dev-js": "./src/mainCLI.js"
@@ -14,7 +15,7 @@
   "dependencies": {
     "@js-util/config-loader": "^1.2.7",
     "path": "^0.12.7",
-    "ai-bridge": "^1.2.5",
+    "ai-bridge": "^1.2.8",
     "chalk": "^4.1.2",
     "glob": "^10.2.4",
     "inquirer": "^9.2.3",

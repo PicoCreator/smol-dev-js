@@ -89,7 +89,7 @@ module.exports = async function planDraft(oriPlan = "", promptHistory=[], usrRep
 
 		// Lets ask, and get the operation file map
 		let fileListObj = await jsonObjectChatCompletion(
-			chatArrToAskForFiles.flat().join("\n"), 
+			chatArrToAskForFiles.flat(), 
 			{
 				model: "smart"
 			}

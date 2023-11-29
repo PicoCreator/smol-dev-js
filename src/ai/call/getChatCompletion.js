@@ -18,7 +18,7 @@ module.exports = async function getChatCompletion(messages, promptOpts = {}, str
 
 	// And decide what we should use
 	if( config.config?.provider == "anthropic" ) {
-		model = "claude-v1-100k"
+		model = "claude-2"
 	} else {
 		if( model == "gpt-4" || model == "smart" ) {
 			if( config.gpt4_32k ) {
@@ -33,6 +33,16 @@ module.exports = async function getChatCompletion(messages, promptOpts = {}, str
 
 	// Override the config
 	promptOpts.model = model;
+
+	// // Formatting issue debugging
+	// for( messageObj of messages ) {
+	// 	if(messageObj.content == null || messageObj.content.indexOf("[object Object]") > 0 ) {
+	// 		console.log("==========")
+	// 		console.log(messages)
+	// 		console.log("==========")
+	// 		throw new Error("Unexpected [object Object] in message content");
+	// 	}
+	// }
 
 	// And execute
 	return await aiBridge.getChatCompletion(messages, promptOpts, streamListener, cacheGrp, tempKey);
