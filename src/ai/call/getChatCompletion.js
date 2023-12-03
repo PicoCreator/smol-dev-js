@@ -19,6 +19,7 @@ module.exports = async function getChatCompletion(messages, promptOpts = {}, str
 	// And decide what we should use
 	if( config.config?.provider == "anthropic" ) {
 		model = "claude-2"
+		promptOpts.total_tokens = 120 * 1000;
 	} else {
 		if( model == "gpt-4" || model == "smart" ) {
 			if( config.gpt4_32k ) {
@@ -29,6 +30,7 @@ module.exports = async function getChatCompletion(messages, promptOpts = {}, str
 		} else if( model == "economical" ) {
 			model = "gpt-4e"
 		}	
+		promptOpts.total_tokens = 4 * 1000;
 	}
 
 	// Override the config

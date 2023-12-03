@@ -22,13 +22,16 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 	let srcFilePath  = null;
 	let specFilePath = null;
 	
+	// Cleanup the .md in filepath
+	filePath = filePath.replace(/\.md$/, '');
+
 	// Handling of source code file update
 	if (fileType === 'src') {
 		srcFilePath  = filePath;
 		specFilePath = filePath + '.md';
 	} else {
-		srcFilePath  = filePath.replace(/\.md$/, '');
-		specFilePath = filePath;
+		srcFilePath  = filePath;
+		specFilePath = filePath + '.md';
 	}
 
 	// Get the respective full file path
@@ -50,12 +53,34 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 
 	// Lets prepare the respective prompt
 	if(fileType === 'src') {
+		// Handle source file content
+		if( srcFileContent == null || srcFileContent.trim().length == 0 ) {
+			promptArr.push([
+				"",
+				"The source code file is empty, you will need start from scretch, with the information provided",
+			]);
+		} else {
+			promptArr.push([
+				"",
+				getPromptBlock(`The following is the current src file '${filePath}' (to be updated)`, srcFileContent)
+			]);
+		}
+
+		// Handle spec file content
+		if( srcFileContent == null || srcFileContent.trim().length == 0 ) {
+			// promptArr.push([
+			// 	"",
+			// 	"The current specification file is empty, you will need to start from scratch",
+			// ]);
+		} else {
+			promptArr.push([
+				"",
+				getPromptBlock(`And its corresponding source spec file, to be used as reference (for updating the spec)`, specFileContent)
+			]);
+		}
+
 		// Add the src file
 		promptArr.push([
-			"",
-			getPromptBlock(`The following is the current src file '${filePath}' (to be updated)`, srcFileContent),
-			"",
-			getPromptBlock(`And its corresponding source spec file, to be used as reference (for updating the spec)`, specFileContent),
 			"",
 			"Now that you have gotten all the details above",
 			"",
@@ -69,9 +94,10 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 			"Include high level comments for the code you are generating",
 			"Use TAB based indentation for the updated code",
 			"",
-			"Remember that you must obey 3 things: ",
+			"Remember that you must obey the following: ",
 			`	- you are generating code for the file ${filePath}`,
 			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`,
+			`	- do not provide additional commentry on what you have done, after returning the file contents`,
 			`	- MOST IMPORTANT OF ALL: every line of code you generate must be valid code. Do not include code fences in your response`,
 			"",
 			"This is a Bad response:",
@@ -85,12 +111,38 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 			"Begin generating the code now."
 		]);
 	} else {
+		// Handle source file content
+		if( specFileContent == null || specFileContent.trim().length == 0 ) {
+			promptArr.push([
+				"",
+				"The specification file is empty, you will need generated a suggested specificaiton file based on the information provided",
+			]);
+		} else {
+			promptArr.push([
+				"",
+				getPromptBlock(`The following is the current spec file '${filePath}' (to be updated)`, specFileContent)
+			]);
+		}
+
+		// Handle spec file content
+		if( srcFileContent == null || srcFileContent.trim().length == 0 ) {
+			promptArr.push([
+				"",
+				"The current source code file is empty, you will need to start from scratch",
+			]);
+		} else {
+			promptArr.push([
+				"",
+				getPromptBlock(`And its corresponding source code file, to be used as reference (for updating the spec)`, srcFileContent)
+			]);
+		}
+
+		// console.log("getSrcDirPath", getSrcDirPath());
+		// console.log("fullSrcFilePath", fullSrcFilePath);
+		// console.log("promptArr", promptArr);
+
 		// Add the spec file
 		promptArr.push([
-			"",
-			getPromptBlock(`The following is the current spec file '${filePath}' (to be updated)`, specFileContent),
-			"",
-			getPromptBlock(`And its corresponding source code file, to be used as reference (for updating the spec)`, srcFileContent),
 			"",
 			"Now that you have gotten all the details above",
 			"",
@@ -104,9 +156,14 @@ async function updateSpecSrcFilePair(fileType, filePath) {
 			"You do not need to add table of contents, unless it already exists",
 			"If the spec and code provided conflict, follow the code provided instead, and update the spec accordingly",
 			"",
-			"Remember that you must obey 3 things: ",
+			"Remember that you must obey the following: ",
 			`	- you are generating markdown for the file ${filePath}`,
 			`	- do not stray from the plan, or the names of the files and the dependencies we have shown above`,
+			`	- the original spec file is only a reference, you do not need to follow it exactly`,
+			`	- the original spec file maybe empty, if so populate it using the code as reference`,
+			`	- do not add any other explanation, only return valid markdown for that file type`,
+			`	- if there is no values to update, return the original markdown file content`,
+			`	- do not provide additional commentry on what you have done, after returning the file contents`,
 			`	- MOST IMPORTANT OF ALL: every line of markdown you generate must be markdown code. Do not include code fences in your response`,
 			"",
 			"This is a Bad response:",
